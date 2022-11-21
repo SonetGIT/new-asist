@@ -1,0 +1,8 @@
+{
+  "realm": "ASIST",
+  "auth-server-url": "http://192.168.2.160:8080/auth/",
+  "ssl-required": "none",
+  "resource": "asist",
+  "public-client": true,
+  "confidential-port": 0
+}

@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="Definitions_0nj3052" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="4.3.0">
+  <bpmn:process id="process_169eccff-4a0c-4b5f-8eda-150965351a91" name="Notifications" isExecutable="true" camunda:historyTimeToLive="1">
+    <bpmn:startEvent id="StartEvent_1">
+      <bpmn:outgoing>SequenceFlow_1ex1h8i</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:serviceTask id="ServiceTask_1gmua39" name="Get notifications">
+      <bpmn:extensionElements>
+        <camunda:connector>
+          <camunda:inputOutput>
+            <camunda:inputParameter name="url">${depoRESTApi}/api/Instructions/GetCountNewInstructions</camunda:inputParameter>
+            <camunda:inputParameter name="method">GET</camunda:inputParameter>
+            <camunda:inputParameter name="headers">
+              <camunda:map>
+                <camunda:entry key="Accept">application/json</camunda:entry>
+                <camunda:entry key="Content-Type">application/json</camunda:entry>
+              </camunda:map>
+            </camunda:inputParameter>
+            <camunda:outputParameter name="docId">
+              <camunda:script scriptFormat="Javascript">response</camunda:script>
+            </camunda:outputParameter>
+          </camunda:inputOutput>
+          <camunda:connectorId>http-connector</camunda:connectorId>
+        </camunda:connector>
+      </bpmn:extensionElements>
+      <bpmn:incoming>SequenceFlow_1ex1h8i</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_18oshlt</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:userTask id="UserTask_1ngw5ow" name="Return notifications count">
+      <bpmn:extensionElements>
+        <camunda:taskListener class="com.camunda.RabbitMQ.Enqueue" event="create">
+          <camunda:field name="session_id">
+            <camunda:expression>${user_session_id}</camunda:expression>
+          </camunda:field>
+          <camunda:field name="taskType">
+            <camunda:string>setNotificationsCount</camunda:string>
+          </camunda:field>
+          <camunda:field name="selectedDoc">
+            <camunda:string>null</camunda:string>
+          </camunda:field>
+          <camunda:field name="process_id">
+            <camunda:string>null</camunda:string>
+          </camunda:field>
+          <camunda:field name="formType">
+            <camunda:string>null</camunda:string>
+          </camunda:field>
+          <camunda:field name="userAction">
+            <camunda:string>null</camunda:string>
+          </camunda:field>
+          <camunda:field name="docList">
+            <camunda:string>null</camunda:string>
+          </camunda:field>
+          <camunda:field name="buttons">
+            <camunda:string>null</camunda:string>
+          </camunda:field>
+          <camunda:field name="size">
+            <camunda:string>null</camunda:string>
+          </camunda:field>
+          <camunda:field name="page">
+            <camunda:string>null</camunda:string>
+          </camunda:field>
+          <camunda:field name="userRole">
+            <camunda:string>null</camunda:string>
+          </camunda:field>
+          <camunda:field name="tabLabel">
+            <camunda:string>null</camunda:string>
+          </camunda:field>
+          <camunda:field name="userId">
+            <camunda:string>null</camunda:string>
+          </camunda:field>
+          <camunda:field name="docId">
+            <camunda:expression>${docId}</camunda:expression>
+          </camunda:field>
+          <camunda:field name="gridFormButtons">
+            <camunda:string>null</camunda:string>
+          </camunda:field>
+          <camunda:field name="form">
+            <camunda:string>null</camunda:string>
+          </camunda:field>
+          <camunda:field name="gridForm">
+            <camunda:string>null</camunda:string>
+          </camunda:field>
+        </camunda:taskListener>
+      </bpmn:extensionElements>
+      <bpmn:incoming>SequenceFlow_18oshlt</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0a53soi</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:sequenceFlow id="SequenceFlow_1ex1h8i" sourceRef="StartEvent_1" targetRef="ServiceTask_1gmua39" />
+    <bpmn:sequenceFlow id="SequenceFlow_18oshlt" sourceRef="ServiceTask_1gmua39" targetRef="UserTask_1ngw5ow" />
+    <bpmn:endEvent id="EndEvent_078lhkq">
+      <bpmn:incoming>SequenceFlow_0a53soi</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="SequenceFlow_0a53soi" sourceRef="UserTask_1ngw5ow" targetRef="EndEvent_078lhkq" />
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="process_169eccff-4a0c-4b5f-8eda-150965351a91">
+      <bpmndi:BPMNEdge id="SequenceFlow_0a53soi_di" bpmnElement="SequenceFlow_0a53soi">
+        <di:waypoint x="454" y="117" />
+        <di:waypoint x="482" y="117" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_18oshlt_di" bpmnElement="SequenceFlow_18oshlt">
+        <di:waypoint x="330" y="117" />
+        <di:waypoint x="354" y="117" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_1ex1h8i_di" bpmnElement="SequenceFlow_1ex1h8i">
+        <di:waypoint x="188" y="117" />
+        <di:waypoint x="230" y="117" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="ServiceTask_1gmua39_di" bpmnElement="ServiceTask_1gmua39">
+        <dc:Bounds x="230" y="77" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="UserTask_1ngw5ow_di" bpmnElement="UserTask_1ngw5ow">
+        <dc:Bounds x="354" y="77" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="EndEvent_078lhkq_di" bpmnElement="EndEvent_078lhkq">
+        <dc:Bounds x="482" y="99" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
+        <dc:Bounds x="152" y="99" width="36" height="36" />
+      </bpmndi:BPMNShape>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

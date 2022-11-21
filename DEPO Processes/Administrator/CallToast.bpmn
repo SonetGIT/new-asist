@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bioc="http://bpmn.io/schema/bpmn/biocolor/1.0" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="Definitions_11vnnfk" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="4.3.0">
+  <bpmn:process id="CallToast" name="CallToast" isExecutable="true" camunda:historyTimeToLive="1">
+    <bpmn:startEvent id="StartEvent_1">
+      <bpmn:outgoing>Flow_197d5ex</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:serviceTask id="Activity_1qauwc1" name="send toast">
+      <bpmn:extensionElements>
+        <camunda:connector>
+          <camunda:inputOutput>
+            <camunda:inputParameter name="url">${CamundaApiHost}/process-definition/key/process_634cf2e7-a9a7-4927-b557-d241f432480e/start</camunda:inputParameter>
+            <camunda:inputParameter name="method">POST</camunda:inputParameter>
+            <camunda:inputParameter name="headers">
+              <camunda:map>
+                <camunda:entry key="Content-Type">application/json</camunda:entry>
+              </camunda:map>
+            </camunda:inputParameter>
+            <camunda:inputParameter name="payload">${toastBody}</camunda:inputParameter>
+            <camunda:outputParameter name="resp">
+              <camunda:script scriptFormat="Javascript">response</camunda:script>
+            </camunda:outputParameter>
+          </camunda:inputOutput>
+          <camunda:connectorId>http-connector</camunda:connectorId>
+        </camunda:connector>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_0zi0ud7</bpmn:incoming>
+      <bpmn:incoming>Flow_1a60585</bpmn:incoming>
+      <bpmn:outgoing>Flow_0ajp8ks</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:scriptTask id="Activity_0lzrfa3" name="Doc saved successfuly" scriptFormat="Javascript" camunda:resultVariable="taskType">
+      <bpmn:incoming>Flow_0ns276l</bpmn:incoming>
+      <bpmn:outgoing>Flow_1a60585</bpmn:outgoing>
+      <bpmn:script>var toast = S("{}")
+toast.prop("toastText", {"value": toastTextSuccess})
+toast.prop("toastType", {"value": "success"})
+toast.prop("userId", {"value": userId})
+var vars = S("{}")
+vars.prop("variables", toast)
+execution.setVariable("toastBody", vars.toString())</bpmn:script>
+    </bpmn:scriptTask>
+    <bpmn:exclusiveGateway id="Gateway_1bik8ke">
+      <bpmn:incoming>Flow_15c12r7</bpmn:incoming>
+      <bpmn:outgoing>Flow_0ns276l</bpmn:outgoing>
+      <bpmn:outgoing>Flow_0czxuxb</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:scriptTask id="Activity_06133us" name="Get created doc response" scriptFormat="javascript" camunda:resultVariable="taskType">
+      <bpmn:incoming>Flow_197d5ex</bpmn:incoming>
+      <bpmn:outgoing>Flow_15c12r7</bpmn:outgoing>
+      <bpmn:script>var substringedArray = Response.substring(1, Response.length-1)
+var isSuccess = S(substringedArray).prop("isSuccess")
+execution.setVariable("result", isSuccess.toString())</bpmn:script>
+    </bpmn:scriptTask>
+    <bpmn:scriptTask id="Activity_10bt4ao" name="Error while saving doc" scriptFormat="Javascript" camunda:resultVariable="taskType">
+      <bpmn:incoming>Flow_0czxuxb</bpmn:incoming>
+      <bpmn:outgoing>Flow_0zi0ud7</bpmn:outgoing>
+      <bpmn:script>var toast = S("{}")
+toast.prop("toastText", {"value": toastTextError})
+toast.prop("toastType", {"value": "error"})
+toast.prop("userId", {"value": userId})
+var vars = S("{}")
+vars.prop("variables", toast)
+execution.setVariable("toastBody", vars.toString())</bpmn:script>
+    </bpmn:scriptTask>
+    <bpmn:sequenceFlow id="Flow_1a60585" sourceRef="Activity_0lzrfa3" targetRef="Activity_1qauwc1" />
+    <bpmn:sequenceFlow id="Flow_0zi0ud7" sourceRef="Activity_10bt4ao" targetRef="Activity_1qauwc1" />
+    <bpmn:sequenceFlow id="Flow_0ns276l" name="success" sourceRef="Gateway_1bik8ke" targetRef="Activity_0lzrfa3">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">#{result == "true" }</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_15c12r7" sourceRef="Activity_06133us" targetRef="Gateway_1bik8ke" />
+    <bpmn:sequenceFlow id="Flow_0czxuxb" name="error" sourceRef="Gateway_1bik8ke" targetRef="Activity_10bt4ao">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">#{result == "false" }</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_197d5ex" sourceRef="StartEvent_1" targetRef="Activity_06133us" />
+    <bpmn:endEvent id="Event_0v63s5v">
+      <bpmn:incoming>Flow_0ajp8ks</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_0ajp8ks" sourceRef="Activity_1qauwc1" targetRef="Event_0v63s5v" />
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="CallToast">
+      <bpmndi:BPMNEdge id="Flow_197d5ex_di" bpmnElement="Flow_197d5ex">
+        <di:waypoint x="188" y="177" />
+        <di:waypoint x="221" y="177" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0czxuxb_di" bpmnElement="Flow_0czxuxb" bioc:stroke="rgb(229, 57, 53)" bioc:fill="rgb(255, 205, 210)">
+        <di:waypoint x="370" y="202" />
+        <di:waypoint x="370" y="222" />
+        <di:waypoint x="433" y="222" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="390" y="203" width="25" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_15c12r7_di" bpmnElement="Flow_15c12r7" bioc:stroke="rgb(67, 160, 71)" bioc:fill="rgb(200, 230, 201)">
+        <di:waypoint x="321" y="177" />
+        <di:waypoint x="345" y="177" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0ns276l_di" bpmnElement="Flow_0ns276l" bioc:stroke="rgb(67, 160, 71)" bioc:fill="rgb(200, 230, 201)">
+        <di:waypoint x="370" y="152" />
+        <di:waypoint x="370" y="132" />
+        <di:waypoint x="433" y="132" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="382" y="113" width="41" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0zi0ud7_di" bpmnElement="Flow_0zi0ud7" bioc:stroke="rgb(229, 57, 53)" bioc:fill="rgb(255, 205, 210)">
+        <di:waypoint x="533" y="222" />
+        <di:waypoint x="570" y="222" />
+        <di:waypoint x="570" y="177" />
+        <di:waypoint x="600" y="177" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1a60585_di" bpmnElement="Flow_1a60585" bioc:stroke="rgb(67, 160, 71)" bioc:fill="rgb(200, 230, 201)">
+        <di:waypoint x="533" y="132" />
+        <di:waypoint x="570" y="132" />
+        <di:waypoint x="570" y="177" />
+        <di:waypoint x="600" y="177" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0ajp8ks_di" bpmnElement="Flow_0ajp8ks">
+        <di:waypoint x="700" y="177" />
+        <di:waypoint x="732" y="177" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="Activity_0lzrfa3_di" bpmnElement="Activity_0lzrfa3">
+        <dc:Bounds x="433" y="92" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_1bik8ke_di" bpmnElement="Gateway_1bik8ke" isMarkerVisible="true" bioc:stroke="rgb(251, 140, 0)" bioc:fill="rgb(255, 224, 178)">
+        <dc:Bounds x="345" y="152" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_06133us_di" bpmnElement="Activity_06133us">
+        <dc:Bounds x="221" y="137" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_10bt4ao_di" bpmnElement="Activity_10bt4ao">
+        <dc:Bounds x="433" y="182" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0v63s5v_di" bpmnElement="Event_0v63s5v">
+        <dc:Bounds x="732" y="159" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
+        <dc:Bounds x="152" y="159" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1qauwc1_di" bpmnElement="Activity_1qauwc1">
+        <dc:Bounds x="600" y="137" width="100" height="80" />
+      </bpmndi:BPMNShape>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

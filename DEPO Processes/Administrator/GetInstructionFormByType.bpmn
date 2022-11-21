@@ -1,0 +1,3514 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="Definitions_1oa71pk" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="4.3.0">
+  <bpmn:process id="GetInstructionFormByType" isExecutable="true" camunda:historyTimeToLive="1">
+    <bpmn:startEvent id="StartEvent_1">
+      <bpmn:outgoing>Flow_0enqf2r</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:exclusiveGateway id="Gateway_1s6hr7y">
+      <bpmn:incoming>Flow_169g6fw</bpmn:incoming>
+      <bpmn:outgoing>Flow_1osob1l</bpmn:outgoing>
+      <bpmn:outgoing>Flow_125xozz</bpmn:outgoing>
+      <bpmn:outgoing>Flow_0ztyqtb</bpmn:outgoing>
+      <bpmn:outgoing>Flow_0r725la</bpmn:outgoing>
+      <bpmn:outgoing>Flow_0iqwtpu</bpmn:outgoing>
+      <bpmn:outgoing>Flow_1uqnyc9</bpmn:outgoing>
+      <bpmn:outgoing>Flow_1k6mtyn</bpmn:outgoing>
+      <bpmn:outgoing>Flow_1d5prg0</bpmn:outgoing>
+      <bpmn:outgoing>Flow_0jm6tor</bpmn:outgoing>
+      <bpmn:outgoing>Flow_0zunwnb</bpmn:outgoing>
+      <bpmn:outgoing>Flow_1psrn89</bpmn:outgoing>
+      <bpmn:outgoing>Flow_1leh61o</bpmn:outgoing>
+      <bpmn:outgoing>Flow_0yhmwdp</bpmn:outgoing>
+      <bpmn:outgoing>Flow_02c7hwi</bpmn:outgoing>
+      <bpmn:outgoing>Flow_0286v16</bpmn:outgoing>
+      <bpmn:outgoing>Flow_1xkb5o3</bpmn:outgoing>
+      <bpmn:outgoing>Flow_1hgbcrs</bpmn:outgoing>
+      <bpmn:outgoing>Flow_0pgyrke</bpmn:outgoing>
+      <bpmn:outgoing>Flow_14fp5q0</bpmn:outgoing>
+      <bpmn:outgoing>Flow_0cx5uqv</bpmn:outgoing>
+      <bpmn:outgoing>Flow_09mkldf</bpmn:outgoing>
+      <bpmn:outgoing>Flow_085krce</bpmn:outgoing>
+      <bpmn:outgoing>Flow_04bbmx6</bpmn:outgoing>
+      <bpmn:outgoing>Flow_1flcofs</bpmn:outgoing>
+      <bpmn:outgoing>Flow_1uq9s64</bpmn:outgoing>
+      <bpmn:outgoing>Flow_103a3n9</bpmn:outgoing>
+      <bpmn:outgoing>Flow_0f6ylq9</bpmn:outgoing>
+      <bpmn:outgoing>Flow_1lh8bkf</bpmn:outgoing>
+      <bpmn:outgoing>Flow_0a2zr8b</bpmn:outgoing>
+      <bpmn:outgoing>Flow_1p9bjax</bpmn:outgoing>
+      <bpmn:outgoing>Flow_1lj2on4</bpmn:outgoing>
+      <bpmn:outgoing>Flow_06goxiq</bpmn:outgoing>
+      <bpmn:outgoing>Flow_11y56om</bpmn:outgoing>
+      <bpmn:outgoing>Flow_0denl2k</bpmn:outgoing>
+      <bpmn:outgoing>Flow_1fedbga</bpmn:outgoing>
+      <bpmn:outgoing>Flow_13shy41</bpmn:outgoing>
+      <bpmn:outgoing>Flow_0eqw846</bpmn:outgoing>
+      <bpmn:outgoing>Flow_08qxlia</bpmn:outgoing>
+      <bpmn:outgoing>Flow_05n3109</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:sequenceFlow id="Flow_0enqf2r" sourceRef="StartEvent_1" targetRef="Gateway_0ffdf4x" />
+    <bpmn:serviceTask id="Activity_15zoexf" name="Блокирование ЦБ">
+      <bpmn:extensionElements>
+        <camunda:connector>
+          <camunda:inputOutput>
+            <camunda:inputParameter name="url">${depoRESTApi}/api/metadata/GetByDefId?defid=012ebda9-059e-4c2a-b738-e5615562139c</camunda:inputParameter>
+            <camunda:inputParameter name="method">GET</camunda:inputParameter>
+            <camunda:inputParameter name="headers">
+              <camunda:map>
+                <camunda:entry key="Content-Type">application/x-www-form-urlencoded</camunda:entry>
+                <camunda:entry key="cache-control">no-cache</camunda:entry>
+              </camunda:map>
+            </camunda:inputParameter>
+            <camunda:outputParameter name="form">
+              <camunda:script scriptFormat="Javascript">S(response).prop("data").toString()</camunda:script>
+            </camunda:outputParameter>
+          </camunda:inputOutput>
+          <camunda:connectorId>http-connector</camunda:connectorId>
+        </camunda:connector>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_1osob1l</bpmn:incoming>
+      <bpmn:outgoing>Flow_0lr5vfu</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_1osob1l" name="1" sourceRef="Gateway_1s6hr7y" targetRef="Activity_15zoexf">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">#{instructionType == 1}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:endEvent id="Event_14i89kz">
+      <bpmn:incoming>Flow_0lr5vfu</bpmn:incoming>
+      <bpmn:incoming>Flow_1ebrjkf</bpmn:incoming>
+      <bpmn:incoming>Flow_15a9vwx</bpmn:incoming>
+      <bpmn:incoming>Flow_0hjnwkf</bpmn:incoming>
+      <bpmn:incoming>Flow_1c7247h</bpmn:incoming>
+      <bpmn:incoming>Flow_04n3jov</bpmn:incoming>
+      <bpmn:incoming>Flow_09kz8lq</bpmn:incoming>
+      <bpmn:incoming>Flow_138fdk8</bpmn:incoming>
+      <bpmn:incoming>Flow_0h4tjcy</bpmn:incoming>
+      <bpmn:incoming>Flow_07g7e16</bpmn:incoming>
+      <bpmn:incoming>Flow_1wg682f</bpmn:incoming>
+      <bpmn:incoming>Flow_0lpdtbp</bpmn:incoming>
+      <bpmn:incoming>Flow_0r052gn</bpmn:incoming>
+      <bpmn:incoming>Flow_1jxi8q9</bpmn:incoming>
+      <bpmn:incoming>Flow_0r3x8k7</bpmn:incoming>
+      <bpmn:incoming>Flow_10ma36i</bpmn:incoming>
+      <bpmn:incoming>Flow_1ee9b9k</bpmn:incoming>
+      <bpmn:incoming>Flow_1iv7yxv</bpmn:incoming>
+      <bpmn:incoming>Flow_002qz8a</bpmn:incoming>
+      <bpmn:incoming>Flow_1jw5x0d</bpmn:incoming>
+      <bpmn:incoming>Flow_19joehl</bpmn:incoming>
+      <bpmn:incoming>Flow_161wkst</bpmn:incoming>
+      <bpmn:incoming>Flow_0r5al5g</bpmn:incoming>
+      <bpmn:incoming>Flow_0hb2kj4</bpmn:incoming>
+      <bpmn:incoming>Flow_08stj6v</bpmn:incoming>
+      <bpmn:incoming>Flow_11o3l8u</bpmn:incoming>
+      <bpmn:incoming>Flow_1mbrlto</bpmn:incoming>
+      <bpmn:incoming>Flow_1qkn9qo</bpmn:incoming>
+      <bpmn:incoming>Flow_1jhb4r2</bpmn:incoming>
+      <bpmn:incoming>Flow_0ahn4eq</bpmn:incoming>
+      <bpmn:incoming>Flow_0gsfwmr</bpmn:incoming>
+      <bpmn:incoming>Flow_07zvb7d</bpmn:incoming>
+      <bpmn:incoming>Flow_07qr8kg</bpmn:incoming>
+      <bpmn:incoming>Flow_0pl9h6b</bpmn:incoming>
+      <bpmn:incoming>Flow_0nwp837</bpmn:incoming>
+      <bpmn:incoming>Flow_1jczwt9</bpmn:incoming>
+      <bpmn:incoming>Flow_1425i5q</bpmn:incoming>
+      <bpmn:incoming>Flow_0b95vzf</bpmn:incoming>
+      <bpmn:incoming>Flow_0x9kkj8</bpmn:incoming>
+      <bpmn:incoming>Flow_0hn31ge</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_0lr5vfu" sourceRef="Activity_15zoexf" targetRef="Event_14i89kz" />
+    <bpmn:serviceTask id="Activity_0wq398d" name="Депонирование денежных средств (ДС)">
+      <bpmn:extensionElements>
+        <camunda:connector>
+          <camunda:inputOutput>
+            <camunda:inputParameter name="url">${depoRESTApi}/api/metadata/GetByDefId?defid=9c6a7666-4ce6-42b7-bb7d-d46cc4e8ab43</camunda:inputParameter>
+            <camunda:inputParameter name="method">GET</camunda:inputParameter>
+            <camunda:inputParameter name="headers">
+              <camunda:map>
+                <camunda:entry key="Content-Type">application/x-www-form-urlencoded</camunda:entry>
+                <camunda:entry key="cache-control">no-cache</camunda:entry>
+              </camunda:map>
+            </camunda:inputParameter>
+            <camunda:outputParameter name="form">
+              <camunda:script scriptFormat="Javascript">S(response).prop("data").toString()</camunda:script>
+            </camunda:outputParameter>
+          </camunda:inputOutput>
+          <camunda:connectorId>http-connector</camunda:connectorId>
+        </camunda:connector>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_125xozz</bpmn:incoming>
+      <bpmn:outgoing>Flow_1ebrjkf</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_125xozz" name="2" sourceRef="Gateway_1s6hr7y" targetRef="Activity_0wq398d">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">#{instructionType == 2}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_1ebrjkf" sourceRef="Activity_0wq398d" targetRef="Event_14i89kz" />
+    <bpmn:serviceTask id="Activity_0gf81s6" name="Депонирование ДС по дивидендам">
+      <bpmn:extensionElements>
+        <camunda:connector>
+          <camunda:inputOutput>
+            <camunda:inputParameter name="url">${depoRESTApi}/api/metadata/GetByDefId?defid=ee25afd1-0666-4f4c-aa22-7891af82b7f6</camunda:inputParameter>
+            <camunda:inputParameter name="method">GET</camunda:inputParameter>
+            <camunda:inputParameter name="headers">
+              <camunda:map>
+                <camunda:entry key="Content-Type">application/x-www-form-urlencoded</camunda:entry>
+                <camunda:entry key="cache-control">no-cache</camunda:entry>
+              </camunda:map>
+            </camunda:inputParameter>
+            <camunda:outputParameter name="form">
+              <camunda:script scriptFormat="Javascript">S(response).prop("data").toString()</camunda:script>
+            </camunda:outputParameter>
+          </camunda:inputOutput>
+          <camunda:connectorId>http-connector</camunda:connectorId>
+        </camunda:connector>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_0ztyqtb</bpmn:incoming>
+      <bpmn:outgoing>Flow_15a9vwx</bpmn:outgoing>
+      <bpmn:outgoing>Flow_0hjnwkf</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_0ztyqtb" name="3" sourceRef="Gateway_1s6hr7y" targetRef="Activity_0gf81s6">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">#{instructionType == 3}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_15a9vwx" sourceRef="Activity_0gf81s6" targetRef="Event_14i89kz" />
+    <bpmn:serviceTask id="Activity_07grq4c" name="Депонирование облигаций">
+      <bpmn:extensionElements>
+        <camunda:connector>
+          <camunda:inputOutput>
+            <camunda:inputParameter name="url">${depoRESTApi}/api/metadata/GetByDefId?defid=ca2e64ff-2d0d-41a9-a9ab-82be6421c653</camunda:inputParameter>
+            <camunda:inputParameter name="method">GET</camunda:inputParameter>
+            <camunda:inputParameter name="headers">
+              <camunda:map>
+                <camunda:entry key="Content-Type">application/x-www-form-urlencoded</camunda:entry>
+                <camunda:entry key="cache-control">no-cache</camunda:entry>
+              </camunda:map>
+            </camunda:inputParameter>
+            <camunda:outputParameter name="form">
+              <camunda:script scriptFormat="Javascript">S(response).prop("data").toString()</camunda:script>
+            </camunda:outputParameter>
+          </camunda:inputOutput>
+          <camunda:connectorId>http-connector</camunda:connectorId>
+        </camunda:connector>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_0r725la</bpmn:incoming>
+      <bpmn:outgoing>Flow_1c7247h</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="Activity_1csm3xu" name="Депонирование ДС на накопительный счет">
+      <bpmn:extensionElements>
+        <camunda:connector>
+          <camunda:inputOutput>
+            <camunda:inputParameter name="url">${depoRESTApi}/api/metadata/GetByDefId?defid=b47b4b5b-5ce6-419b-a25f-6618f14d29a7</camunda:inputParameter>
+            <camunda:inputParameter name="method">GET</camunda:inputParameter>
+            <camunda:inputParameter name="headers">
+              <camunda:map>
+                <camunda:entry key="Content-Type">application/x-www-form-urlencoded</camunda:entry>
+                <camunda:entry key="cache-control">no-cache</camunda:entry>
+              </camunda:map>
+            </camunda:inputParameter>
+            <camunda:outputParameter name="form">
+              <camunda:script scriptFormat="Javascript">S(response).prop("data").toString()</camunda:script>
+            </camunda:outputParameter>
+          </camunda:inputOutput>
+          <camunda:connectorId>http-connector</camunda:connectorId>
+        </camunda:connector>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_0iqwtpu</bpmn:incoming>
+      <bpmn:outgoing>Flow_04n3jov</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="Activity_0rervay" name="Депонирование ЦБ">
+      <bpmn:extensionElements>
+        <camunda:connector>
+          <camunda:inputOutput>
+            <camunda:inputParameter name="url">${depoRESTApi}/api/metadata/GetByDefId?defid=355a2eff-6deb-421c-8296-05dc84a0767e</camunda:inputParameter>
+            <camunda:inputParameter name="method">GET</camunda:inputParameter>
+            <camunda:inputParameter name="headers">
+              <camunda:map>
+                <camunda:entry key="Content-Type">application/x-www-form-urlencoded</camunda:entry>
+                <camunda:entry key="cache-control">no-cache</camunda:entry>
+              </camunda:map>
+            </camunda:inputParameter>
+            <camunda:outputParameter name="form">
+              <camunda:script scriptFormat="Javascript">S(response).prop("data").toString()</camunda:script>
+            </camunda:outputParameter>
+          </camunda:inputOutput>
+          <camunda:connectorId>http-connector</camunda:connectorId>
+        </camunda:connector>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_1uqnyc9</bpmn:incoming>
+      <bpmn:outgoing>Flow_09kz8lq</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="Activity_1yyifah" name="Депонирование ЦБ из ДК">
+      <bpmn:extensionElements>
+        <camunda:connector>
+          <camunda:inputOutput>
+            <camunda:inputParameter name="url">${depoRESTApi}/api/metadata/GetByDefId?defid=adba6206-c04c-47a8-947b-1b0a2c40d0df</camunda:inputParameter>
+            <camunda:inputParameter name="method">GET</camunda:inputParameter>
+            <camunda:inputParameter name="headers">
+              <camunda:map>
+                <camunda:entry key="Content-Type">application/x-www-form-urlencoded</camunda:entry>
+                <camunda:entry key="cache-control">no-cache</camunda:entry>
+              </camunda:map>
+            </camunda:inputParameter>
+            <camunda:outputParameter name="form">
+              <camunda:script scriptFormat="Javascript">S(response).prop("data").toString()</camunda:script>
+            </camunda:outputParameter>
+          </camunda:inputOutput>
+          <camunda:connectorId>http-connector</camunda:connectorId>
+        </camunda:connector>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_1k6mtyn</bpmn:incoming>
+      <bpmn:outgoing>Flow_138fdk8</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="Activity_0h2kayu" name="Залог ЦБ">
+      <bpmn:extensionElements>
+        <camunda:connector>
+          <camunda:inputOutput>
+            <camunda:inputParameter name="url">${depoRESTApi}/api/metadata/GetByDefId?defid=96a86c4a-4704-4d45-b475-70cc4af80e58</camunda:inputParameter>
+            <camunda:inputParameter name="method">GET</camunda:inputParameter>
+            <camunda:inputParameter name="headers">
+              <camunda:map>
+                <camunda:entry key="Content-Type">application/x-www-form-urlencoded</camunda:entry>
+                <camunda:entry key="cache-control">no-cache</camunda:entry>
+              </camunda:map>
+            </camunda:inputParameter>
+            <camunda:outputParameter name="form">
+              <camunda:script scriptFormat="Javascript">S(response).prop("data").toString()</camunda:script>
+            </camunda:outputParameter>
+          </camunda:inputOutput>
+          <camunda:connectorId>http-connector</camunda:connectorId>
+        </camunda:connector>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_1d5prg0</bpmn:incoming>
+      <bpmn:outgoing>Flow_0h4tjcy</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="Activity_0ph6y37" name="Клиринг ДС">
+      <bpmn:extensionElements>
+        <camunda:connector>
+          <camunda:inputOutput>
+            <camunda:inputParameter name="url">${depoRESTApi}/api/metadata/GetByDefId?defid=bd662cea-b2b1-4adb-9c24-08b10094a110</camunda:inputParameter>
+            <camunda:inputParameter name="method">GET</camunda:inputParameter>
+            <camunda:inputParameter name="headers">
+              <camunda:map>
+                <camunda:entry key="Content-Type">application/x-www-form-urlencoded</camunda:entry>
+                <camunda:entry key="cache-control">no-cache</camunda:entry>
+              </camunda:map>
+            </camunda:inputParameter>
+            <camunda:outputParameter name="form">
+              <camunda:script scriptFormat="Javascript">S(response).prop("data").toString()</camunda:script>
+            </camunda:outputParameter>
+          </camunda:inputOutput>
+          <camunda:connectorId>http-connector</camunda:connectorId>
+        </camunda:connector>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_0jm6tor</bpmn:incoming>
+      <bpmn:outgoing>Flow_07g7e16</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="Activity_013hure" name="Клиринг ЦБ">
+      <bpmn:extensionElements>
+        <camunda:connector>
+          <camunda:inputOutput>
+            <camunda:inputParameter name="url">${depoRESTApi}/api/metadata/GetByDefId?defid=09daa82d-dcec-4eca-9a6b-124785415773</camunda:inputParameter>
+            <camunda:inputParameter name="method">GET</camunda:inputParameter>
+            <camunda:inputParameter name="headers">
+              <camunda:map>
+                <camunda:entry key="Content-Type">application/x-www-form-urlencoded</camunda:entry>
+                <camunda:entry key="cache-control">no-cache</camunda:entry>
+              </camunda:map>
+            </camunda:inputParameter>
+            <camunda:outputParameter name="form">
+              <camunda:script scriptFormat="Javascript">S(response).prop("data").toString()</camunda:script>
+            </camunda:outputParameter>
+          </camunda:inputOutput>
+          <camunda:connectorId>http-connector</camunda:connectorId>
+        </camunda:connector>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_0zunwnb</bpmn:incoming>
+      <bpmn:outgoing>Flow_1wg682f</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="Activity_1jpa5dp" name="Назначение управляющего счетом">
+      <bpmn:extensionElements>
+        <camunda:connector>
+          <camunda:inputOutput>
+            <camunda:inputParameter name="url">${depoRESTApi}/api/metadata/GetByDefId?defid=cb4b5c4f-07b8-4bad-acf0-81cada29c54f</camunda:inputParameter>
+            <camunda:inputParameter name="method">GET</camunda:inputParameter>
+            <camunda:inputParameter name="headers">
+              <camunda:map>
+                <camunda:entry key="Content-Type">application/x-www-form-urlencoded</camunda:entry>
+                <camunda:entry key="cache-control">no-cache</camunda:entry>
+              </camunda:map>
+            </camunda:inputParameter>
+            <camunda:outputParameter name="form">
+              <camunda:script scriptFormat="Javascript">S(response).prop("data").toString()</camunda:script>
+            </camunda:outputParameter>
+          </camunda:inputOutput>
+          <camunda:connectorId>http-connector</camunda:connectorId>
+        </camunda:connector>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_1psrn89</bpmn:incoming>
+      <bpmn:outgoing>Flow_0lpdtbp</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="Activity_1ckhi0r" name="Освобождение залога ЦБ">
+      <bpmn:extensionElements>
+        <camunda:connector>
+          <camunda:inputOutput>
+            <camunda:inputParameter name="url">${depoRESTApi}/api/metadata/GetByDefId?defid=10659cbb-3b7c-4d86-9d22-be37db0b8a58</camunda:inputParameter>
+            <camunda:inputParameter name="method">GET</camunda:inputParameter>
+            <camunda:inputParameter name="headers">
+              <camunda:map>
+                <camunda:entry key="Content-Type">application/x-www-form-urlencoded</camunda:entry>
+                <camunda:entry key="cache-control">no-cache</camunda:entry>
+              </camunda:map>
+            </camunda:inputParameter>
+            <camunda:outputParameter name="form">
+              <camunda:script scriptFormat="Javascript">S(response).prop("data").toString()</camunda:script>
+            </camunda:outputParameter>
+          </camunda:inputOutput>
+          <camunda:connectorId>http-connector</camunda:connectorId>
+        </camunda:connector>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_0yhmwdp</bpmn:incoming>
+      <bpmn:outgoing>Flow_0r052gn</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="Activity_1prnjrz" name="Открытие счета">
+      <bpmn:extensionElements>
+        <camunda:connector>
+          <camunda:inputOutput>
+            <camunda:inputParameter name="url">${depoRESTApi}/api/metadata/GetByDefId?defid=0b719194-7237-4904-b130-7afc3516b694</camunda:inputParameter>
+            <camunda:inputParameter name="method">GET</camunda:inputParameter>
+            <camunda:inputParameter name="headers">
+              <camunda:map>
+                <camunda:entry key="Content-Type">application/x-www-form-urlencoded</camunda:entry>
+                <camunda:entry key="cache-control">no-cache</camunda:entry>
+              </camunda:map>
+            </camunda:inputParameter>
+            <camunda:outputParameter name="form">
+              <camunda:script scriptFormat="Javascript">S(response).prop("data").toString()</camunda:script>
+            </camunda:outputParameter>
+          </camunda:inputOutput>
+          <camunda:connectorId>http-connector</camunda:connectorId>
+        </camunda:connector>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_1leh61o</bpmn:incoming>
+      <bpmn:outgoing>Flow_1jxi8q9</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="Activity_0r0n0x0" name="Перевод блокированных ЦБ по активным счетам">
+      <bpmn:extensionElements>
+        <camunda:connector>
+          <camunda:inputOutput>
+            <camunda:inputParameter name="url">${depoRESTApi}/api/metadata/GetByDefId?defid=e14c6905-cb7e-49a3-8f99-233689e85df8</camunda:inputParameter>
+            <camunda:inputParameter name="method">GET</camunda:inputParameter>
+            <camunda:inputParameter name="headers">
+              <camunda:map>
+                <camunda:entry key="Content-Type">application/x-www-form-urlencoded</camunda:entry>
+                <camunda:entry key="cache-control">no-cache</camunda:entry>
+              </camunda:map>
+            </camunda:inputParameter>
+            <camunda:outputParameter name="form">
+              <camunda:script scriptFormat="Javascript">S(response).prop("data").toString()</camunda:script>
+            </camunda:outputParameter>
+          </camunda:inputOutput>
+          <camunda:connectorId>http-connector</camunda:connectorId>
+        </camunda:connector>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_02c7hwi</bpmn:incoming>
+      <bpmn:outgoing>Flow_0r3x8k7</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="Activity_1le5i3u" name="Перевод свободных ЦБ по активным счетам">
+      <bpmn:extensionElements>
+        <camunda:connector>
+          <camunda:inputOutput>
+            <camunda:inputParameter name="url">${depoRESTApi}/api/metadata/GetByDefId?defid=084ef8ed-6107-406c-8353-2fdd0dfec37c</camunda:inputParameter>
+            <camunda:inputParameter name="method">GET</camunda:inputParameter>
+            <camunda:inputParameter name="headers">
+              <camunda:map>
+                <camunda:entry key="Content-Type">application/x-www-form-urlencoded</camunda:entry>
+                <camunda:entry key="cache-control">no-cache</camunda:entry>
+              </camunda:map>
+            </camunda:inputParameter>
+            <camunda:outputParameter name="form">
+              <camunda:script scriptFormat="Javascript">S(response).prop("data").toString()</camunda:script>
+            </camunda:outputParameter>
+          </camunda:inputOutput>
+          <camunda:connectorId>http-connector</camunda:connectorId>
+        </camunda:connector>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_0286v16</bpmn:incoming>
+      <bpmn:outgoing>Flow_10ma36i</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="Activity_0lmixin" name="Перевод ЦБ">
+      <bpmn:extensionElements>
+        <camunda:connector>
+          <camunda:inputOutput>
+            <camunda:inputParameter name="url">${depoRESTApi}/api/metadata/GetByDefId?defid=eaaa8a78-674d-4887-87e0-e45ef7f57deb</camunda:inputParameter>
+            <camunda:inputParameter name="method">GET</camunda:inputParameter>
+            <camunda:inputParameter name="headers">
+              <camunda:map>
+                <camunda:entry key="Content-Type">application/x-www-form-urlencoded</camunda:entry>
+                <camunda:entry key="cache-control">no-cache</camunda:entry>
+              </camunda:map>
+            </camunda:inputParameter>
+            <camunda:outputParameter name="form">
+              <camunda:script scriptFormat="Javascript">S(response).prop("data").toString()</camunda:script>
+            </camunda:outputParameter>
+          </camunda:inputOutput>
+          <camunda:connectorId>http-connector</camunda:connectorId>
+        </camunda:connector>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_1xkb5o3</bpmn:incoming>
+      <bpmn:outgoing>Flow_1ee9b9k</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="Activity_178idwb" name="Перевод ЦБ в ТС">
+      <bpmn:extensionElements>
+        <camunda:connector>
+          <camunda:inputOutput>
+            <camunda:inputParameter name="url">${depoRESTApi}/api/metadata/GetByDefId?defid=de2a041a-c5cd-4020-87e3-a58f4cd6b1c0</camunda:inputParameter>
+            <camunda:inputParameter name="method">GET</camunda:inputParameter>
+            <camunda:inputParameter name="headers">
+              <camunda:map>
+                <camunda:entry key="Content-Type">application/x-www-form-urlencoded</camunda:entry>
+                <camunda:entry key="cache-control">no-cache</camunda:entry>
+              </camunda:map>
+            </camunda:inputParameter>
+            <camunda:outputParameter name="form">
+              <camunda:script scriptFormat="Javascript">S(response).prop("data").toString()</camunda:script>
+            </camunda:outputParameter>
+          </camunda:inputOutput>
+          <camunda:connectorId>http-connector</camunda:connectorId>
+        </camunda:connector>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_1hgbcrs</bpmn:incoming>
+      <bpmn:outgoing>Flow_1iv7yxv</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="Activity_19clwyf" name="Перевод ЦБ из ТС">
+      <bpmn:extensionElements>
+        <camunda:connector>
+          <camunda:inputOutput>
+            <camunda:inputParameter name="url">${depoRESTApi}/api/metadata/GetByDefId?defid=233f0dbb-6b3a-495d-b0e0-6a5178c1b5c4</camunda:inputParameter>
+            <camunda:inputParameter name="method">GET</camunda:inputParameter>
+            <camunda:inputParameter name="headers">
+              <camunda:map>
+                <camunda:entry key="Content-Type">application/x-www-form-urlencoded</camunda:entry>
+                <camunda:entry key="cache-control">no-cache</camunda:entry>
+              </camunda:map>
+            </camunda:inputParameter>
+            <camunda:outputParameter name="form">
+              <camunda:script scriptFormat="Javascript">S(response).prop("data").toString()</camunda:script>
+            </camunda:outputParameter>
+          </camunda:inputOutput>
+          <camunda:connectorId>http-connector</camunda:connectorId>
+        </camunda:connector>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_0pgyrke</bpmn:incoming>
+      <bpmn:outgoing>Flow_002qz8a</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="Activity_0f2xtw3" name="Снятие блокирования ЦБ">
+      <bpmn:extensionElements>
+        <camunda:connector>
+          <camunda:inputOutput>
+            <camunda:inputParameter name="url">${depoRESTApi}/api/metadata/GetByDefId?defid=94319724-8e96-434c-bfff-3d35ab42857d</camunda:inputParameter>
+            <camunda:inputParameter name="method">GET</camunda:inputParameter>
+            <camunda:inputParameter name="headers">
+              <camunda:map>
+                <camunda:entry key="Content-Type">application/x-www-form-urlencoded</camunda:entry>
+                <camunda:entry key="cache-control">no-cache</camunda:entry>
+              </camunda:map>
+            </camunda:inputParameter>
+            <camunda:outputParameter name="form">
+              <camunda:script scriptFormat="Javascript">S(response).prop("data").toString()</camunda:script>
+            </camunda:outputParameter>
+          </camunda:inputOutput>
+          <camunda:connectorId>http-connector</camunda:connectorId>
+        </camunda:connector>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_14fp5q0</bpmn:incoming>
+      <bpmn:outgoing>Flow_1jw5x0d</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="Activity_0zp1y4d" name="Списание ДС">
+      <bpmn:extensionElements>
+        <camunda:connector>
+          <camunda:inputOutput>
+            <camunda:inputParameter name="url">${depoRESTApi}/api/metadata/GetByDefId?defid=af21d929-33b7-4413-a537-c60768a5c34f</camunda:inputParameter>
+            <camunda:inputParameter name="method">GET</camunda:inputParameter>
+            <camunda:inputParameter name="headers">
+              <camunda:map>
+                <camunda:entry key="Content-Type">application/x-www-form-urlencoded</camunda:entry>
+                <camunda:entry key="cache-control">no-cache</camunda:entry>
+              </camunda:map>
+            </camunda:inputParameter>
+            <camunda:outputParameter name="form">
+              <camunda:script scriptFormat="Javascript">S(response).prop("data").toString()</camunda:script>
+            </camunda:outputParameter>
+          </camunda:inputOutput>
+          <camunda:connectorId>http-connector</camunda:connectorId>
+        </camunda:connector>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_0cx5uqv</bpmn:incoming>
+      <bpmn:outgoing>Flow_19joehl</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="Activity_0uv0rx1" name="Списание ДС по ГРОССУ">
+      <bpmn:extensionElements>
+        <camunda:connector>
+          <camunda:inputOutput>
+            <camunda:inputParameter name="url">${depoRESTApi}/api/metadata/GetByDefId?defid=601d7728-ad87-4776-90c1-c8d4e384a4b6</camunda:inputParameter>
+            <camunda:inputParameter name="method">GET</camunda:inputParameter>
+            <camunda:inputParameter name="headers">
+              <camunda:map>
+                <camunda:entry key="Content-Type">application/x-www-form-urlencoded</camunda:entry>
+                <camunda:entry key="cache-control">no-cache</camunda:entry>
+              </camunda:map>
+            </camunda:inputParameter>
+            <camunda:outputParameter name="form">
+              <camunda:script scriptFormat="Javascript">S(response).prop("data").toString()</camunda:script>
+            </camunda:outputParameter>
+          </camunda:inputOutput>
+          <camunda:connectorId>http-connector</camunda:connectorId>
+        </camunda:connector>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_09mkldf</bpmn:incoming>
+      <bpmn:outgoing>Flow_161wkst</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="Activity_0u5qqmk" name="Списание облигаций">
+      <bpmn:extensionElements>
+        <camunda:connector>
+          <camunda:inputOutput>
+            <camunda:inputParameter name="url">${depoRESTApi}/api/metadata/GetByDefId?defid=d4316e80-d393-4a14-a2b2-5038923820e9</camunda:inputParameter>
+            <camunda:inputParameter name="method">GET</camunda:inputParameter>
+            <camunda:inputParameter name="headers">
+              <camunda:map>
+                <camunda:entry key="Content-Type">application/x-www-form-urlencoded</camunda:entry>
+                <camunda:entry key="cache-control">no-cache</camunda:entry>
+              </camunda:map>
+            </camunda:inputParameter>
+            <camunda:outputParameter name="form">
+              <camunda:script scriptFormat="Javascript">S(response).prop("data").toString()</camunda:script>
+            </camunda:outputParameter>
+          </camunda:inputOutput>
+          <camunda:connectorId>http-connector</camunda:connectorId>
+        </camunda:connector>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_085krce</bpmn:incoming>
+      <bpmn:outgoing>Flow_0r5al5g</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="Activity_0gxpx53" name="Списание ДС с накопительного счета">
+      <bpmn:extensionElements>
+        <camunda:connector>
+          <camunda:inputOutput>
+            <camunda:inputParameter name="url">${depoRESTApi}/api/metadata/GetByDefId?defid=eebf2ac2-bf27-4c23-8959-08c9089a287d</camunda:inputParameter>
+            <camunda:inputParameter name="method">GET</camunda:inputParameter>
+            <camunda:inputParameter name="headers">
+              <camunda:map>
+                <camunda:entry key="Content-Type">application/x-www-form-urlencoded</camunda:entry>
+                <camunda:entry key="cache-control">no-cache</camunda:entry>
+              </camunda:map>
+            </camunda:inputParameter>
+            <camunda:outputParameter name="form">
+              <camunda:script scriptFormat="Javascript">S(response).prop("data").toString()</camunda:script>
+            </camunda:outputParameter>
+          </camunda:inputOutput>
+          <camunda:connectorId>http-connector</camunda:connectorId>
+        </camunda:connector>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_04bbmx6</bpmn:incoming>
+      <bpmn:outgoing>Flow_0hb2kj4</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="Activity_07ohiww" name="Списание ДС по дивидендам">
+      <bpmn:extensionElements>
+        <camunda:connector>
+          <camunda:inputOutput>
+            <camunda:inputParameter name="url">${depoRESTApi}/api/metadata/GetByDefId?defid=9511ee6b-f6de-4f52-915c-d2bd18cb4aff</camunda:inputParameter>
+            <camunda:inputParameter name="method">GET</camunda:inputParameter>
+            <camunda:inputParameter name="headers">
+              <camunda:map>
+                <camunda:entry key="Content-Type">application/x-www-form-urlencoded</camunda:entry>
+                <camunda:entry key="cache-control">no-cache</camunda:entry>
+              </camunda:map>
+            </camunda:inputParameter>
+            <camunda:outputParameter name="form">
+              <camunda:script scriptFormat="Javascript">S(response).prop("data").toString()</camunda:script>
+            </camunda:outputParameter>
+          </camunda:inputOutput>
+          <camunda:connectorId>http-connector</camunda:connectorId>
+        </camunda:connector>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_1flcofs</bpmn:incoming>
+      <bpmn:outgoing>Flow_08stj6v</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="Activity_0l1uss6" name="Списание ЦБ">
+      <bpmn:extensionElements>
+        <camunda:connector>
+          <camunda:inputOutput>
+            <camunda:inputParameter name="url">${depoRESTApi}/api/metadata/GetByDefId?defid=26d3091b-1575-42e0-abc2-0efe5a685620</camunda:inputParameter>
+            <camunda:inputParameter name="method">GET</camunda:inputParameter>
+            <camunda:inputParameter name="headers">
+              <camunda:map>
+                <camunda:entry key="Content-Type">application/x-www-form-urlencoded</camunda:entry>
+                <camunda:entry key="cache-control">no-cache</camunda:entry>
+              </camunda:map>
+            </camunda:inputParameter>
+            <camunda:outputParameter name="form">
+              <camunda:script scriptFormat="Javascript">S(response).prop("data").toString()</camunda:script>
+            </camunda:outputParameter>
+          </camunda:inputOutput>
+          <camunda:connectorId>http-connector</camunda:connectorId>
+        </camunda:connector>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_1uq9s64</bpmn:incoming>
+      <bpmn:outgoing>Flow_11o3l8u</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="Activity_0tmchqt" name="Списание ЦБ в ДК">
+      <bpmn:extensionElements>
+        <camunda:connector>
+          <camunda:inputOutput>
+            <camunda:inputParameter name="url">${depoRESTApi}/api/metadata/GetByDefId?defid=1bfb0544-1a23-485c-bdad-463c086a8364</camunda:inputParameter>
+            <camunda:inputParameter name="method">GET</camunda:inputParameter>
+            <camunda:inputParameter name="headers">
+              <camunda:map>
+                <camunda:entry key="Content-Type">application/x-www-form-urlencoded</camunda:entry>
+                <camunda:entry key="cache-control">no-cache</camunda:entry>
+              </camunda:map>
+            </camunda:inputParameter>
+            <camunda:outputParameter name="form">
+              <camunda:script scriptFormat="Javascript">S(response).prop("data").toString()</camunda:script>
+            </camunda:outputParameter>
+          </camunda:inputOutput>
+          <camunda:connectorId>http-connector</camunda:connectorId>
+        </camunda:connector>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_103a3n9</bpmn:incoming>
+      <bpmn:outgoing>Flow_1mbrlto</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="Activity_0qwdpio" name="Перемещение ЦБ по счетам одного депонента">
+      <bpmn:extensionElements>
+        <camunda:connector>
+          <camunda:inputOutput>
+            <camunda:inputParameter name="url">${depoRESTApi}/api/metadata/GetByDefId?defid=b5644df2-0907-4724-a4e0-b3bbf3aa2229</camunda:inputParameter>
+            <camunda:inputParameter name="method">GET</camunda:inputParameter>
+            <camunda:inputParameter name="headers">
+              <camunda:map>
+                <camunda:entry key="Content-Type">application/x-www-form-urlencoded</camunda:entry>
+                <camunda:entry key="cache-control">no-cache</camunda:entry>
+              </camunda:map>
+            </camunda:inputParameter>
+            <camunda:outputParameter name="form">
+              <camunda:script scriptFormat="Javascript">S(response).prop("data").toString()</camunda:script>
+            </camunda:outputParameter>
+          </camunda:inputOutput>
+          <camunda:connectorId>http-connector</camunda:connectorId>
+        </camunda:connector>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_0f6ylq9</bpmn:incoming>
+      <bpmn:outgoing>Flow_1qkn9qo</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="Activity_0sa49xf" name="Снятие блокирования ЦБ">
+      <bpmn:extensionElements>
+        <camunda:connector>
+          <camunda:inputOutput>
+            <camunda:inputParameter name="url">${depoRESTApi}/api/metadata/GetByDefId?defid=a78d48cc-7319-419f-89ca-d2f310654732</camunda:inputParameter>
+            <camunda:inputParameter name="method">GET</camunda:inputParameter>
+            <camunda:inputParameter name="headers">
+              <camunda:map>
+                <camunda:entry key="Content-Type">application/x-www-form-urlencoded</camunda:entry>
+                <camunda:entry key="cache-control">no-cache</camunda:entry>
+              </camunda:map>
+            </camunda:inputParameter>
+            <camunda:outputParameter name="form">
+              <camunda:script scriptFormat="Javascript">S(response).prop("data").toString()</camunda:script>
+            </camunda:outputParameter>
+          </camunda:inputOutput>
+          <camunda:connectorId>http-connector</camunda:connectorId>
+        </camunda:connector>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_1lh8bkf</bpmn:incoming>
+      <bpmn:outgoing>Flow_1jhb4r2</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="Activity_1ea0uzi" name="Перевод ЦБ депонента на счет другого депонента">
+      <bpmn:extensionElements>
+        <camunda:connector>
+          <camunda:inputOutput>
+            <camunda:inputParameter name="url">${depoRESTApi}/api/metadata/GetByDefId?defid=02c94086-2730-4f07-b79a-a3d471ba6b06</camunda:inputParameter>
+            <camunda:inputParameter name="method">GET</camunda:inputParameter>
+            <camunda:inputParameter name="headers">
+              <camunda:map>
+                <camunda:entry key="Content-Type">application/x-www-form-urlencoded</camunda:entry>
+                <camunda:entry key="cache-control">no-cache</camunda:entry>
+              </camunda:map>
+            </camunda:inputParameter>
+            <camunda:outputParameter name="form">
+              <camunda:script scriptFormat="Javascript">S(response).prop("data").toString()</camunda:script>
+            </camunda:outputParameter>
+          </camunda:inputOutput>
+          <camunda:connectorId>http-connector</camunda:connectorId>
+        </camunda:connector>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_0a2zr8b</bpmn:incoming>
+      <bpmn:outgoing>Flow_0ahn4eq</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="Activity_1a06cot" name="Перевод ДС">
+      <bpmn:extensionElements>
+        <camunda:connector>
+          <camunda:inputOutput>
+            <camunda:inputParameter name="url">${depoRESTApi}/api/metadata/GetByDefId?defid=02ae78f9-46b4-4d7c-92b6-2e068ad2664f</camunda:inputParameter>
+            <camunda:inputParameter name="method">GET</camunda:inputParameter>
+            <camunda:inputParameter name="headers">
+              <camunda:map>
+                <camunda:entry key="Content-Type">application/x-www-form-urlencoded</camunda:entry>
+                <camunda:entry key="cache-control">no-cache</camunda:entry>
+              </camunda:map>
+            </camunda:inputParameter>
+            <camunda:outputParameter name="form">
+              <camunda:script scriptFormat="Javascript">S(response).prop("data").toString()</camunda:script>
+            </camunda:outputParameter>
+          </camunda:inputOutput>
+          <camunda:connectorId>http-connector</camunda:connectorId>
+        </camunda:connector>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_1p9bjax</bpmn:incoming>
+      <bpmn:outgoing>Flow_0gsfwmr</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="Activity_04mk18a" name="Перевод ДС по основным счетам ЦД">
+      <bpmn:extensionElements>
+        <camunda:connector>
+          <camunda:inputOutput>
+            <camunda:inputParameter name="url">${depoRESTApi}/api/metadata/GetByDefId?defid=67be656b-557f-4d75-a1ed-aa9fb8c0d5d4</camunda:inputParameter>
+            <camunda:inputParameter name="method">GET</camunda:inputParameter>
+            <camunda:inputParameter name="headers">
+              <camunda:map>
+                <camunda:entry key="Content-Type">application/x-www-form-urlencoded</camunda:entry>
+                <camunda:entry key="cache-control">no-cache</camunda:entry>
+              </camunda:map>
+            </camunda:inputParameter>
+            <camunda:outputParameter name="form">
+              <camunda:script scriptFormat="Javascript">S(response).prop("data").toString()</camunda:script>
+            </camunda:outputParameter>
+          </camunda:inputOutput>
+          <camunda:connectorId>http-connector</camunda:connectorId>
+        </camunda:connector>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_1lj2on4</bpmn:incoming>
+      <bpmn:outgoing>Flow_07zvb7d</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="Activity_1ug3ksi" name="Отзыв управляющего счетом">
+      <bpmn:extensionElements>
+        <camunda:connector>
+          <camunda:inputOutput>
+            <camunda:inputParameter name="url">${depoRESTApi}/api/metadata/GetByDefId?defid=bc9e4421-e19d-49e3-9784-130a1da86e86</camunda:inputParameter>
+            <camunda:inputParameter name="method">GET</camunda:inputParameter>
+            <camunda:inputParameter name="headers">
+              <camunda:map>
+                <camunda:entry key="Content-Type">application/x-www-form-urlencoded</camunda:entry>
+                <camunda:entry key="cache-control">no-cache</camunda:entry>
+              </camunda:map>
+            </camunda:inputParameter>
+            <camunda:outputParameter name="form">
+              <camunda:script scriptFormat="Javascript">S(response).prop("data").toString()</camunda:script>
+            </camunda:outputParameter>
+          </camunda:inputOutput>
+          <camunda:connectorId>http-connector</camunda:connectorId>
+        </camunda:connector>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_06goxiq</bpmn:incoming>
+      <bpmn:outgoing>Flow_07qr8kg</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="Activity_0iqnm5m" name="Срочное списание ДС (вне регламента)">
+      <bpmn:extensionElements>
+        <camunda:connector>
+          <camunda:inputOutput>
+            <camunda:inputParameter name="url">${depoRESTApi}/api/metadata/GetByDefId?defid=b41a7e17-709b-4e34-90dc-a834a04bf4e5</camunda:inputParameter>
+            <camunda:inputParameter name="method">GET</camunda:inputParameter>
+            <camunda:inputParameter name="headers">
+              <camunda:map>
+                <camunda:entry key="Content-Type">application/x-www-form-urlencoded</camunda:entry>
+                <camunda:entry key="cache-control">no-cache</camunda:entry>
+              </camunda:map>
+            </camunda:inputParameter>
+            <camunda:outputParameter name="form">
+              <camunda:script scriptFormat="Javascript">S(response).prop("data").toString()</camunda:script>
+            </camunda:outputParameter>
+          </camunda:inputOutput>
+          <camunda:connectorId>http-connector</camunda:connectorId>
+        </camunda:connector>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_11y56om</bpmn:incoming>
+      <bpmn:outgoing>Flow_0pl9h6b</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="Activity_15c41vd" name="Срочное депонирование ЦБ (вне регламента)">
+      <bpmn:extensionElements>
+        <camunda:connector>
+          <camunda:inputOutput>
+            <camunda:inputParameter name="url">${depoRESTApi}/api/metadata/GetByDefId?defid=a71e642e-2eff-441e-a12f-85de4b21ee9a</camunda:inputParameter>
+            <camunda:inputParameter name="method">GET</camunda:inputParameter>
+            <camunda:inputParameter name="headers">
+              <camunda:map>
+                <camunda:entry key="Content-Type">application/x-www-form-urlencoded</camunda:entry>
+                <camunda:entry key="cache-control">no-cache</camunda:entry>
+              </camunda:map>
+            </camunda:inputParameter>
+            <camunda:outputParameter name="form">
+              <camunda:script scriptFormat="Javascript">S(response).prop("data").toString()</camunda:script>
+            </camunda:outputParameter>
+          </camunda:inputOutput>
+          <camunda:connectorId>http-connector</camunda:connectorId>
+        </camunda:connector>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_13shy41</bpmn:incoming>
+      <bpmn:outgoing>Flow_0nwp837</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="Activity_1afsouw" name="Срочное списание ЦБ (вне регламента)">
+      <bpmn:extensionElements>
+        <camunda:connector>
+          <camunda:inputOutput>
+            <camunda:inputParameter name="url">${depoRESTApi}/api/metadata/GetByDefId?defid=b535a9d3-df74-43e9-805f-20313cc30b44</camunda:inputParameter>
+            <camunda:inputParameter name="method">GET</camunda:inputParameter>
+            <camunda:inputParameter name="headers">
+              <camunda:map>
+                <camunda:entry key="Content-Type">application/x-www-form-urlencoded</camunda:entry>
+                <camunda:entry key="cache-control">no-cache</camunda:entry>
+              </camunda:map>
+            </camunda:inputParameter>
+            <camunda:outputParameter name="form">
+              <camunda:script scriptFormat="Javascript">S(response).prop("data").toString()</camunda:script>
+            </camunda:outputParameter>
+          </camunda:inputOutput>
+          <camunda:connectorId>http-connector</camunda:connectorId>
+        </camunda:connector>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_1fedbga</bpmn:incoming>
+      <bpmn:outgoing>Flow_1jczwt9</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="Activity_0kd76mj" name="Срочное депонирование облигаций (вне регламента)">
+      <bpmn:extensionElements>
+        <camunda:connector>
+          <camunda:inputOutput>
+            <camunda:inputParameter name="url">${depoRESTApi}/api/metadata/GetByDefId?defid=51ae1e54-16f0-451c-85ce-3e17536cfff0</camunda:inputParameter>
+            <camunda:inputParameter name="method">GET</camunda:inputParameter>
+            <camunda:inputParameter name="headers">
+              <camunda:map>
+                <camunda:entry key="Content-Type">application/x-www-form-urlencoded</camunda:entry>
+                <camunda:entry key="cache-control">no-cache</camunda:entry>
+              </camunda:map>
+            </camunda:inputParameter>
+            <camunda:outputParameter name="form">
+              <camunda:script scriptFormat="Javascript">S(response).prop("data").toString()</camunda:script>
+            </camunda:outputParameter>
+          </camunda:inputOutput>
+          <camunda:connectorId>http-connector</camunda:connectorId>
+        </camunda:connector>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_0denl2k</bpmn:incoming>
+      <bpmn:outgoing>Flow_1425i5q</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="Activity_1foch8j" name="Срочное списание облигаций (вне регламента)">
+      <bpmn:extensionElements>
+        <camunda:connector>
+          <camunda:inputOutput>
+            <camunda:inputParameter name="url">${depoRESTApi}/api/metadata/GetByDefId?defid=36104ff2-4d86-45ab-aa24-b9177d7dec36</camunda:inputParameter>
+            <camunda:inputParameter name="method">GET</camunda:inputParameter>
+            <camunda:inputParameter name="headers">
+              <camunda:map>
+                <camunda:entry key="Content-Type">application/x-www-form-urlencoded</camunda:entry>
+                <camunda:entry key="cache-control">no-cache</camunda:entry>
+              </camunda:map>
+            </camunda:inputParameter>
+            <camunda:outputParameter name="form">
+              <camunda:script scriptFormat="Javascript">S(response).prop("data").toString()</camunda:script>
+            </camunda:outputParameter>
+          </camunda:inputOutput>
+          <camunda:connectorId>http-connector</camunda:connectorId>
+        </camunda:connector>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_0eqw846</bpmn:incoming>
+      <bpmn:outgoing>Flow_0b95vzf</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="Activity_0o1yf4y" name="Депонирование ГЦБ">
+      <bpmn:extensionElements>
+        <camunda:connector>
+          <camunda:inputOutput>
+            <camunda:inputParameter name="url">${depoRESTApi}/api/metadata/GetByDefId?defid=9b498d67-30a6-40d3-b6d7-7f31a584403d</camunda:inputParameter>
+            <camunda:inputParameter name="method">GET</camunda:inputParameter>
+            <camunda:inputParameter name="headers">
+              <camunda:map>
+                <camunda:entry key="Content-Type">application/x-www-form-urlencoded</camunda:entry>
+                <camunda:entry key="cache-control">no-cache</camunda:entry>
+              </camunda:map>
+            </camunda:inputParameter>
+            <camunda:outputParameter name="form">
+              <camunda:script scriptFormat="Javascript">S(response).prop("data").toString()</camunda:script>
+            </camunda:outputParameter>
+          </camunda:inputOutput>
+          <camunda:connectorId>http-connector</camunda:connectorId>
+        </camunda:connector>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_08qxlia</bpmn:incoming>
+      <bpmn:outgoing>Flow_0x9kkj8</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="Activity_0cl2v2k" name="Списание ГЦБ">
+      <bpmn:extensionElements>
+        <camunda:connector>
+          <camunda:inputOutput>
+            <camunda:inputParameter name="url">${depoRESTApi}/api/metadata/GetByDefId?defid=8c07270a-dbec-48bd-9413-587a67807296</camunda:inputParameter>
+            <camunda:inputParameter name="method">GET</camunda:inputParameter>
+            <camunda:inputParameter name="headers">
+              <camunda:map>
+                <camunda:entry key="Content-Type">application/x-www-form-urlencoded</camunda:entry>
+                <camunda:entry key="cache-control">no-cache</camunda:entry>
+              </camunda:map>
+            </camunda:inputParameter>
+            <camunda:outputParameter name="form">
+              <camunda:script scriptFormat="Javascript">S(response).prop("data").toString()</camunda:script>
+            </camunda:outputParameter>
+          </camunda:inputOutput>
+          <camunda:connectorId>http-connector</camunda:connectorId>
+        </camunda:connector>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_05n3109</bpmn:incoming>
+      <bpmn:outgoing>Flow_0hn31ge</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_0r725la" name="4" sourceRef="Gateway_1s6hr7y" targetRef="Activity_07grq4c">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">#{instructionType == 4}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_0iqwtpu" name="5" sourceRef="Gateway_1s6hr7y" targetRef="Activity_1csm3xu">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">#{instructionType == 5}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_1uqnyc9" name="6" sourceRef="Gateway_1s6hr7y" targetRef="Activity_0rervay">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">#{instructionType == 6}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_1k6mtyn" name="7" sourceRef="Gateway_1s6hr7y" targetRef="Activity_1yyifah">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">#{instructionType == 7}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_1d5prg0" name="8" sourceRef="Gateway_1s6hr7y" targetRef="Activity_0h2kayu">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">#{instructionType == 8}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_0jm6tor" name="9" sourceRef="Gateway_1s6hr7y" targetRef="Activity_0ph6y37">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">#{instructionType == 9}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_0zunwnb" name="10" sourceRef="Gateway_1s6hr7y" targetRef="Activity_013hure">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">#{instructionType == 10}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_1psrn89" name="11" sourceRef="Gateway_1s6hr7y" targetRef="Activity_1jpa5dp">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">#{instructionType == 11}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_1leh61o" name="13" sourceRef="Gateway_1s6hr7y" targetRef="Activity_1prnjrz">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">#{instructionType == 13}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_0yhmwdp" name="12" sourceRef="Gateway_1s6hr7y" targetRef="Activity_1ckhi0r">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">#{instructionType == 12}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_02c7hwi" name="14" sourceRef="Gateway_1s6hr7y" targetRef="Activity_0r0n0x0">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">#{instructionType == 14}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_0286v16" name="15" sourceRef="Gateway_1s6hr7y" targetRef="Activity_1le5i3u">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">#{instructionType == 15}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_1xkb5o3" name="16" sourceRef="Gateway_1s6hr7y" targetRef="Activity_0lmixin">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">#{instructionType == 16}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_1hgbcrs" name="17" sourceRef="Gateway_1s6hr7y" targetRef="Activity_178idwb">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">#{instructionType == 17}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_0pgyrke" name="18" sourceRef="Gateway_1s6hr7y" targetRef="Activity_19clwyf">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">#{instructionType == 18}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_14fp5q0" name="19" sourceRef="Gateway_1s6hr7y" targetRef="Activity_0f2xtw3">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">#{instructionType == 19}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_0cx5uqv" name="20" sourceRef="Gateway_1s6hr7y" targetRef="Activity_0zp1y4d">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">#{instructionType == 20}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_09mkldf" name="21" sourceRef="Gateway_1s6hr7y" targetRef="Activity_0uv0rx1">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">#{instructionType == 21}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_085krce" name="22" sourceRef="Gateway_1s6hr7y" targetRef="Activity_0u5qqmk">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">#{instructionType == 22}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_04bbmx6" name="23" sourceRef="Gateway_1s6hr7y" targetRef="Activity_0gxpx53">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">#{instructionType == 23}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_1flcofs" name="24" sourceRef="Gateway_1s6hr7y" targetRef="Activity_07ohiww">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">#{instructionType == 24}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_1uq9s64" name="25" sourceRef="Gateway_1s6hr7y" targetRef="Activity_0l1uss6">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">#{instructionType == 25}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_103a3n9" name="26" sourceRef="Gateway_1s6hr7y" targetRef="Activity_0tmchqt">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">#{instructionType == 26}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_0f6ylq9" name="27" sourceRef="Gateway_1s6hr7y" targetRef="Activity_0qwdpio">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">#{instructionType == 27}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_1lh8bkf" name="28" sourceRef="Gateway_1s6hr7y" targetRef="Activity_0sa49xf">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">#{instructionType == 28}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_0a2zr8b" name="29" sourceRef="Gateway_1s6hr7y" targetRef="Activity_1ea0uzi">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">#{instructionType == 29}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_1p9bjax" name="30" sourceRef="Gateway_1s6hr7y" targetRef="Activity_1a06cot">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">#{instructionType == 30}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_1lj2on4" name="31" sourceRef="Gateway_1s6hr7y" targetRef="Activity_04mk18a">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">#{instructionType == 31}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_06goxiq" name="32" sourceRef="Gateway_1s6hr7y" targetRef="Activity_1ug3ksi">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">#{instructionType == 32}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_11y56om" name="33" sourceRef="Gateway_1s6hr7y" targetRef="Activity_0iqnm5m">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">#{instructionType == 33}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_0denl2k" name="36" sourceRef="Gateway_1s6hr7y" targetRef="Activity_0kd76mj">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">#{instructionType == 36}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_1fedbga" name="35" sourceRef="Gateway_1s6hr7y" targetRef="Activity_1afsouw">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">#{instructionType == 35}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_13shy41" name="34" sourceRef="Gateway_1s6hr7y" targetRef="Activity_15c41vd">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">#{instructionType == 34}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_0eqw846" name="37" sourceRef="Gateway_1s6hr7y" targetRef="Activity_1foch8j">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">#{instructionType == 37}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_08qxlia" name="38" sourceRef="Gateway_1s6hr7y" targetRef="Activity_0o1yf4y">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">#{instructionType == 38}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_05n3109" name="39" sourceRef="Gateway_1s6hr7y" targetRef="Activity_0cl2v2k">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">#{instructionType == 39}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_0hjnwkf" sourceRef="Activity_0gf81s6" targetRef="Event_14i89kz" />
+    <bpmn:sequenceFlow id="Flow_1c7247h" sourceRef="Activity_07grq4c" targetRef="Event_14i89kz" />
+    <bpmn:sequenceFlow id="Flow_04n3jov" sourceRef="Activity_1csm3xu" targetRef="Event_14i89kz" />
+    <bpmn:sequenceFlow id="Flow_09kz8lq" sourceRef="Activity_0rervay" targetRef="Event_14i89kz" />
+    <bpmn:sequenceFlow id="Flow_138fdk8" sourceRef="Activity_1yyifah" targetRef="Event_14i89kz" />
+    <bpmn:sequenceFlow id="Flow_0h4tjcy" sourceRef="Activity_0h2kayu" targetRef="Event_14i89kz" />
+    <bpmn:sequenceFlow id="Flow_07g7e16" sourceRef="Activity_0ph6y37" targetRef="Event_14i89kz" />
+    <bpmn:sequenceFlow id="Flow_1wg682f" sourceRef="Activity_013hure" targetRef="Event_14i89kz" />
+    <bpmn:sequenceFlow id="Flow_0lpdtbp" sourceRef="Activity_1jpa5dp" targetRef="Event_14i89kz" />
+    <bpmn:sequenceFlow id="Flow_0r052gn" sourceRef="Activity_1ckhi0r" targetRef="Event_14i89kz" />
+    <bpmn:sequenceFlow id="Flow_1jxi8q9" sourceRef="Activity_1prnjrz" targetRef="Event_14i89kz" />
+    <bpmn:sequenceFlow id="Flow_0r3x8k7" sourceRef="Activity_0r0n0x0" targetRef="Event_14i89kz" />
+    <bpmn:sequenceFlow id="Flow_10ma36i" sourceRef="Activity_1le5i3u" targetRef="Event_14i89kz" />
+    <bpmn:sequenceFlow id="Flow_1ee9b9k" sourceRef="Activity_0lmixin" targetRef="Event_14i89kz" />
+    <bpmn:sequenceFlow id="Flow_1iv7yxv" sourceRef="Activity_178idwb" targetRef="Event_14i89kz" />
+    <bpmn:sequenceFlow id="Flow_002qz8a" sourceRef="Activity_19clwyf" targetRef="Event_14i89kz" />
+    <bpmn:sequenceFlow id="Flow_1jw5x0d" sourceRef="Activity_0f2xtw3" targetRef="Event_14i89kz" />
+    <bpmn:sequenceFlow id="Flow_19joehl" sourceRef="Activity_0zp1y4d" targetRef="Event_14i89kz" />
+    <bpmn:sequenceFlow id="Flow_161wkst" sourceRef="Activity_0uv0rx1" targetRef="Event_14i89kz" />
+    <bpmn:sequenceFlow id="Flow_0r5al5g" sourceRef="Activity_0u5qqmk" targetRef="Event_14i89kz" />
+    <bpmn:sequenceFlow id="Flow_0hb2kj4" sourceRef="Activity_0gxpx53" targetRef="Event_14i89kz" />
+    <bpmn:sequenceFlow id="Flow_08stj6v" sourceRef="Activity_07ohiww" targetRef="Event_14i89kz" />
+    <bpmn:sequenceFlow id="Flow_11o3l8u" sourceRef="Activity_0l1uss6" targetRef="Event_14i89kz" />
+    <bpmn:sequenceFlow id="Flow_1mbrlto" sourceRef="Activity_0tmchqt" targetRef="Event_14i89kz" />
+    <bpmn:sequenceFlow id="Flow_1qkn9qo" sourceRef="Activity_0qwdpio" targetRef="Event_14i89kz" />
+    <bpmn:sequenceFlow id="Flow_1jhb4r2" sourceRef="Activity_0sa49xf" targetRef="Event_14i89kz" />
+    <bpmn:sequenceFlow id="Flow_0ahn4eq" sourceRef="Activity_1ea0uzi" targetRef="Event_14i89kz" />
+    <bpmn:sequenceFlow id="Flow_0gsfwmr" sourceRef="Activity_1a06cot" targetRef="Event_14i89kz" />
+    <bpmn:sequenceFlow id="Flow_07zvb7d" sourceRef="Activity_04mk18a" targetRef="Event_14i89kz" />
+    <bpmn:sequenceFlow id="Flow_07qr8kg" sourceRef="Activity_1ug3ksi" targetRef="Event_14i89kz" />
+    <bpmn:sequenceFlow id="Flow_0pl9h6b" sourceRef="Activity_0iqnm5m" targetRef="Event_14i89kz" />
+    <bpmn:sequenceFlow id="Flow_0nwp837" sourceRef="Activity_15c41vd" targetRef="Event_14i89kz" />
+    <bpmn:sequenceFlow id="Flow_1jczwt9" sourceRef="Activity_1afsouw" targetRef="Event_14i89kz" />
+    <bpmn:sequenceFlow id="Flow_1425i5q" sourceRef="Activity_0kd76mj" targetRef="Event_14i89kz" />
+    <bpmn:sequenceFlow id="Flow_0b95vzf" sourceRef="Activity_1foch8j" targetRef="Event_14i89kz" />
+    <bpmn:sequenceFlow id="Flow_0x9kkj8" sourceRef="Activity_0o1yf4y" targetRef="Event_14i89kz" />
+    <bpmn:sequenceFlow id="Flow_0hn31ge" sourceRef="Activity_0cl2v2k" targetRef="Event_14i89kz" />
+    <bpmn:exclusiveGateway id="Gateway_0ffdf4x">
+      <bpmn:incoming>Flow_0enqf2r</bpmn:incoming>
+      <bpmn:outgoing>Flow_0q44qbb</bpmn:outgoing>
+      <bpmn:outgoing>Flow_169g6fw</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:exclusiveGateway id="Gateway_1hahd9s">
+      <bpmn:incoming>Flow_0q44qbb</bpmn:incoming>
+      <bpmn:outgoing>Flow_1xrltlp</bpmn:outgoing>
+      <bpmn:outgoing>Flow_0jrbo4o</bpmn:outgoing>
+      <bpmn:outgoing>Flow_106gx4x</bpmn:outgoing>
+      <bpmn:outgoing>Flow_0cse6in</bpmn:outgoing>
+      <bpmn:outgoing>Flow_1kk2s13</bpmn:outgoing>
+      <bpmn:outgoing>Flow_0f184af</bpmn:outgoing>
+      <bpmn:outgoing>Flow_14adicg</bpmn:outgoing>
+      <bpmn:outgoing>Flow_0339ul5</bpmn:outgoing>
+      <bpmn:outgoing>Flow_070kw4v</bpmn:outgoing>
+      <bpmn:outgoing>Flow_0cvbi4d</bpmn:outgoing>
+      <bpmn:outgoing>Flow_0h1otg6</bpmn:outgoing>
+      <bpmn:outgoing>Flow_0lo7qhr</bpmn:outgoing>
+      <bpmn:outgoing>Flow_12i9csr</bpmn:outgoing>
+      <bpmn:outgoing>Flow_1c6nuny</bpmn:outgoing>
+      <bpmn:outgoing>Flow_1cpz3va</bpmn:outgoing>
+      <bpmn:outgoing>Flow_1hi3ji9</bpmn:outgoing>
+      <bpmn:outgoing>Flow_0ephss7</bpmn:outgoing>
+      <bpmn:outgoing>Flow_1opalqo</bpmn:outgoing>
+      <bpmn:outgoing>Flow_1muywur</bpmn:outgoing>
+      <bpmn:outgoing>Flow_0jcbhv8</bpmn:outgoing>
+      <bpmn:outgoing>Flow_0mm0dsx</bpmn:outgoing>
+      <bpmn:outgoing>Flow_0vx9840</bpmn:outgoing>
+      <bpmn:outgoing>Flow_1onp0ea</bpmn:outgoing>
+      <bpmn:outgoing>Flow_1jlltd8</bpmn:outgoing>
+      <bpmn:outgoing>Flow_1bs2lqp</bpmn:outgoing>
+      <bpmn:outgoing>Flow_0ppff9r</bpmn:outgoing>
+      <bpmn:outgoing>Flow_1wpl4vl</bpmn:outgoing>
+      <bpmn:outgoing>Flow_05ggnpy</bpmn:outgoing>
+      <bpmn:outgoing>Flow_114z54d</bpmn:outgoing>
+      <bpmn:outgoing>Flow_1r0k3p1</bpmn:outgoing>
+      <bpmn:outgoing>Flow_0dpxjz2</bpmn:outgoing>
+      <bpmn:outgoing>Flow_1f7hkoy</bpmn:outgoing>
+      <bpmn:outgoing>Flow_0o4bd8t</bpmn:outgoing>
+      <bpmn:outgoing>Flow_0ovgpgz</bpmn:outgoing>
+      <bpmn:outgoing>Flow_1s3ihxg</bpmn:outgoing>
+      <bpmn:outgoing>Flow_0148pz1</bpmn:outgoing>
+      <bpmn:outgoing>Flow_1j4qvh1</bpmn:outgoing>
+      <bpmn:outgoing>Flow_0yyvnk3</bpmn:outgoing>
+      <bpmn:outgoing>Flow_0zux3uh</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:serviceTask id="Activity_0jqxbus" name="Блокирование ЦБ">
+      <bpmn:extensionElements>
+        <camunda:connector>
+          <camunda:inputOutput>
+            <camunda:inputParameter name="url">${depoRESTApi}/api/metadata/GetByDefId?defid=3b5828b3-64e6-499b-97b9-6001ab8e7f86</camunda:inputParameter>
+            <camunda:inputParameter name="method">GET</camunda:inputParameter>
+            <camunda:inputParameter name="headers">
+              <camunda:map>
+                <camunda:entry key="Content-Type">application/x-www-form-urlencoded</camunda:entry>
+                <camunda:entry key="cache-control">no-cache</camunda:entry>
+              </camunda:map>
+            </camunda:inputParameter>
+            <camunda:outputParameter name="form">
+              <camunda:script scriptFormat="Javascript">S(response).prop("data").toString()</camunda:script>
+            </camunda:outputParameter>
+          </camunda:inputOutput>
+          <camunda:connectorId>http-connector</camunda:connectorId>
+        </camunda:connector>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_1xrltlp</bpmn:incoming>
+      <bpmn:outgoing>Flow_0v4bzrd</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:endEvent id="Event_1o51kn9">
+      <bpmn:incoming>Flow_0v4bzrd</bpmn:incoming>
+      <bpmn:incoming>Flow_01u1i13</bpmn:incoming>
+      <bpmn:incoming>Flow_13weki6</bpmn:incoming>
+      <bpmn:incoming>Flow_11itnhp</bpmn:incoming>
+      <bpmn:incoming>Flow_1wl5s8q</bpmn:incoming>
+      <bpmn:incoming>Flow_1runkhw</bpmn:incoming>
+      <bpmn:incoming>Flow_0xf29xu</bpmn:incoming>
+      <bpmn:incoming>Flow_0nkc1xy</bpmn:incoming>
+      <bpmn:incoming>Flow_0wbo01e</bpmn:incoming>
+      <bpmn:incoming>Flow_0zn73v0</bpmn:incoming>
+      <bpmn:incoming>Flow_0ls0ao9</bpmn:incoming>
+      <bpmn:incoming>Flow_1icwumn</bpmn:incoming>
+      <bpmn:incoming>Flow_16i5hax</bpmn:incoming>
+      <bpmn:incoming>Flow_0ltv7n9</bpmn:incoming>
+      <bpmn:incoming>Flow_1rlyni8</bpmn:incoming>
+      <bpmn:incoming>Flow_0tmgrck</bpmn:incoming>
+      <bpmn:incoming>Flow_1xwq5pd</bpmn:incoming>
+      <bpmn:incoming>Flow_0d7m416</bpmn:incoming>
+      <bpmn:incoming>Flow_0nih4zx</bpmn:incoming>
+      <bpmn:incoming>Flow_17n5dm8</bpmn:incoming>
+      <bpmn:incoming>Flow_0ky24td</bpmn:incoming>
+      <bpmn:incoming>Flow_0kxj53h</bpmn:incoming>
+      <bpmn:incoming>Flow_1n1336o</bpmn:incoming>
+      <bpmn:incoming>Flow_13o4whc</bpmn:incoming>
+      <bpmn:incoming>Flow_07f3ek5</bpmn:incoming>
+      <bpmn:incoming>Flow_02h2upy</bpmn:incoming>
+      <bpmn:incoming>Flow_0qofewl</bpmn:incoming>
+      <bpmn:incoming>Flow_1y3ojcd</bpmn:incoming>
+      <bpmn:incoming>Flow_08tanzu</bpmn:incoming>
+      <bpmn:incoming>Flow_0saowf5</bpmn:incoming>
+      <bpmn:incoming>Flow_15nnonc</bpmn:incoming>
+      <bpmn:incoming>Flow_00wvv3j</bpmn:incoming>
+      <bpmn:incoming>Flow_0i5fes1</bpmn:incoming>
+      <bpmn:incoming>Flow_0nf80qo</bpmn:incoming>
+      <bpmn:incoming>Flow_0pmbpu9</bpmn:incoming>
+      <bpmn:incoming>Flow_16xesp7</bpmn:incoming>
+      <bpmn:incoming>Flow_1i1yg0s</bpmn:incoming>
+      <bpmn:incoming>Flow_172vpox</bpmn:incoming>
+      <bpmn:incoming>Flow_0uv6vdb</bpmn:incoming>
+      <bpmn:incoming>Flow_1swpvq8</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:serviceTask id="Activity_1wbxgs6" name="Депонирование денежных средств (ДС)">
+      <bpmn:extensionElements>
+        <camunda:connector>
+          <camunda:inputOutput>
+            <camunda:inputParameter name="url">${depoRESTApi}/api/metadata/GetByDefId?defid=22a8188d-81b9-46df-bd1b-11c1be4dcbcf</camunda:inputParameter>
+            <camunda:inputParameter name="method">GET</camunda:inputParameter>
+            <camunda:inputParameter name="headers">
+              <camunda:map>
+                <camunda:entry key="Content-Type">application/x-www-form-urlencoded</camunda:entry>
+                <camunda:entry key="cache-control">no-cache</camunda:entry>
+              </camunda:map>
+            </camunda:inputParameter>
+            <camunda:outputParameter name="form">
+              <camunda:script scriptFormat="Javascript">S(response).prop("data").toString()</camunda:script>
+            </camunda:outputParameter>
+          </camunda:inputOutput>
+          <camunda:connectorId>http-connector</camunda:connectorId>
+        </camunda:connector>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_0jrbo4o</bpmn:incoming>
+      <bpmn:outgoing>Flow_01u1i13</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="Activity_0al12gq" name="Депонирование ДС по дивидендам">
+      <bpmn:extensionElements>
+        <camunda:connector>
+          <camunda:inputOutput>
+            <camunda:inputParameter name="url">${depoRESTApi}/api/metadata/GetByDefId?defid=ce1187a4-61c3-4949-a372-b368bbca5090</camunda:inputParameter>
+            <camunda:inputParameter name="method">GET</camunda:inputParameter>
+            <camunda:inputParameter name="headers">
+              <camunda:map>
+                <camunda:entry key="Content-Type">application/x-www-form-urlencoded</camunda:entry>
+                <camunda:entry key="cache-control">no-cache</camunda:entry>
+              </camunda:map>
+            </camunda:inputParameter>
+            <camunda:outputParameter name="form">
+              <camunda:script scriptFormat="Javascript">S(response).prop("data").toString()</camunda:script>
+            </camunda:outputParameter>
+          </camunda:inputOutput>
+          <camunda:connectorId>http-connector</camunda:connectorId>
+        </camunda:connector>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_106gx4x</bpmn:incoming>
+      <bpmn:outgoing>Flow_13weki6</bpmn:outgoing>
+      <bpmn:outgoing>Flow_11itnhp</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="Activity_1eelnb5" name="Депонирование облигаций">
+      <bpmn:extensionElements>
+        <camunda:connector>
+          <camunda:inputOutput>
+            <camunda:inputParameter name="url">${depoRESTApi}/api/metadata/GetByDefId?defid=5cc9ed45-b05a-430e-8606-ffa050092b09</camunda:inputParameter>
+            <camunda:inputParameter name="method">GET</camunda:inputParameter>
+            <camunda:inputParameter name="headers">
+              <camunda:map>
+                <camunda:entry key="Content-Type">application/x-www-form-urlencoded</camunda:entry>
+                <camunda:entry key="cache-control">no-cache</camunda:entry>
+              </camunda:map>
+            </camunda:inputParameter>
+            <camunda:outputParameter name="form">
+              <camunda:script scriptFormat="Javascript">S(response).prop("data").toString()</camunda:script>
+            </camunda:outputParameter>
+          </camunda:inputOutput>
+          <camunda:connectorId>http-connector</camunda:connectorId>
+        </camunda:connector>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_0cse6in</bpmn:incoming>
+      <bpmn:outgoing>Flow_1wl5s8q</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="Activity_067ey11" name="Депонирование ДС на накопительный счет">
+      <bpmn:extensionElements>
+        <camunda:connector>
+          <camunda:inputOutput>
+            <camunda:inputParameter name="url">${depoRESTApi}/api/metadata/GetByDefId?defid=4e220ea7-7280-40da-a534-a16b086569d1</camunda:inputParameter>
+            <camunda:inputParameter name="method">GET</camunda:inputParameter>
+            <camunda:inputParameter name="headers">
+              <camunda:map>
+                <camunda:entry key="Content-Type">application/x-www-form-urlencoded</camunda:entry>
+                <camunda:entry key="cache-control">no-cache</camunda:entry>
+              </camunda:map>
+            </camunda:inputParameter>
+            <camunda:outputParameter name="form">
+              <camunda:script scriptFormat="Javascript">S(response).prop("data").toString()</camunda:script>
+            </camunda:outputParameter>
+          </camunda:inputOutput>
+          <camunda:connectorId>http-connector</camunda:connectorId>
+        </camunda:connector>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_1kk2s13</bpmn:incoming>
+      <bpmn:outgoing>Flow_1runkhw</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="Activity_136vnft" name="Депонирование ЦБ">
+      <bpmn:extensionElements>
+        <camunda:connector>
+          <camunda:inputOutput>
+            <camunda:inputParameter name="url">${depoRESTApi}/api/metadata/GetByDefId?defid=f29bbfb4-eafd-40c2-853b-bf42acb95f98</camunda:inputParameter>
+            <camunda:inputParameter name="method">GET</camunda:inputParameter>
+            <camunda:inputParameter name="headers">
+              <camunda:map>
+                <camunda:entry key="Content-Type">application/x-www-form-urlencoded</camunda:entry>
+                <camunda:entry key="cache-control">no-cache</camunda:entry>
+              </camunda:map>
+            </camunda:inputParameter>
+            <camunda:outputParameter name="form">
+              <camunda:script scriptFormat="Javascript">S(response).prop("data").toString()</camunda:script>
+            </camunda:outputParameter>
+          </camunda:inputOutput>
+          <camunda:connectorId>http-connector</camunda:connectorId>
+        </camunda:connector>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_0f184af</bpmn:incoming>
+      <bpmn:outgoing>Flow_0xf29xu</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="Activity_19mpy8m" name="Депонирование ЦБ из ДК">
+      <bpmn:extensionElements>
+        <camunda:connector>
+          <camunda:inputOutput>
+            <camunda:inputParameter name="url">${depoRESTApi}/api/metadata/GetByDefId?defid=aca8c422-adb6-4a02-bee9-93c6eb48f4a6</camunda:inputParameter>
+            <camunda:inputParameter name="method">GET</camunda:inputParameter>
+            <camunda:inputParameter name="headers">
+              <camunda:map>
+                <camunda:entry key="Content-Type">application/x-www-form-urlencoded</camunda:entry>
+                <camunda:entry key="cache-control">no-cache</camunda:entry>
+              </camunda:map>
+            </camunda:inputParameter>
+            <camunda:outputParameter name="form">
+              <camunda:script scriptFormat="Javascript">S(response).prop("data").toString()</camunda:script>
+            </camunda:outputParameter>
+          </camunda:inputOutput>
+          <camunda:connectorId>http-connector</camunda:connectorId>
+        </camunda:connector>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_14adicg</bpmn:incoming>
+      <bpmn:outgoing>Flow_0nkc1xy</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="Activity_0w7psgw" name="Залог ЦБ">
+      <bpmn:extensionElements>
+        <camunda:connector>
+          <camunda:inputOutput>
+            <camunda:inputParameter name="url">${depoRESTApi}/api/metadata/GetByDefId?defid=b01f5ac4-33ab-4342-a863-e752c55f248a</camunda:inputParameter>
+            <camunda:inputParameter name="method">GET</camunda:inputParameter>
+            <camunda:inputParameter name="headers">
+              <camunda:map>
+                <camunda:entry key="Content-Type">application/x-www-form-urlencoded</camunda:entry>
+                <camunda:entry key="cache-control">no-cache</camunda:entry>
+              </camunda:map>
+            </camunda:inputParameter>
+            <camunda:outputParameter name="form">
+              <camunda:script scriptFormat="Javascript">S(response).prop("data").toString()</camunda:script>
+            </camunda:outputParameter>
+          </camunda:inputOutput>
+          <camunda:connectorId>http-connector</camunda:connectorId>
+        </camunda:connector>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_0339ul5</bpmn:incoming>
+      <bpmn:outgoing>Flow_0wbo01e</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="Activity_0jod0gg" name="Клиринг ДС">
+      <bpmn:extensionElements>
+        <camunda:connector>
+          <camunda:inputOutput>
+            <camunda:inputParameter name="url">${depoRESTApi}/api/metadata/GetByDefId?defid=4a0a7ec3-6e8f-4450-aaaf-741f02918efb</camunda:inputParameter>
+            <camunda:inputParameter name="method">GET</camunda:inputParameter>
+            <camunda:inputParameter name="headers">
+              <camunda:map>
+                <camunda:entry key="Content-Type">application/x-www-form-urlencoded</camunda:entry>
+                <camunda:entry key="cache-control">no-cache</camunda:entry>
+              </camunda:map>
+            </camunda:inputParameter>
+            <camunda:outputParameter name="form">
+              <camunda:script scriptFormat="Javascript">S(response).prop("data").toString()</camunda:script>
+            </camunda:outputParameter>
+          </camunda:inputOutput>
+          <camunda:connectorId>http-connector</camunda:connectorId>
+        </camunda:connector>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_070kw4v</bpmn:incoming>
+      <bpmn:outgoing>Flow_0zn73v0</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="Activity_15xzksr" name="Клиринг ЦБ">
+      <bpmn:extensionElements>
+        <camunda:connector>
+          <camunda:inputOutput>
+            <camunda:inputParameter name="url">${depoRESTApi}/api/metadata/GetByDefId?defid=1088c5f8-32bb-4587-bdd7-2d7ef01775a2</camunda:inputParameter>
+            <camunda:inputParameter name="method">GET</camunda:inputParameter>
+            <camunda:inputParameter name="headers">
+              <camunda:map>
+                <camunda:entry key="Content-Type">application/x-www-form-urlencoded</camunda:entry>
+                <camunda:entry key="cache-control">no-cache</camunda:entry>
+              </camunda:map>
+            </camunda:inputParameter>
+            <camunda:outputParameter name="form">
+              <camunda:script scriptFormat="Javascript">S(response).prop("data").toString()</camunda:script>
+            </camunda:outputParameter>
+          </camunda:inputOutput>
+          <camunda:connectorId>http-connector</camunda:connectorId>
+        </camunda:connector>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_0cvbi4d</bpmn:incoming>
+      <bpmn:outgoing>Flow_0ls0ao9</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="Activity_10m3d64" name="Назначение управляющего счетом">
+      <bpmn:extensionElements>
+        <camunda:connector>
+          <camunda:inputOutput>
+            <camunda:inputParameter name="url">${depoRESTApi}/api/metadata/GetByDefId?defid=8599c3eb-fe9c-43dc-a6b2-fedae5ef72e9</camunda:inputParameter>
+            <camunda:inputParameter name="method">GET</camunda:inputParameter>
+            <camunda:inputParameter name="headers">
+              <camunda:map>
+                <camunda:entry key="Content-Type">application/x-www-form-urlencoded</camunda:entry>
+                <camunda:entry key="cache-control">no-cache</camunda:entry>
+              </camunda:map>
+            </camunda:inputParameter>
+            <camunda:outputParameter name="form">
+              <camunda:script scriptFormat="Javascript">S(response).prop("data").toString()</camunda:script>
+            </camunda:outputParameter>
+          </camunda:inputOutput>
+          <camunda:connectorId>http-connector</camunda:connectorId>
+        </camunda:connector>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_0h1otg6</bpmn:incoming>
+      <bpmn:outgoing>Flow_1icwumn</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="Activity_0vc5y1c" name="Освобождение залога ЦБ">
+      <bpmn:extensionElements>
+        <camunda:connector>
+          <camunda:inputOutput>
+            <camunda:inputParameter name="url">${depoRESTApi}/api/metadata/GetByDefId?defid=840ca202-ab52-404d-b86a-1f41e4113625</camunda:inputParameter>
+            <camunda:inputParameter name="method">GET</camunda:inputParameter>
+            <camunda:inputParameter name="headers">
+              <camunda:map>
+                <camunda:entry key="Content-Type">application/x-www-form-urlencoded</camunda:entry>
+                <camunda:entry key="cache-control">no-cache</camunda:entry>
+              </camunda:map>
+            </camunda:inputParameter>
+            <camunda:outputParameter name="form">
+              <camunda:script scriptFormat="Javascript">S(response).prop("data").toString()</camunda:script>
+            </camunda:outputParameter>
+          </camunda:inputOutput>
+          <camunda:connectorId>http-connector</camunda:connectorId>
+        </camunda:connector>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_12i9csr</bpmn:incoming>
+      <bpmn:outgoing>Flow_16i5hax</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="Activity_0zttpiu" name="Открытие счета">
+      <bpmn:extensionElements>
+        <camunda:connector>
+          <camunda:inputOutput>
+            <camunda:inputParameter name="url">${depoRESTApi}/api/metadata/GetByDefId?defid=adde1964-92e0-4a49-aff7-0c4f9eadec16</camunda:inputParameter>
+            <camunda:inputParameter name="method">GET</camunda:inputParameter>
+            <camunda:inputParameter name="headers">
+              <camunda:map>
+                <camunda:entry key="Content-Type">application/x-www-form-urlencoded</camunda:entry>
+                <camunda:entry key="cache-control">no-cache</camunda:entry>
+              </camunda:map>
+            </camunda:inputParameter>
+            <camunda:outputParameter name="form">
+              <camunda:script scriptFormat="Javascript">S(response).prop("data").toString()</camunda:script>
+            </camunda:outputParameter>
+          </camunda:inputOutput>
+          <camunda:connectorId>http-connector</camunda:connectorId>
+        </camunda:connector>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_0lo7qhr</bpmn:incoming>
+      <bpmn:outgoing>Flow_0ltv7n9</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="Activity_06w8jku" name="Перевод блокированных ЦБ по активным счетам">
+      <bpmn:extensionElements>
+        <camunda:connector>
+          <camunda:inputOutput>
+            <camunda:inputParameter name="url">${depoRESTApi}/api/metadata/GetByDefId?defid=0a53b1c3-3bd0-4ad8-b67b-139893c584ab</camunda:inputParameter>
+            <camunda:inputParameter name="method">GET</camunda:inputParameter>
+            <camunda:inputParameter name="headers">
+              <camunda:map>
+                <camunda:entry key="Content-Type">application/x-www-form-urlencoded</camunda:entry>
+                <camunda:entry key="cache-control">no-cache</camunda:entry>
+              </camunda:map>
+            </camunda:inputParameter>
+            <camunda:outputParameter name="form">
+              <camunda:script scriptFormat="Javascript">S(response).prop("data").toString()</camunda:script>
+            </camunda:outputParameter>
+          </camunda:inputOutput>
+          <camunda:connectorId>http-connector</camunda:connectorId>
+        </camunda:connector>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_1c6nuny</bpmn:incoming>
+      <bpmn:outgoing>Flow_1rlyni8</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="Activity_0y01a3u" name="Перевод свободных ЦБ по активным счетам">
+      <bpmn:extensionElements>
+        <camunda:connector>
+          <camunda:inputOutput>
+            <camunda:inputParameter name="url">${depoRESTApi}/api/metadata/GetByDefId?defid=c023da3b-101d-4aac-ad2f-d82a409631e0</camunda:inputParameter>
+            <camunda:inputParameter name="method">GET</camunda:inputParameter>
+            <camunda:inputParameter name="headers">
+              <camunda:map>
+                <camunda:entry key="Content-Type">application/x-www-form-urlencoded</camunda:entry>
+                <camunda:entry key="cache-control">no-cache</camunda:entry>
+              </camunda:map>
+            </camunda:inputParameter>
+            <camunda:outputParameter name="form">
+              <camunda:script scriptFormat="Javascript">S(response).prop("data").toString()</camunda:script>
+            </camunda:outputParameter>
+          </camunda:inputOutput>
+          <camunda:connectorId>http-connector</camunda:connectorId>
+        </camunda:connector>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_1cpz3va</bpmn:incoming>
+      <bpmn:outgoing>Flow_0tmgrck</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="Activity_1w9m8jd" name="Перевод ЦБ">
+      <bpmn:extensionElements>
+        <camunda:connector>
+          <camunda:inputOutput>
+            <camunda:inputParameter name="url">${depoRESTApi}/api/metadata/GetByDefId?defid=81ead381-eb64-40be-8b64-1cf6f4d542ea</camunda:inputParameter>
+            <camunda:inputParameter name="method">GET</camunda:inputParameter>
+            <camunda:inputParameter name="headers">
+              <camunda:map>
+                <camunda:entry key="Content-Type">application/x-www-form-urlencoded</camunda:entry>
+                <camunda:entry key="cache-control">no-cache</camunda:entry>
+              </camunda:map>
+            </camunda:inputParameter>
+            <camunda:outputParameter name="form">
+              <camunda:script scriptFormat="Javascript">S(response).prop("data").toString()</camunda:script>
+            </camunda:outputParameter>
+          </camunda:inputOutput>
+          <camunda:connectorId>http-connector</camunda:connectorId>
+        </camunda:connector>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_1hi3ji9</bpmn:incoming>
+      <bpmn:outgoing>Flow_1xwq5pd</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="Activity_0ezsksi" name="Перевод ЦБ в ТС">
+      <bpmn:extensionElements>
+        <camunda:connector>
+          <camunda:inputOutput>
+            <camunda:inputParameter name="url">${depoRESTApi}/api/metadata/GetByDefId?defid=c184233e-c01f-4b28-b436-c3f5022d63fb</camunda:inputParameter>
+            <camunda:inputParameter name="method">GET</camunda:inputParameter>
+            <camunda:inputParameter name="headers">
+              <camunda:map>
+                <camunda:entry key="Content-Type">application/x-www-form-urlencoded</camunda:entry>
+                <camunda:entry key="cache-control">no-cache</camunda:entry>
+              </camunda:map>
+            </camunda:inputParameter>
+            <camunda:outputParameter name="form">
+              <camunda:script scriptFormat="Javascript">S(response).prop("data").toString()</camunda:script>
+            </camunda:outputParameter>
+          </camunda:inputOutput>
+          <camunda:connectorId>http-connector</camunda:connectorId>
+        </camunda:connector>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_0ephss7</bpmn:incoming>
+      <bpmn:outgoing>Flow_0d7m416</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="Activity_0pyjgej" name="Перевод ЦБ из ТС">
+      <bpmn:extensionElements>
+        <camunda:connector>
+          <camunda:inputOutput>
+            <camunda:inputParameter name="url">${depoRESTApi}/api/metadata/GetByDefId?defid=44f2fa12-ace7-4d8b-831e-765e93143fb1</camunda:inputParameter>
+            <camunda:inputParameter name="method">GET</camunda:inputParameter>
+            <camunda:inputParameter name="headers">
+              <camunda:map>
+                <camunda:entry key="Content-Type">application/x-www-form-urlencoded</camunda:entry>
+                <camunda:entry key="cache-control">no-cache</camunda:entry>
+              </camunda:map>
+            </camunda:inputParameter>
+            <camunda:outputParameter name="form">
+              <camunda:script scriptFormat="Javascript">S(response).prop("data").toString()</camunda:script>
+            </camunda:outputParameter>
+          </camunda:inputOutput>
+          <camunda:connectorId>http-connector</camunda:connectorId>
+        </camunda:connector>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_1opalqo</bpmn:incoming>
+      <bpmn:outgoing>Flow_0nih4zx</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="Activity_1s03k3s" name="Снятие блокирования ЦБ">
+      <bpmn:extensionElements>
+        <camunda:connector>
+          <camunda:inputOutput>
+            <camunda:inputParameter name="url">${depoRESTApi}/api/metadata/GetByDefId?defid=b1fc9d43-cc24-439d-b960-0a250e8fb01a</camunda:inputParameter>
+            <camunda:inputParameter name="method">GET</camunda:inputParameter>
+            <camunda:inputParameter name="headers">
+              <camunda:map>
+                <camunda:entry key="Content-Type">application/x-www-form-urlencoded</camunda:entry>
+                <camunda:entry key="cache-control">no-cache</camunda:entry>
+              </camunda:map>
+            </camunda:inputParameter>
+            <camunda:outputParameter name="form">
+              <camunda:script scriptFormat="Javascript">S(response).prop("data").toString()</camunda:script>
+            </camunda:outputParameter>
+          </camunda:inputOutput>
+          <camunda:connectorId>http-connector</camunda:connectorId>
+        </camunda:connector>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_1muywur</bpmn:incoming>
+      <bpmn:outgoing>Flow_17n5dm8</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="Activity_0xgmhp3" name="Списание ДС">
+      <bpmn:extensionElements>
+        <camunda:connector>
+          <camunda:inputOutput>
+            <camunda:inputParameter name="url">${depoRESTApi}/api/metadata/GetByDefId?defid=033fe9a9-26ae-4ac4-bc35-63464484d8a9</camunda:inputParameter>
+            <camunda:inputParameter name="method">GET</camunda:inputParameter>
+            <camunda:inputParameter name="headers">
+              <camunda:map>
+                <camunda:entry key="Content-Type">application/x-www-form-urlencoded</camunda:entry>
+                <camunda:entry key="cache-control">no-cache</camunda:entry>
+              </camunda:map>
+            </camunda:inputParameter>
+            <camunda:outputParameter name="form">
+              <camunda:script scriptFormat="Javascript">S(response).prop("data").toString()</camunda:script>
+            </camunda:outputParameter>
+          </camunda:inputOutput>
+          <camunda:connectorId>http-connector</camunda:connectorId>
+        </camunda:connector>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_0jcbhv8</bpmn:incoming>
+      <bpmn:outgoing>Flow_0ky24td</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="Activity_1ajl1d2" name="Списание ДС по ГРОССУ">
+      <bpmn:extensionElements>
+        <camunda:connector>
+          <camunda:inputOutput>
+            <camunda:inputParameter name="url">${depoRESTApi}/api/metadata/GetByDefId?defid=9b7123e1-069b-405d-bf27-aaec17416365</camunda:inputParameter>
+            <camunda:inputParameter name="method">GET</camunda:inputParameter>
+            <camunda:inputParameter name="headers">
+              <camunda:map>
+                <camunda:entry key="Content-Type">application/x-www-form-urlencoded</camunda:entry>
+                <camunda:entry key="cache-control">no-cache</camunda:entry>
+              </camunda:map>
+            </camunda:inputParameter>
+            <camunda:outputParameter name="form">
+              <camunda:script scriptFormat="Javascript">S(response).prop("data").toString()</camunda:script>
+            </camunda:outputParameter>
+          </camunda:inputOutput>
+          <camunda:connectorId>http-connector</camunda:connectorId>
+        </camunda:connector>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_0mm0dsx</bpmn:incoming>
+      <bpmn:outgoing>Flow_0kxj53h</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="Activity_1tlknw0" name="Списание облигаций">
+      <bpmn:extensionElements>
+        <camunda:connector>
+          <camunda:inputOutput>
+            <camunda:inputParameter name="url">${depoRESTApi}/api/metadata/GetByDefId?defid=373bd93f-b897-40f1-9a27-c94044faf5a7</camunda:inputParameter>
+            <camunda:inputParameter name="method">GET</camunda:inputParameter>
+            <camunda:inputParameter name="headers">
+              <camunda:map>
+                <camunda:entry key="Content-Type">application/x-www-form-urlencoded</camunda:entry>
+                <camunda:entry key="cache-control">no-cache</camunda:entry>
+              </camunda:map>
+            </camunda:inputParameter>
+            <camunda:outputParameter name="form">
+              <camunda:script scriptFormat="Javascript">S(response).prop("data").toString()</camunda:script>
+            </camunda:outputParameter>
+          </camunda:inputOutput>
+          <camunda:connectorId>http-connector</camunda:connectorId>
+        </camunda:connector>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_0vx9840</bpmn:incoming>
+      <bpmn:outgoing>Flow_1n1336o</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="Activity_0766xn7" name="Списание ДС с накопительного счета">
+      <bpmn:extensionElements>
+        <camunda:connector>
+          <camunda:inputOutput>
+            <camunda:inputParameter name="url">${depoRESTApi}/api/metadata/GetByDefId?defid=7e6ca406-9f4c-4c62-987f-4217fae50f4c</camunda:inputParameter>
+            <camunda:inputParameter name="method">GET</camunda:inputParameter>
+            <camunda:inputParameter name="headers">
+              <camunda:map>
+                <camunda:entry key="Content-Type">application/x-www-form-urlencoded</camunda:entry>
+                <camunda:entry key="cache-control">no-cache</camunda:entry>
+              </camunda:map>
+            </camunda:inputParameter>
+            <camunda:outputParameter name="form">
+              <camunda:script scriptFormat="Javascript">S(response).prop("data").toString()</camunda:script>
+            </camunda:outputParameter>
+          </camunda:inputOutput>
+          <camunda:connectorId>http-connector</camunda:connectorId>
+        </camunda:connector>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_1onp0ea</bpmn:incoming>
+      <bpmn:outgoing>Flow_13o4whc</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="Activity_142348y" name="Списание ДС по дивидендам">
+      <bpmn:extensionElements>
+        <camunda:connector>
+          <camunda:inputOutput>
+            <camunda:inputParameter name="url">${depoRESTApi}/api/metadata/GetByDefId?defid=38d95f2f-6624-41af-9151-4a931a887f8b</camunda:inputParameter>
+            <camunda:inputParameter name="method">GET</camunda:inputParameter>
+            <camunda:inputParameter name="headers">
+              <camunda:map>
+                <camunda:entry key="Content-Type">application/x-www-form-urlencoded</camunda:entry>
+                <camunda:entry key="cache-control">no-cache</camunda:entry>
+              </camunda:map>
+            </camunda:inputParameter>
+            <camunda:outputParameter name="form">
+              <camunda:script scriptFormat="Javascript">S(response).prop("data").toString()</camunda:script>
+            </camunda:outputParameter>
+          </camunda:inputOutput>
+          <camunda:connectorId>http-connector</camunda:connectorId>
+        </camunda:connector>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_1jlltd8</bpmn:incoming>
+      <bpmn:outgoing>Flow_07f3ek5</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="Activity_1kv9769" name="Списание ЦБ">
+      <bpmn:extensionElements>
+        <camunda:connector>
+          <camunda:inputOutput>
+            <camunda:inputParameter name="url">${depoRESTApi}/api/metadata/GetByDefId?defid=ba1da532-9acc-4e55-841d-0e4f4d914070</camunda:inputParameter>
+            <camunda:inputParameter name="method">GET</camunda:inputParameter>
+            <camunda:inputParameter name="headers">
+              <camunda:map>
+                <camunda:entry key="Content-Type">application/x-www-form-urlencoded</camunda:entry>
+                <camunda:entry key="cache-control">no-cache</camunda:entry>
+              </camunda:map>
+            </camunda:inputParameter>
+            <camunda:outputParameter name="form">
+              <camunda:script scriptFormat="Javascript">S(response).prop("data").toString()</camunda:script>
+            </camunda:outputParameter>
+          </camunda:inputOutput>
+          <camunda:connectorId>http-connector</camunda:connectorId>
+        </camunda:connector>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_1bs2lqp</bpmn:incoming>
+      <bpmn:outgoing>Flow_02h2upy</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="Activity_1n0mhk3" name="Списание ЦБ в ДК">
+      <bpmn:extensionElements>
+        <camunda:connector>
+          <camunda:inputOutput>
+            <camunda:inputParameter name="url">${depoRESTApi}/api/metadata/GetByDefId?defid=6ac11cd3-cb2d-4648-94d7-0c47aac87e6f</camunda:inputParameter>
+            <camunda:inputParameter name="method">GET</camunda:inputParameter>
+            <camunda:inputParameter name="headers">
+              <camunda:map>
+                <camunda:entry key="Content-Type">application/x-www-form-urlencoded</camunda:entry>
+                <camunda:entry key="cache-control">no-cache</camunda:entry>
+              </camunda:map>
+            </camunda:inputParameter>
+            <camunda:outputParameter name="form">
+              <camunda:script scriptFormat="Javascript">S(response).prop("data").toString()</camunda:script>
+            </camunda:outputParameter>
+          </camunda:inputOutput>
+          <camunda:connectorId>http-connector</camunda:connectorId>
+        </camunda:connector>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_0ppff9r</bpmn:incoming>
+      <bpmn:outgoing>Flow_0qofewl</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="Activity_0ynb4eb" name="Перемещение ЦБ по счетам одного депонента">
+      <bpmn:extensionElements>
+        <camunda:connector>
+          <camunda:inputOutput>
+            <camunda:inputParameter name="url">${depoRESTApi}/api/metadata/GetByDefId?defid=6fcf9ff0-f18a-4376-baf8-ddd95c681748</camunda:inputParameter>
+            <camunda:inputParameter name="method">GET</camunda:inputParameter>
+            <camunda:inputParameter name="headers">
+              <camunda:map>
+                <camunda:entry key="Content-Type">application/x-www-form-urlencoded</camunda:entry>
+                <camunda:entry key="cache-control">no-cache</camunda:entry>
+              </camunda:map>
+            </camunda:inputParameter>
+            <camunda:outputParameter name="form">
+              <camunda:script scriptFormat="Javascript">S(response).prop("data").toString()</camunda:script>
+            </camunda:outputParameter>
+          </camunda:inputOutput>
+          <camunda:connectorId>http-connector</camunda:connectorId>
+        </camunda:connector>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_1wpl4vl</bpmn:incoming>
+      <bpmn:outgoing>Flow_1y3ojcd</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="Activity_1f1v0kn" name="Снятие блокирования ЦБ">
+      <bpmn:extensionElements>
+        <camunda:connector>
+          <camunda:inputOutput>
+            <camunda:inputParameter name="url">${depoRESTApi}/api/metadata/GetByDefId?defid=fd021cc6-7486-4e51-b67e-516d1c36c104</camunda:inputParameter>
+            <camunda:inputParameter name="method">GET</camunda:inputParameter>
+            <camunda:inputParameter name="headers">
+              <camunda:map>
+                <camunda:entry key="Content-Type">application/x-www-form-urlencoded</camunda:entry>
+                <camunda:entry key="cache-control">no-cache</camunda:entry>
+              </camunda:map>
+            </camunda:inputParameter>
+            <camunda:outputParameter name="form">
+              <camunda:script scriptFormat="Javascript">S(response).prop("data").toString()</camunda:script>
+            </camunda:outputParameter>
+          </camunda:inputOutput>
+          <camunda:connectorId>http-connector</camunda:connectorId>
+        </camunda:connector>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_05ggnpy</bpmn:incoming>
+      <bpmn:outgoing>Flow_08tanzu</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="Activity_0awmc5i" name="Перевод ЦБ депонента на счет другого депонента">
+      <bpmn:extensionElements>
+        <camunda:connector>
+          <camunda:inputOutput>
+            <camunda:inputParameter name="url">${depoRESTApi}/api/metadata/GetByDefId?defid=9304906a-17ab-4435-9de8-6bb87cd1c871</camunda:inputParameter>
+            <camunda:inputParameter name="method">GET</camunda:inputParameter>
+            <camunda:inputParameter name="headers">
+              <camunda:map>
+                <camunda:entry key="Content-Type">application/x-www-form-urlencoded</camunda:entry>
+                <camunda:entry key="cache-control">no-cache</camunda:entry>
+              </camunda:map>
+            </camunda:inputParameter>
+            <camunda:outputParameter name="form">
+              <camunda:script scriptFormat="Javascript">S(response).prop("data").toString()</camunda:script>
+            </camunda:outputParameter>
+          </camunda:inputOutput>
+          <camunda:connectorId>http-connector</camunda:connectorId>
+        </camunda:connector>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_114z54d</bpmn:incoming>
+      <bpmn:outgoing>Flow_0saowf5</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="Activity_0mmjey7" name="Перевод ДС">
+      <bpmn:extensionElements>
+        <camunda:connector>
+          <camunda:inputOutput>
+            <camunda:inputParameter name="url">${depoRESTApi}/api/metadata/GetByDefId?defid=526b367a-e08a-43a0-b38d-d96a36f2d068</camunda:inputParameter>
+            <camunda:inputParameter name="method">GET</camunda:inputParameter>
+            <camunda:inputParameter name="headers">
+              <camunda:map>
+                <camunda:entry key="Content-Type">application/x-www-form-urlencoded</camunda:entry>
+                <camunda:entry key="cache-control">no-cache</camunda:entry>
+              </camunda:map>
+            </camunda:inputParameter>
+            <camunda:outputParameter name="form">
+              <camunda:script scriptFormat="Javascript">S(response).prop("data").toString()</camunda:script>
+            </camunda:outputParameter>
+          </camunda:inputOutput>
+          <camunda:connectorId>http-connector</camunda:connectorId>
+        </camunda:connector>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_1r0k3p1</bpmn:incoming>
+      <bpmn:outgoing>Flow_15nnonc</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="Activity_0u4rmtl" name="Перевод ДС по основным счетам ЦД">
+      <bpmn:extensionElements>
+        <camunda:connector>
+          <camunda:inputOutput>
+            <camunda:inputParameter name="url">${depoRESTApi}/api/metadata/GetByDefId?defid=4b580d66-c775-4322-a4e5-c4073c2cb972</camunda:inputParameter>
+            <camunda:inputParameter name="method">GET</camunda:inputParameter>
+            <camunda:inputParameter name="headers">
+              <camunda:map>
+                <camunda:entry key="Content-Type">application/x-www-form-urlencoded</camunda:entry>
+                <camunda:entry key="cache-control">no-cache</camunda:entry>
+              </camunda:map>
+            </camunda:inputParameter>
+            <camunda:outputParameter name="form">
+              <camunda:script scriptFormat="Javascript">S(response).prop("data").toString()</camunda:script>
+            </camunda:outputParameter>
+          </camunda:inputOutput>
+          <camunda:connectorId>http-connector</camunda:connectorId>
+        </camunda:connector>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_0dpxjz2</bpmn:incoming>
+      <bpmn:outgoing>Flow_00wvv3j</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="Activity_0romo56" name="Отзыв управляющего счетом">
+      <bpmn:extensionElements>
+        <camunda:connector>
+          <camunda:inputOutput>
+            <camunda:inputParameter name="url">${depoRESTApi}/api/metadata/GetByDefId?defid=95a43256-a595-4590-8659-bcec8f3e4baf</camunda:inputParameter>
+            <camunda:inputParameter name="method">GET</camunda:inputParameter>
+            <camunda:inputParameter name="headers">
+              <camunda:map>
+                <camunda:entry key="Content-Type">application/x-www-form-urlencoded</camunda:entry>
+                <camunda:entry key="cache-control">no-cache</camunda:entry>
+              </camunda:map>
+            </camunda:inputParameter>
+            <camunda:outputParameter name="form">
+              <camunda:script scriptFormat="Javascript">S(response).prop("data").toString()</camunda:script>
+            </camunda:outputParameter>
+          </camunda:inputOutput>
+          <camunda:connectorId>http-connector</camunda:connectorId>
+        </camunda:connector>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_1f7hkoy</bpmn:incoming>
+      <bpmn:outgoing>Flow_0i5fes1</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="Activity_1w9giss" name="Срочное списание ДС (вне регламента)">
+      <bpmn:extensionElements>
+        <camunda:connector>
+          <camunda:inputOutput>
+            <camunda:inputParameter name="url">${depoRESTApi}/api/metadata/GetByDefId?defid=97575844-1151-4e84-badb-19c329751c45</camunda:inputParameter>
+            <camunda:inputParameter name="method">GET</camunda:inputParameter>
+            <camunda:inputParameter name="headers">
+              <camunda:map>
+                <camunda:entry key="Content-Type">application/x-www-form-urlencoded</camunda:entry>
+                <camunda:entry key="cache-control">no-cache</camunda:entry>
+              </camunda:map>
+            </camunda:inputParameter>
+            <camunda:outputParameter name="form">
+              <camunda:script scriptFormat="Javascript">S(response).prop("data").toString()</camunda:script>
+            </camunda:outputParameter>
+          </camunda:inputOutput>
+          <camunda:connectorId>http-connector</camunda:connectorId>
+        </camunda:connector>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_0o4bd8t</bpmn:incoming>
+      <bpmn:outgoing>Flow_0nf80qo</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="Activity_1ez4gkp" name="Срочное депонирование ЦБ (вне регламента)">
+      <bpmn:extensionElements>
+        <camunda:connector>
+          <camunda:inputOutput>
+            <camunda:inputParameter name="url">${depoRESTApi}/api/metadata/GetByDefId?defid=970a658c-15c4-4229-9aaa-e8a98ef5a87c</camunda:inputParameter>
+            <camunda:inputParameter name="method">GET</camunda:inputParameter>
+            <camunda:inputParameter name="headers">
+              <camunda:map>
+                <camunda:entry key="Content-Type">application/x-www-form-urlencoded</camunda:entry>
+                <camunda:entry key="cache-control">no-cache</camunda:entry>
+              </camunda:map>
+            </camunda:inputParameter>
+            <camunda:outputParameter name="form">
+              <camunda:script scriptFormat="Javascript">S(response).prop("data").toString()</camunda:script>
+            </camunda:outputParameter>
+          </camunda:inputOutput>
+          <camunda:connectorId>http-connector</camunda:connectorId>
+        </camunda:connector>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_0148pz1</bpmn:incoming>
+      <bpmn:outgoing>Flow_0pmbpu9</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="Activity_0w354xo" name="Срочное списание ЦБ (вне регламента)">
+      <bpmn:extensionElements>
+        <camunda:connector>
+          <camunda:inputOutput>
+            <camunda:inputParameter name="url">${depoRESTApi}/api/metadata/GetByDefId?defid=2c424661-ac14-4e0b-9dfb-a27565ded5f3</camunda:inputParameter>
+            <camunda:inputParameter name="method">GET</camunda:inputParameter>
+            <camunda:inputParameter name="headers">
+              <camunda:map>
+                <camunda:entry key="Content-Type">application/x-www-form-urlencoded</camunda:entry>
+                <camunda:entry key="cache-control">no-cache</camunda:entry>
+              </camunda:map>
+            </camunda:inputParameter>
+            <camunda:outputParameter name="form">
+              <camunda:script scriptFormat="Javascript">S(response).prop("data").toString()</camunda:script>
+            </camunda:outputParameter>
+          </camunda:inputOutput>
+          <camunda:connectorId>http-connector</camunda:connectorId>
+        </camunda:connector>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_1s3ihxg</bpmn:incoming>
+      <bpmn:outgoing>Flow_16xesp7</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="Activity_0sfmidx" name="Срочное депонирование облигаций (вне регламента)">
+      <bpmn:extensionElements>
+        <camunda:connector>
+          <camunda:inputOutput>
+            <camunda:inputParameter name="url">${depoRESTApi}/api/metadata/GetByDefId?defid=b850c781-d3f0-4cff-9757-828d638f1f4f</camunda:inputParameter>
+            <camunda:inputParameter name="method">GET</camunda:inputParameter>
+            <camunda:inputParameter name="headers">
+              <camunda:map>
+                <camunda:entry key="Content-Type">application/x-www-form-urlencoded</camunda:entry>
+                <camunda:entry key="cache-control">no-cache</camunda:entry>
+              </camunda:map>
+            </camunda:inputParameter>
+            <camunda:outputParameter name="form">
+              <camunda:script scriptFormat="Javascript">S(response).prop("data").toString()</camunda:script>
+            </camunda:outputParameter>
+          </camunda:inputOutput>
+          <camunda:connectorId>http-connector</camunda:connectorId>
+        </camunda:connector>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_0ovgpgz</bpmn:incoming>
+      <bpmn:outgoing>Flow_1i1yg0s</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="Activity_0ku86yx" name="Срочное списание облигаций (вне регламента)">
+      <bpmn:extensionElements>
+        <camunda:connector>
+          <camunda:inputOutput>
+            <camunda:inputParameter name="url">${depoRESTApi}/api/metadata/GetByDefId?defid=d9102f0e-6d64-4ed1-a771-e98fde5c3523</camunda:inputParameter>
+            <camunda:inputParameter name="method">GET</camunda:inputParameter>
+            <camunda:inputParameter name="headers">
+              <camunda:map>
+                <camunda:entry key="Content-Type">application/x-www-form-urlencoded</camunda:entry>
+                <camunda:entry key="cache-control">no-cache</camunda:entry>
+              </camunda:map>
+            </camunda:inputParameter>
+            <camunda:outputParameter name="form">
+              <camunda:script scriptFormat="Javascript">S(response).prop("data").toString()</camunda:script>
+            </camunda:outputParameter>
+          </camunda:inputOutput>
+          <camunda:connectorId>http-connector</camunda:connectorId>
+        </camunda:connector>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_1j4qvh1</bpmn:incoming>
+      <bpmn:outgoing>Flow_172vpox</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="Activity_0q6id4d" name="Депонирование ГЦБ">
+      <bpmn:extensionElements>
+        <camunda:connector>
+          <camunda:inputOutput>
+            <camunda:inputParameter name="url">${depoRESTApi}/api/metadata/GetByDefId?defid=94bff2c8-1bf2-4a6c-adcf-844f5b030a46</camunda:inputParameter>
+            <camunda:inputParameter name="method">GET</camunda:inputParameter>
+            <camunda:inputParameter name="headers">
+              <camunda:map>
+                <camunda:entry key="Content-Type">application/x-www-form-urlencoded</camunda:entry>
+                <camunda:entry key="cache-control">no-cache</camunda:entry>
+              </camunda:map>
+            </camunda:inputParameter>
+            <camunda:outputParameter name="form">
+              <camunda:script scriptFormat="Javascript">S(response).prop("data").toString()</camunda:script>
+            </camunda:outputParameter>
+          </camunda:inputOutput>
+          <camunda:connectorId>http-connector</camunda:connectorId>
+        </camunda:connector>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_0yyvnk3</bpmn:incoming>
+      <bpmn:outgoing>Flow_0uv6vdb</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="Activity_09id5vn" name="Списание ГЦБ">
+      <bpmn:extensionElements>
+        <camunda:connector>
+          <camunda:inputOutput>
+            <camunda:inputParameter name="url">${depoRESTApi}/api/metadata/GetByDefId?defid=28dcb539-6185-4e1b-a485-3f12f887565e</camunda:inputParameter>
+            <camunda:inputParameter name="method">GET</camunda:inputParameter>
+            <camunda:inputParameter name="headers">
+              <camunda:map>
+                <camunda:entry key="Content-Type">application/x-www-form-urlencoded</camunda:entry>
+                <camunda:entry key="cache-control">no-cache</camunda:entry>
+              </camunda:map>
+            </camunda:inputParameter>
+            <camunda:outputParameter name="form">
+              <camunda:script scriptFormat="Javascript">S(response).prop("data").toString()</camunda:script>
+            </camunda:outputParameter>
+          </camunda:inputOutput>
+          <camunda:connectorId>http-connector</camunda:connectorId>
+        </camunda:connector>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_0zux3uh</bpmn:incoming>
+      <bpmn:outgoing>Flow_1swpvq8</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_1xrltlp" name="1" sourceRef="Gateway_1hahd9s" targetRef="Activity_0jqxbus">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">#{instructionType == 1}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_0jrbo4o" name="2" sourceRef="Gateway_1hahd9s" targetRef="Activity_1wbxgs6">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">#{instructionType == 2}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_106gx4x" name="3" sourceRef="Gateway_1hahd9s" targetRef="Activity_0al12gq">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">#{instructionType == 3}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_0cse6in" name="4" sourceRef="Gateway_1hahd9s" targetRef="Activity_1eelnb5">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">#{instructionType == 4}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_1kk2s13" name="5" sourceRef="Gateway_1hahd9s" targetRef="Activity_067ey11">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">#{instructionType == 5}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_0f184af" name="6" sourceRef="Gateway_1hahd9s" targetRef="Activity_136vnft">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">#{instructionType == 6}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_14adicg" name="7" sourceRef="Gateway_1hahd9s" targetRef="Activity_19mpy8m">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">#{instructionType == 7}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_0339ul5" name="8" sourceRef="Gateway_1hahd9s" targetRef="Activity_0w7psgw">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">#{instructionType == 8}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_070kw4v" name="9" sourceRef="Gateway_1hahd9s" targetRef="Activity_0jod0gg">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">#{instructionType == 9}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_0cvbi4d" name="10" sourceRef="Gateway_1hahd9s" targetRef="Activity_15xzksr">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">#{instructionType == 10}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_0h1otg6" name="11" sourceRef="Gateway_1hahd9s" targetRef="Activity_10m3d64">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">#{instructionType == 11}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_0lo7qhr" name="13" sourceRef="Gateway_1hahd9s" targetRef="Activity_0zttpiu">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">#{instructionType == 13}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_12i9csr" name="12" sourceRef="Gateway_1hahd9s" targetRef="Activity_0vc5y1c">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">#{instructionType == 12}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_1c6nuny" name="14" sourceRef="Gateway_1hahd9s" targetRef="Activity_06w8jku">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">#{instructionType == 14}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_1cpz3va" name="15" sourceRef="Gateway_1hahd9s" targetRef="Activity_0y01a3u">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">#{instructionType == 15}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_1hi3ji9" name="16" sourceRef="Gateway_1hahd9s" targetRef="Activity_1w9m8jd">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">#{instructionType == 16}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_0ephss7" name="17" sourceRef="Gateway_1hahd9s" targetRef="Activity_0ezsksi">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">#{instructionType == 17}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_1opalqo" name="18" sourceRef="Gateway_1hahd9s" targetRef="Activity_0pyjgej">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">#{instructionType == 18}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_1muywur" name="19" sourceRef="Gateway_1hahd9s" targetRef="Activity_1s03k3s">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">#{instructionType == 19}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_0jcbhv8" name="20" sourceRef="Gateway_1hahd9s" targetRef="Activity_0xgmhp3">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">#{instructionType == 20}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_0mm0dsx" name="21" sourceRef="Gateway_1hahd9s" targetRef="Activity_1ajl1d2">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">#{instructionType == 21}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_0vx9840" name="22" sourceRef="Gateway_1hahd9s" targetRef="Activity_1tlknw0">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">#{instructionType == 22}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_1onp0ea" name="23" sourceRef="Gateway_1hahd9s" targetRef="Activity_0766xn7">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">#{instructionType == 23}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_1jlltd8" name="24" sourceRef="Gateway_1hahd9s" targetRef="Activity_142348y">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">#{instructionType == 24}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_1bs2lqp" name="25" sourceRef="Gateway_1hahd9s" targetRef="Activity_1kv9769">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">#{instructionType == 25}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_0ppff9r" name="26" sourceRef="Gateway_1hahd9s" targetRef="Activity_1n0mhk3">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">#{instructionType == 26}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_1wpl4vl" name="27" sourceRef="Gateway_1hahd9s" targetRef="Activity_0ynb4eb">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">#{instructionType == 27}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_05ggnpy" name="28" sourceRef="Gateway_1hahd9s" targetRef="Activity_1f1v0kn">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">#{instructionType == 28}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_114z54d" name="29" sourceRef="Gateway_1hahd9s" targetRef="Activity_0awmc5i">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">#{instructionType == 29}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_1r0k3p1" name="30" sourceRef="Gateway_1hahd9s" targetRef="Activity_0mmjey7">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">#{instructionType == 30}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_0dpxjz2" name="31" sourceRef="Gateway_1hahd9s" targetRef="Activity_0u4rmtl">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">#{instructionType == 31}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_1f7hkoy" name="32" sourceRef="Gateway_1hahd9s" targetRef="Activity_0romo56">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">#{instructionType == 32}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_0o4bd8t" name="33" sourceRef="Gateway_1hahd9s" targetRef="Activity_1w9giss">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">#{instructionType == 33}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_0ovgpgz" name="36" sourceRef="Gateway_1hahd9s" targetRef="Activity_0sfmidx">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">#{instructionType == 36}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_1s3ihxg" name="35" sourceRef="Gateway_1hahd9s" targetRef="Activity_0w354xo">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">#{instructionType == 35}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_0148pz1" name="34" sourceRef="Gateway_1hahd9s" targetRef="Activity_1ez4gkp">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">#{instructionType == 34}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_1j4qvh1" name="37" sourceRef="Gateway_1hahd9s" targetRef="Activity_0ku86yx">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">#{instructionType == 37}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_0yyvnk3" name="38" sourceRef="Gateway_1hahd9s" targetRef="Activity_0q6id4d">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">#{instructionType == 38}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_0zux3uh" name="39" sourceRef="Gateway_1hahd9s" targetRef="Activity_09id5vn">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">#{instructionType == 39}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_0v4bzrd" sourceRef="Activity_0jqxbus" targetRef="Event_1o51kn9" />
+    <bpmn:sequenceFlow id="Flow_01u1i13" sourceRef="Activity_1wbxgs6" targetRef="Event_1o51kn9" />
+    <bpmn:sequenceFlow id="Flow_13weki6" sourceRef="Activity_0al12gq" targetRef="Event_1o51kn9" />
+    <bpmn:sequenceFlow id="Flow_11itnhp" sourceRef="Activity_0al12gq" targetRef="Event_1o51kn9" />
+    <bpmn:sequenceFlow id="Flow_1wl5s8q" sourceRef="Activity_1eelnb5" targetRef="Event_1o51kn9" />
+    <bpmn:sequenceFlow id="Flow_1runkhw" sourceRef="Activity_067ey11" targetRef="Event_1o51kn9" />
+    <bpmn:sequenceFlow id="Flow_0xf29xu" sourceRef="Activity_136vnft" targetRef="Event_1o51kn9" />
+    <bpmn:sequenceFlow id="Flow_0nkc1xy" sourceRef="Activity_19mpy8m" targetRef="Event_1o51kn9" />
+    <bpmn:sequenceFlow id="Flow_0wbo01e" sourceRef="Activity_0w7psgw" targetRef="Event_1o51kn9" />
+    <bpmn:sequenceFlow id="Flow_0zn73v0" sourceRef="Activity_0jod0gg" targetRef="Event_1o51kn9" />
+    <bpmn:sequenceFlow id="Flow_0ls0ao9" sourceRef="Activity_15xzksr" targetRef="Event_1o51kn9" />
+    <bpmn:sequenceFlow id="Flow_1icwumn" sourceRef="Activity_10m3d64" targetRef="Event_1o51kn9" />
+    <bpmn:sequenceFlow id="Flow_16i5hax" sourceRef="Activity_0vc5y1c" targetRef="Event_1o51kn9" />
+    <bpmn:sequenceFlow id="Flow_0ltv7n9" sourceRef="Activity_0zttpiu" targetRef="Event_1o51kn9" />
+    <bpmn:sequenceFlow id="Flow_1rlyni8" sourceRef="Activity_06w8jku" targetRef="Event_1o51kn9" />
+    <bpmn:sequenceFlow id="Flow_0tmgrck" sourceRef="Activity_0y01a3u" targetRef="Event_1o51kn9" />
+    <bpmn:sequenceFlow id="Flow_1xwq5pd" sourceRef="Activity_1w9m8jd" targetRef="Event_1o51kn9" />
+    <bpmn:sequenceFlow id="Flow_0d7m416" sourceRef="Activity_0ezsksi" targetRef="Event_1o51kn9" />
+    <bpmn:sequenceFlow id="Flow_0nih4zx" sourceRef="Activity_0pyjgej" targetRef="Event_1o51kn9" />
+    <bpmn:sequenceFlow id="Flow_17n5dm8" sourceRef="Activity_1s03k3s" targetRef="Event_1o51kn9" />
+    <bpmn:sequenceFlow id="Flow_0ky24td" sourceRef="Activity_0xgmhp3" targetRef="Event_1o51kn9" />
+    <bpmn:sequenceFlow id="Flow_0kxj53h" sourceRef="Activity_1ajl1d2" targetRef="Event_1o51kn9" />
+    <bpmn:sequenceFlow id="Flow_1n1336o" sourceRef="Activity_1tlknw0" targetRef="Event_1o51kn9" />
+    <bpmn:sequenceFlow id="Flow_13o4whc" sourceRef="Activity_0766xn7" targetRef="Event_1o51kn9" />
+    <bpmn:sequenceFlow id="Flow_07f3ek5" sourceRef="Activity_142348y" targetRef="Event_1o51kn9" />
+    <bpmn:sequenceFlow id="Flow_02h2upy" sourceRef="Activity_1kv9769" targetRef="Event_1o51kn9" />
+    <bpmn:sequenceFlow id="Flow_0qofewl" sourceRef="Activity_1n0mhk3" targetRef="Event_1o51kn9" />
+    <bpmn:sequenceFlow id="Flow_1y3ojcd" sourceRef="Activity_0ynb4eb" targetRef="Event_1o51kn9" />
+    <bpmn:sequenceFlow id="Flow_08tanzu" sourceRef="Activity_1f1v0kn" targetRef="Event_1o51kn9" />
+    <bpmn:sequenceFlow id="Flow_0saowf5" sourceRef="Activity_0awmc5i" targetRef="Event_1o51kn9" />
+    <bpmn:sequenceFlow id="Flow_15nnonc" sourceRef="Activity_0mmjey7" targetRef="Event_1o51kn9" />
+    <bpmn:sequenceFlow id="Flow_00wvv3j" sourceRef="Activity_0u4rmtl" targetRef="Event_1o51kn9" />
+    <bpmn:sequenceFlow id="Flow_0i5fes1" sourceRef="Activity_0romo56" targetRef="Event_1o51kn9" />
+    <bpmn:sequenceFlow id="Flow_0nf80qo" sourceRef="Activity_1w9giss" targetRef="Event_1o51kn9" />
+    <bpmn:sequenceFlow id="Flow_0pmbpu9" sourceRef="Activity_1ez4gkp" targetRef="Event_1o51kn9" />
+    <bpmn:sequenceFlow id="Flow_16xesp7" sourceRef="Activity_0w354xo" targetRef="Event_1o51kn9" />
+    <bpmn:sequenceFlow id="Flow_1i1yg0s" sourceRef="Activity_0sfmidx" targetRef="Event_1o51kn9" />
+    <bpmn:sequenceFlow id="Flow_172vpox" sourceRef="Activity_0ku86yx" targetRef="Event_1o51kn9" />
+    <bpmn:sequenceFlow id="Flow_0uv6vdb" sourceRef="Activity_0q6id4d" targetRef="Event_1o51kn9" />
+    <bpmn:sequenceFlow id="Flow_1swpvq8" sourceRef="Activity_09id5vn" targetRef="Event_1o51kn9" />
+    <bpmn:sequenceFlow id="Flow_0q44qbb" name="edit" sourceRef="Gateway_0ffdf4x" targetRef="Gateway_1hahd9s">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">#{instructionFormType == "edit"}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_169g6fw" name="create" sourceRef="Gateway_0ffdf4x" targetRef="Gateway_1s6hr7y">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">#{instructionFormType == "create"}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="GetInstructionFormByType">
+      <bpmndi:BPMNEdge id="Flow_169g6fw_di" bpmnElement="Flow_169g6fw">
+        <di:waypoint x="638" y="1640" />
+        <di:waypoint x="735" y="1640" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="673" y="1622" width="31" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0q44qbb_di" bpmnElement="Flow_0q44qbb">
+        <di:waypoint x="588" y="1640" />
+        <di:waypoint x="485" y="1640" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="528" y="1622" width="19" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1swpvq8_di" bpmnElement="Flow_1swpvq8">
+        <di:waypoint x="260" y="3160" />
+        <di:waypoint x="170" y="3160" />
+        <di:waypoint x="170" y="1658" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0uv6vdb_di" bpmnElement="Flow_0uv6vdb">
+        <di:waypoint x="260" y="3080" />
+        <di:waypoint x="170" y="3080" />
+        <di:waypoint x="170" y="1658" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_172vpox_di" bpmnElement="Flow_172vpox">
+        <di:waypoint x="260" y="3000" />
+        <di:waypoint x="170" y="3000" />
+        <di:waypoint x="170" y="1658" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1i1yg0s_di" bpmnElement="Flow_1i1yg0s">
+        <di:waypoint x="260" y="2920" />
+        <di:waypoint x="170" y="2920" />
+        <di:waypoint x="170" y="1658" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_16xesp7_di" bpmnElement="Flow_16xesp7">
+        <di:waypoint x="260" y="2840" />
+        <di:waypoint x="170" y="2840" />
+        <di:waypoint x="170" y="1658" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0pmbpu9_di" bpmnElement="Flow_0pmbpu9">
+        <di:waypoint x="260" y="2760" />
+        <di:waypoint x="170" y="2760" />
+        <di:waypoint x="170" y="1658" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0nf80qo_di" bpmnElement="Flow_0nf80qo">
+        <di:waypoint x="260" y="2680" />
+        <di:waypoint x="170" y="2680" />
+        <di:waypoint x="170" y="1658" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0i5fes1_di" bpmnElement="Flow_0i5fes1">
+        <di:waypoint x="260" y="2600" />
+        <di:waypoint x="170" y="2600" />
+        <di:waypoint x="170" y="1658" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_00wvv3j_di" bpmnElement="Flow_00wvv3j">
+        <di:waypoint x="260" y="2520" />
+        <di:waypoint x="170" y="2520" />
+        <di:waypoint x="170" y="1658" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_15nnonc_di" bpmnElement="Flow_15nnonc">
+        <di:waypoint x="260" y="2440" />
+        <di:waypoint x="170" y="2440" />
+        <di:waypoint x="170" y="1658" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0saowf5_di" bpmnElement="Flow_0saowf5">
+        <di:waypoint x="260" y="2360" />
+        <di:waypoint x="170" y="2360" />
+        <di:waypoint x="170" y="1658" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_08tanzu_di" bpmnElement="Flow_08tanzu">
+        <di:waypoint x="260" y="2280" />
+        <di:waypoint x="170" y="2280" />
+        <di:waypoint x="170" y="1658" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1y3ojcd_di" bpmnElement="Flow_1y3ojcd">
+        <di:waypoint x="260" y="2200" />
+        <di:waypoint x="170" y="2200" />
+        <di:waypoint x="170" y="1658" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0qofewl_di" bpmnElement="Flow_0qofewl">
+        <di:waypoint x="260" y="2120" />
+        <di:waypoint x="170" y="2120" />
+        <di:waypoint x="170" y="1658" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_02h2upy_di" bpmnElement="Flow_02h2upy">
+        <di:waypoint x="260" y="2040" />
+        <di:waypoint x="170" y="2040" />
+        <di:waypoint x="170" y="1658" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_07f3ek5_di" bpmnElement="Flow_07f3ek5">
+        <di:waypoint x="260" y="1960" />
+        <di:waypoint x="170" y="1960" />
+        <di:waypoint x="170" y="1658" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_13o4whc_di" bpmnElement="Flow_13o4whc">
+        <di:waypoint x="260" y="1880" />
+        <di:waypoint x="170" y="1880" />
+        <di:waypoint x="170" y="1658" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1n1336o_di" bpmnElement="Flow_1n1336o">
+        <di:waypoint x="260" y="1800" />
+        <di:waypoint x="170" y="1800" />
+        <di:waypoint x="170" y="1658" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0kxj53h_di" bpmnElement="Flow_0kxj53h">
+        <di:waypoint x="260" y="1720" />
+        <di:waypoint x="170" y="1720" />
+        <di:waypoint x="170" y="1658" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0ky24td_di" bpmnElement="Flow_0ky24td">
+        <di:waypoint x="260" y="1640" />
+        <di:waypoint x="188" y="1640" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_17n5dm8_di" bpmnElement="Flow_17n5dm8">
+        <di:waypoint x="260" y="1560" />
+        <di:waypoint x="170" y="1560" />
+        <di:waypoint x="170" y="1622" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0nih4zx_di" bpmnElement="Flow_0nih4zx">
+        <di:waypoint x="260" y="1480" />
+        <di:waypoint x="170" y="1480" />
+        <di:waypoint x="170" y="1622" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0d7m416_di" bpmnElement="Flow_0d7m416">
+        <di:waypoint x="260" y="1400" />
+        <di:waypoint x="170" y="1400" />
+        <di:waypoint x="170" y="1622" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1xwq5pd_di" bpmnElement="Flow_1xwq5pd">
+        <di:waypoint x="260" y="1320" />
+        <di:waypoint x="170" y="1320" />
+        <di:waypoint x="170" y="1622" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0tmgrck_di" bpmnElement="Flow_0tmgrck">
+        <di:waypoint x="260" y="1240" />
+        <di:waypoint x="170" y="1240" />
+        <di:waypoint x="170" y="1622" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1rlyni8_di" bpmnElement="Flow_1rlyni8">
+        <di:waypoint x="260" y="1160" />
+        <di:waypoint x="170" y="1160" />
+        <di:waypoint x="170" y="1622" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0ltv7n9_di" bpmnElement="Flow_0ltv7n9">
+        <di:waypoint x="260" y="1080" />
+        <di:waypoint x="170" y="1080" />
+        <di:waypoint x="170" y="1622" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_16i5hax_di" bpmnElement="Flow_16i5hax">
+        <di:waypoint x="260" y="1000" />
+        <di:waypoint x="170" y="1000" />
+        <di:waypoint x="170" y="1622" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1icwumn_di" bpmnElement="Flow_1icwumn">
+        <di:waypoint x="260" y="920" />
+        <di:waypoint x="170" y="920" />
+        <di:waypoint x="170" y="1622" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0ls0ao9_di" bpmnElement="Flow_0ls0ao9">
+        <di:waypoint x="260" y="840" />
+        <di:waypoint x="170" y="840" />
+        <di:waypoint x="170" y="1622" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0zn73v0_di" bpmnElement="Flow_0zn73v0">
+        <di:waypoint x="260" y="760" />
+        <di:waypoint x="170" y="760" />
+        <di:waypoint x="170" y="1622" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0wbo01e_di" bpmnElement="Flow_0wbo01e">
+        <di:waypoint x="260" y="680" />
+        <di:waypoint x="170" y="680" />
+        <di:waypoint x="170" y="1622" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0nkc1xy_di" bpmnElement="Flow_0nkc1xy">
+        <di:waypoint x="260" y="600" />
+        <di:waypoint x="170" y="600" />
+        <di:waypoint x="170" y="1622" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0xf29xu_di" bpmnElement="Flow_0xf29xu">
+        <di:waypoint x="260" y="520" />
+        <di:waypoint x="170" y="520" />
+        <di:waypoint x="170" y="1622" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1runkhw_di" bpmnElement="Flow_1runkhw">
+        <di:waypoint x="260" y="440" />
+        <di:waypoint x="170" y="440" />
+        <di:waypoint x="170" y="1622" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1wl5s8q_di" bpmnElement="Flow_1wl5s8q">
+        <di:waypoint x="260" y="360" />
+        <di:waypoint x="170" y="360" />
+        <di:waypoint x="170" y="1622" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_11itnhp_di" bpmnElement="Flow_11itnhp">
+        <di:waypoint x="260" y="280" />
+        <di:waypoint x="170" y="280" />
+        <di:waypoint x="170" y="1622" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_13weki6_di" bpmnElement="Flow_13weki6">
+        <di:waypoint x="260" y="280" />
+        <di:waypoint x="170" y="280" />
+        <di:waypoint x="170" y="1622" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_01u1i13_di" bpmnElement="Flow_01u1i13">
+        <di:waypoint x="260" y="200" />
+        <di:waypoint x="170" y="200" />
+        <di:waypoint x="170" y="1622" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0v4bzrd_di" bpmnElement="Flow_0v4bzrd">
+        <di:waypoint x="260" y="120" />
+        <di:waypoint x="170" y="120" />
+        <di:waypoint x="170" y="1622" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0zux3uh_di" bpmnElement="Flow_0zux3uh">
+        <di:waypoint x="460" y="1665" />
+        <di:waypoint x="460" y="3160" />
+        <di:waypoint x="360" y="3160" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="409" y="3143" width="13" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0yyvnk3_di" bpmnElement="Flow_0yyvnk3">
+        <di:waypoint x="460" y="1665" />
+        <di:waypoint x="460" y="3080" />
+        <di:waypoint x="360" y="3080" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="409" y="3063" width="13" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1j4qvh1_di" bpmnElement="Flow_1j4qvh1">
+        <di:waypoint x="460" y="1665" />
+        <di:waypoint x="460" y="3000" />
+        <di:waypoint x="360" y="3000" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="409" y="2983" width="13" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0148pz1_di" bpmnElement="Flow_0148pz1">
+        <di:waypoint x="460" y="1665" />
+        <di:waypoint x="460" y="2760" />
+        <di:waypoint x="360" y="2760" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="408" y="2743" width="14" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1s3ihxg_di" bpmnElement="Flow_1s3ihxg">
+        <di:waypoint x="460" y="1665" />
+        <di:waypoint x="460" y="2840" />
+        <di:waypoint x="360" y="2840" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="409" y="2823" width="13" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0ovgpgz_di" bpmnElement="Flow_0ovgpgz">
+        <di:waypoint x="460" y="1665" />
+        <di:waypoint x="460" y="2920" />
+        <di:waypoint x="360" y="2920" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="409" y="2903" width="13" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0o4bd8t_di" bpmnElement="Flow_0o4bd8t">
+        <di:waypoint x="460" y="1665" />
+        <di:waypoint x="460" y="2680" />
+        <di:waypoint x="360" y="2680" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="409" y="2663" width="13" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1f7hkoy_di" bpmnElement="Flow_1f7hkoy">
+        <di:waypoint x="460" y="1665" />
+        <di:waypoint x="460" y="2600" />
+        <di:waypoint x="360" y="2600" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="409" y="2583" width="13" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0dpxjz2_di" bpmnElement="Flow_0dpxjz2">
+        <di:waypoint x="460" y="1665" />
+        <di:waypoint x="460" y="2520" />
+        <di:waypoint x="360" y="2520" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="409" y="2503" width="13" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1r0k3p1_di" bpmnElement="Flow_1r0k3p1">
+        <di:waypoint x="460" y="1665" />
+        <di:waypoint x="460" y="2440" />
+        <di:waypoint x="360" y="2440" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="409" y="2423" width="13" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_114z54d_di" bpmnElement="Flow_114z54d">
+        <di:waypoint x="460" y="1665" />
+        <di:waypoint x="460" y="2360" />
+        <di:waypoint x="360" y="2360" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="409" y="2343" width="13" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_05ggnpy_di" bpmnElement="Flow_05ggnpy">
+        <di:waypoint x="460" y="1665" />
+        <di:waypoint x="460" y="2280" />
+        <di:waypoint x="360" y="2280" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="409" y="2263" width="13" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1wpl4vl_di" bpmnElement="Flow_1wpl4vl">
+        <di:waypoint x="460" y="1665" />
+        <di:waypoint x="460" y="2200" />
+        <di:waypoint x="360" y="2200" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="409" y="2183" width="13" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0ppff9r_di" bpmnElement="Flow_0ppff9r">
+        <di:waypoint x="460" y="1665" />
+        <di:waypoint x="460" y="2120" />
+        <di:waypoint x="360" y="2120" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="409" y="2103" width="13" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1bs2lqp_di" bpmnElement="Flow_1bs2lqp">
+        <di:waypoint x="460" y="1665" />
+        <di:waypoint x="460" y="2040" />
+        <di:waypoint x="360" y="2040" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="409" y="2023" width="13" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1jlltd8_di" bpmnElement="Flow_1jlltd8">
+        <di:waypoint x="460" y="1665" />
+        <di:waypoint x="460" y="1960" />
+        <di:waypoint x="360" y="1960" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="408" y="1943" width="14" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1onp0ea_di" bpmnElement="Flow_1onp0ea">
+        <di:waypoint x="460" y="1665" />
+        <di:waypoint x="460" y="1880" />
+        <di:waypoint x="360" y="1880" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="409" y="1863" width="13" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0vx9840_di" bpmnElement="Flow_0vx9840">
+        <di:waypoint x="460" y="1665" />
+        <di:waypoint x="460" y="1800" />
+        <di:waypoint x="360" y="1800" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="409" y="1783" width="13" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0mm0dsx_di" bpmnElement="Flow_0mm0dsx">
+        <di:waypoint x="460" y="1665" />
+        <di:waypoint x="460" y="1720" />
+        <di:waypoint x="360" y="1720" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="409" y="1703" width="13" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0jcbhv8_di" bpmnElement="Flow_0jcbhv8">
+        <di:waypoint x="435" y="1640" />
+        <di:waypoint x="360" y="1640" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="407" y="1622" width="13" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1muywur_di" bpmnElement="Flow_1muywur">
+        <di:waypoint x="460" y="1615" />
+        <di:waypoint x="460" y="1560" />
+        <di:waypoint x="360" y="1560" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="409" y="1533" width="13" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1opalqo_di" bpmnElement="Flow_1opalqo">
+        <di:waypoint x="460" y="1615" />
+        <di:waypoint x="460" y="1480" />
+        <di:waypoint x="360" y="1480" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="409" y="1463" width="13" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0ephss7_di" bpmnElement="Flow_0ephss7">
+        <di:waypoint x="460" y="1615" />
+        <di:waypoint x="460" y="1400" />
+        <di:waypoint x="360" y="1400" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="409" y="1383" width="13" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1hi3ji9_di" bpmnElement="Flow_1hi3ji9">
+        <di:waypoint x="460" y="1615" />
+        <di:waypoint x="460" y="1320" />
+        <di:waypoint x="360" y="1320" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="409" y="1303" width="13" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1cpz3va_di" bpmnElement="Flow_1cpz3va">
+        <di:waypoint x="460" y="1615" />
+        <di:waypoint x="460" y="1240" />
+        <di:waypoint x="360" y="1240" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="409" y="1213" width="13" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1c6nuny_di" bpmnElement="Flow_1c6nuny">
+        <di:waypoint x="460" y="1615" />
+        <di:waypoint x="460" y="1160" />
+        <di:waypoint x="360" y="1160" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="408" y="1143" width="14" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_12i9csr_di" bpmnElement="Flow_12i9csr">
+        <di:waypoint x="460" y="1615" />
+        <di:waypoint x="460" y="1000" />
+        <di:waypoint x="360" y="1000" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="409" y="983" width="13" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0lo7qhr_di" bpmnElement="Flow_0lo7qhr">
+        <di:waypoint x="460" y="1615" />
+        <di:waypoint x="460" y="1080" />
+        <di:waypoint x="360" y="1080" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="409" y="1063" width="13" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0h1otg6_di" bpmnElement="Flow_0h1otg6">
+        <di:waypoint x="460" y="1615" />
+        <di:waypoint x="460" y="920" />
+        <di:waypoint x="360" y="920" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="409" y="893" width="12" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0cvbi4d_di" bpmnElement="Flow_0cvbi4d">
+        <di:waypoint x="460" y="1615" />
+        <di:waypoint x="460" y="840" />
+        <di:waypoint x="360" y="840" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="409" y="813" width="13" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_070kw4v_di" bpmnElement="Flow_070kw4v">
+        <di:waypoint x="460" y="1615" />
+        <di:waypoint x="460" y="760" />
+        <di:waypoint x="360" y="760" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="412" y="733" width="7" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0339ul5_di" bpmnElement="Flow_0339ul5">
+        <di:waypoint x="460" y="1615" />
+        <di:waypoint x="460" y="680" />
+        <di:waypoint x="360" y="680" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="412" y="653" width="7" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_14adicg_di" bpmnElement="Flow_14adicg">
+        <di:waypoint x="460" y="1615" />
+        <di:waypoint x="460" y="600" />
+        <di:waypoint x="360" y="600" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="412" y="573" width="7" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0f184af_di" bpmnElement="Flow_0f184af">
+        <di:waypoint x="460" y="1615" />
+        <di:waypoint x="460" y="520" />
+        <di:waypoint x="360" y="520" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="412" y="493" width="7" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1kk2s13_di" bpmnElement="Flow_1kk2s13">
+        <di:waypoint x="460" y="1615" />
+        <di:waypoint x="460" y="440" />
+        <di:waypoint x="360" y="440" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="412" y="413" width="7" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0cse6in_di" bpmnElement="Flow_0cse6in">
+        <di:waypoint x="460" y="1615" />
+        <di:waypoint x="460" y="360" />
+        <di:waypoint x="360" y="360" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="412" y="333" width="7" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_106gx4x_di" bpmnElement="Flow_106gx4x">
+        <di:waypoint x="460" y="1615" />
+        <di:waypoint x="460" y="280" />
+        <di:waypoint x="360" y="280" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="412" y="253" width="7" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0jrbo4o_di" bpmnElement="Flow_0jrbo4o">
+        <di:waypoint x="460" y="1615" />
+        <di:waypoint x="460" y="200" />
+        <di:waypoint x="360" y="200" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="412" y="173" width="7" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1xrltlp_di" bpmnElement="Flow_1xrltlp">
+        <di:waypoint x="460" y="1615" />
+        <di:waypoint x="460" y="120" />
+        <di:waypoint x="360" y="120" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="412" y="93" width="7" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0hn31ge_di" bpmnElement="Flow_0hn31ge">
+        <di:waypoint x="970" y="3160" />
+        <di:waypoint x="1050" y="3160" />
+        <di:waypoint x="1050" y="1658" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0x9kkj8_di" bpmnElement="Flow_0x9kkj8">
+        <di:waypoint x="970" y="3080" />
+        <di:waypoint x="1050" y="3080" />
+        <di:waypoint x="1050" y="1658" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0b95vzf_di" bpmnElement="Flow_0b95vzf">
+        <di:waypoint x="970" y="3000" />
+        <di:waypoint x="1050" y="3000" />
+        <di:waypoint x="1050" y="1658" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1425i5q_di" bpmnElement="Flow_1425i5q">
+        <di:waypoint x="970" y="2920" />
+        <di:waypoint x="1050" y="2920" />
+        <di:waypoint x="1050" y="1658" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1jczwt9_di" bpmnElement="Flow_1jczwt9">
+        <di:waypoint x="970" y="2840" />
+        <di:waypoint x="1050" y="2840" />
+        <di:waypoint x="1050" y="1658" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0nwp837_di" bpmnElement="Flow_0nwp837">
+        <di:waypoint x="970" y="2760" />
+        <di:waypoint x="1050" y="2760" />
+        <di:waypoint x="1050" y="1658" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0pl9h6b_di" bpmnElement="Flow_0pl9h6b">
+        <di:waypoint x="970" y="2680" />
+        <di:waypoint x="1050" y="2680" />
+        <di:waypoint x="1050" y="1658" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_07qr8kg_di" bpmnElement="Flow_07qr8kg">
+        <di:waypoint x="970" y="2600" />
+        <di:waypoint x="1050" y="2600" />
+        <di:waypoint x="1050" y="1658" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_07zvb7d_di" bpmnElement="Flow_07zvb7d">
+        <di:waypoint x="970" y="2520" />
+        <di:waypoint x="1050" y="2520" />
+        <di:waypoint x="1050" y="1658" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0gsfwmr_di" bpmnElement="Flow_0gsfwmr">
+        <di:waypoint x="970" y="2440" />
+        <di:waypoint x="1050" y="2440" />
+        <di:waypoint x="1050" y="1658" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0ahn4eq_di" bpmnElement="Flow_0ahn4eq">
+        <di:waypoint x="970" y="2360" />
+        <di:waypoint x="1050" y="2360" />
+        <di:waypoint x="1050" y="1658" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1jhb4r2_di" bpmnElement="Flow_1jhb4r2">
+        <di:waypoint x="970" y="2280" />
+        <di:waypoint x="1050" y="2280" />
+        <di:waypoint x="1050" y="1658" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1qkn9qo_di" bpmnElement="Flow_1qkn9qo">
+        <di:waypoint x="970" y="2200" />
+        <di:waypoint x="1050" y="2200" />
+        <di:waypoint x="1050" y="1658" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1mbrlto_di" bpmnElement="Flow_1mbrlto">
+        <di:waypoint x="970" y="2120" />
+        <di:waypoint x="1050" y="2120" />
+        <di:waypoint x="1050" y="1658" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_11o3l8u_di" bpmnElement="Flow_11o3l8u">
+        <di:waypoint x="970" y="2040" />
+        <di:waypoint x="1050" y="2040" />
+        <di:waypoint x="1050" y="1658" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_08stj6v_di" bpmnElement="Flow_08stj6v">
+        <di:waypoint x="970" y="1960" />
+        <di:waypoint x="1050" y="1960" />
+        <di:waypoint x="1050" y="1658" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0hb2kj4_di" bpmnElement="Flow_0hb2kj4">
+        <di:waypoint x="970" y="1880" />
+        <di:waypoint x="1050" y="1880" />
+        <di:waypoint x="1050" y="1658" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0r5al5g_di" bpmnElement="Flow_0r5al5g">
+        <di:waypoint x="970" y="1800" />
+        <di:waypoint x="1050" y="1800" />
+        <di:waypoint x="1050" y="1658" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_161wkst_di" bpmnElement="Flow_161wkst">
+        <di:waypoint x="970" y="1720" />
+        <di:waypoint x="1050" y="1720" />
+        <di:waypoint x="1050" y="1658" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_19joehl_di" bpmnElement="Flow_19joehl">
+        <di:waypoint x="970" y="1640" />
+        <di:waypoint x="1032" y="1640" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1jw5x0d_di" bpmnElement="Flow_1jw5x0d">
+        <di:waypoint x="970" y="1560" />
+        <di:waypoint x="1050" y="1560" />
+        <di:waypoint x="1050" y="1622" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_002qz8a_di" bpmnElement="Flow_002qz8a">
+        <di:waypoint x="970" y="1480" />
+        <di:waypoint x="1050" y="1480" />
+        <di:waypoint x="1050" y="1622" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1iv7yxv_di" bpmnElement="Flow_1iv7yxv">
+        <di:waypoint x="970" y="1400" />
+        <di:waypoint x="1050" y="1400" />
+        <di:waypoint x="1050" y="1622" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1ee9b9k_di" bpmnElement="Flow_1ee9b9k">
+        <di:waypoint x="970" y="1320" />
+        <di:waypoint x="1050" y="1320" />
+        <di:waypoint x="1050" y="1622" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_10ma36i_di" bpmnElement="Flow_10ma36i">
+        <di:waypoint x="970" y="1240" />
+        <di:waypoint x="1050" y="1240" />
+        <di:waypoint x="1050" y="1622" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0r3x8k7_di" bpmnElement="Flow_0r3x8k7">
+        <di:waypoint x="970" y="1160" />
+        <di:waypoint x="1050" y="1160" />
+        <di:waypoint x="1050" y="1622" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1jxi8q9_di" bpmnElement="Flow_1jxi8q9">
+        <di:waypoint x="970" y="1080" />
+        <di:waypoint x="1050" y="1080" />
+        <di:waypoint x="1050" y="1622" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0r052gn_di" bpmnElement="Flow_0r052gn">
+        <di:waypoint x="970" y="1000" />
+        <di:waypoint x="1050" y="1000" />
+        <di:waypoint x="1050" y="1622" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0lpdtbp_di" bpmnElement="Flow_0lpdtbp">
+        <di:waypoint x="970" y="920" />
+        <di:waypoint x="1050" y="920" />
+        <di:waypoint x="1050" y="1622" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1wg682f_di" bpmnElement="Flow_1wg682f">
+        <di:waypoint x="970" y="840" />
+        <di:waypoint x="1050" y="840" />
+        <di:waypoint x="1050" y="1622" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_07g7e16_di" bpmnElement="Flow_07g7e16">
+        <di:waypoint x="970" y="760" />
+        <di:waypoint x="1050" y="760" />
+        <di:waypoint x="1050" y="1622" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0h4tjcy_di" bpmnElement="Flow_0h4tjcy">
+        <di:waypoint x="970" y="680" />
+        <di:waypoint x="1050" y="680" />
+        <di:waypoint x="1050" y="1622" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_138fdk8_di" bpmnElement="Flow_138fdk8">
+        <di:waypoint x="970" y="600" />
+        <di:waypoint x="1050" y="600" />
+        <di:waypoint x="1050" y="1622" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_09kz8lq_di" bpmnElement="Flow_09kz8lq">
+        <di:waypoint x="970" y="520" />
+        <di:waypoint x="1050" y="520" />
+        <di:waypoint x="1050" y="1622" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_04n3jov_di" bpmnElement="Flow_04n3jov">
+        <di:waypoint x="970" y="440" />
+        <di:waypoint x="1050" y="440" />
+        <di:waypoint x="1050" y="1622" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1c7247h_di" bpmnElement="Flow_1c7247h">
+        <di:waypoint x="970" y="360" />
+        <di:waypoint x="1050" y="360" />
+        <di:waypoint x="1050" y="1622" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0hjnwkf_di" bpmnElement="Flow_0hjnwkf">
+        <di:waypoint x="970" y="280" />
+        <di:waypoint x="1050" y="280" />
+        <di:waypoint x="1050" y="1622" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_05n3109_di" bpmnElement="Flow_05n3109">
+        <di:waypoint x="760" y="1665" />
+        <di:waypoint x="760" y="3160" />
+        <di:waypoint x="870" y="3160" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="803" y="3143" width="13" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_08qxlia_di" bpmnElement="Flow_08qxlia">
+        <di:waypoint x="760" y="1665" />
+        <di:waypoint x="760" y="3080" />
+        <di:waypoint x="870" y="3080" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="803" y="3063" width="13" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0eqw846_di" bpmnElement="Flow_0eqw846">
+        <di:waypoint x="760" y="1665" />
+        <di:waypoint x="760" y="3000" />
+        <di:waypoint x="870" y="3000" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="803" y="2983" width="13" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_13shy41_di" bpmnElement="Flow_13shy41">
+        <di:waypoint x="760" y="1665" />
+        <di:waypoint x="760" y="2760" />
+        <di:waypoint x="870" y="2760" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="803" y="2743" width="14" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1fedbga_di" bpmnElement="Flow_1fedbga">
+        <di:waypoint x="760" y="1665" />
+        <di:waypoint x="760" y="2840" />
+        <di:waypoint x="870" y="2840" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="803" y="2823" width="13" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0denl2k_di" bpmnElement="Flow_0denl2k">
+        <di:waypoint x="760" y="1665" />
+        <di:waypoint x="760" y="2920" />
+        <di:waypoint x="870" y="2920" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="803" y="2903" width="13" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_11y56om_di" bpmnElement="Flow_11y56om">
+        <di:waypoint x="760" y="1665" />
+        <di:waypoint x="760" y="2680" />
+        <di:waypoint x="870" y="2680" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="803" y="2663" width="13" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_06goxiq_di" bpmnElement="Flow_06goxiq">
+        <di:waypoint x="760" y="1665" />
+        <di:waypoint x="760" y="2600" />
+        <di:waypoint x="870" y="2600" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="803" y="2583" width="13" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1lj2on4_di" bpmnElement="Flow_1lj2on4">
+        <di:waypoint x="760" y="1665" />
+        <di:waypoint x="760" y="2520" />
+        <di:waypoint x="870" y="2520" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="803" y="2503" width="13" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1p9bjax_di" bpmnElement="Flow_1p9bjax">
+        <di:waypoint x="760" y="1665" />
+        <di:waypoint x="760" y="2440" />
+        <di:waypoint x="870" y="2440" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="803" y="2423" width="13" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0a2zr8b_di" bpmnElement="Flow_0a2zr8b">
+        <di:waypoint x="760" y="1665" />
+        <di:waypoint x="760" y="2360" />
+        <di:waypoint x="870" y="2360" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="803" y="2343" width="13" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1lh8bkf_di" bpmnElement="Flow_1lh8bkf">
+        <di:waypoint x="760" y="1665" />
+        <di:waypoint x="760" y="2280" />
+        <di:waypoint x="870" y="2280" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="803" y="2263" width="13" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0f6ylq9_di" bpmnElement="Flow_0f6ylq9">
+        <di:waypoint x="760" y="1665" />
+        <di:waypoint x="760" y="2200" />
+        <di:waypoint x="870" y="2200" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="803" y="2183" width="13" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_103a3n9_di" bpmnElement="Flow_103a3n9">
+        <di:waypoint x="760" y="1665" />
+        <di:waypoint x="760" y="2120" />
+        <di:waypoint x="870" y="2120" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="803" y="2103" width="13" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1uq9s64_di" bpmnElement="Flow_1uq9s64">
+        <di:waypoint x="760" y="1665" />
+        <di:waypoint x="760" y="2040" />
+        <di:waypoint x="870" y="2040" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="803" y="2023" width="13" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1flcofs_di" bpmnElement="Flow_1flcofs">
+        <di:waypoint x="760" y="1665" />
+        <di:waypoint x="760" y="1960" />
+        <di:waypoint x="870" y="1960" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="803" y="1943" width="14" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_04bbmx6_di" bpmnElement="Flow_04bbmx6">
+        <di:waypoint x="760" y="1665" />
+        <di:waypoint x="760" y="1880" />
+        <di:waypoint x="870" y="1880" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="803" y="1863" width="13" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_085krce_di" bpmnElement="Flow_085krce">
+        <di:waypoint x="760" y="1665" />
+        <di:waypoint x="760" y="1800" />
+        <di:waypoint x="870" y="1800" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="803" y="1783" width="13" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_09mkldf_di" bpmnElement="Flow_09mkldf">
+        <di:waypoint x="760" y="1665" />
+        <di:waypoint x="760" y="1720" />
+        <di:waypoint x="870" y="1720" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="803" y="1703" width="13" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0cx5uqv_di" bpmnElement="Flow_0cx5uqv">
+        <di:waypoint x="785" y="1640" />
+        <di:waypoint x="870" y="1640" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="803" y="1622" width="13" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_14fp5q0_di" bpmnElement="Flow_14fp5q0">
+        <di:waypoint x="760" y="1615" />
+        <di:waypoint x="760" y="1560" />
+        <di:waypoint x="870" y="1560" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="803" y="1533" width="13" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0pgyrke_di" bpmnElement="Flow_0pgyrke">
+        <di:waypoint x="760" y="1615" />
+        <di:waypoint x="760" y="1480" />
+        <di:waypoint x="870" y="1480" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="803" y="1463" width="13" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1hgbcrs_di" bpmnElement="Flow_1hgbcrs">
+        <di:waypoint x="760" y="1615" />
+        <di:waypoint x="760" y="1400" />
+        <di:waypoint x="870" y="1400" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="803" y="1383" width="13" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1xkb5o3_di" bpmnElement="Flow_1xkb5o3">
+        <di:waypoint x="760" y="1615" />
+        <di:waypoint x="760" y="1320" />
+        <di:waypoint x="870" y="1320" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="803" y="1303" width="13" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0286v16_di" bpmnElement="Flow_0286v16">
+        <di:waypoint x="760" y="1615" />
+        <di:waypoint x="760" y="1240" />
+        <di:waypoint x="870" y="1240" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="803" y="1213" width="13" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_02c7hwi_di" bpmnElement="Flow_02c7hwi">
+        <di:waypoint x="760" y="1615" />
+        <di:waypoint x="760" y="1160" />
+        <di:waypoint x="870" y="1160" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="803" y="1143" width="14" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0yhmwdp_di" bpmnElement="Flow_0yhmwdp">
+        <di:waypoint x="760" y="1615" />
+        <di:waypoint x="760" y="1000" />
+        <di:waypoint x="870" y="1000" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="803" y="983" width="13" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1leh61o_di" bpmnElement="Flow_1leh61o">
+        <di:waypoint x="760" y="1615" />
+        <di:waypoint x="760" y="1080" />
+        <di:waypoint x="870" y="1080" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="803" y="1063" width="13" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1psrn89_di" bpmnElement="Flow_1psrn89">
+        <di:waypoint x="760" y="1615" />
+        <di:waypoint x="760" y="920" />
+        <di:waypoint x="870" y="920" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="804" y="893" width="12" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0zunwnb_di" bpmnElement="Flow_0zunwnb">
+        <di:waypoint x="760" y="1615" />
+        <di:waypoint x="760" y="840" />
+        <di:waypoint x="870" y="840" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="803" y="813" width="13" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0jm6tor_di" bpmnElement="Flow_0jm6tor">
+        <di:waypoint x="760" y="1615" />
+        <di:waypoint x="760" y="760" />
+        <di:waypoint x="870" y="760" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="806" y="733" width="7" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1d5prg0_di" bpmnElement="Flow_1d5prg0">
+        <di:waypoint x="760" y="1615" />
+        <di:waypoint x="760" y="680" />
+        <di:waypoint x="870" y="680" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="806" y="653" width="7" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1k6mtyn_di" bpmnElement="Flow_1k6mtyn">
+        <di:waypoint x="760" y="1615" />
+        <di:waypoint x="760" y="600" />
+        <di:waypoint x="870" y="600" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="806" y="573" width="7" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1uqnyc9_di" bpmnElement="Flow_1uqnyc9">
+        <di:waypoint x="760" y="1615" />
+        <di:waypoint x="760" y="520" />
+        <di:waypoint x="870" y="520" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="806" y="493" width="7" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0iqwtpu_di" bpmnElement="Flow_0iqwtpu">
+        <di:waypoint x="760" y="1615" />
+        <di:waypoint x="760" y="440" />
+        <di:waypoint x="870" y="440" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="806" y="413" width="7" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0r725la_di" bpmnElement="Flow_0r725la">
+        <di:waypoint x="760" y="1615" />
+        <di:waypoint x="760" y="360" />
+        <di:waypoint x="870" y="360" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="806" y="333" width="7" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_15a9vwx_di" bpmnElement="Flow_15a9vwx">
+        <di:waypoint x="970" y="280" />
+        <di:waypoint x="1050" y="280" />
+        <di:waypoint x="1050" y="1622" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0ztyqtb_di" bpmnElement="Flow_0ztyqtb">
+        <di:waypoint x="760" y="1615" />
+        <di:waypoint x="760" y="280" />
+        <di:waypoint x="870" y="280" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="806" y="253" width="7" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1ebrjkf_di" bpmnElement="Flow_1ebrjkf">
+        <di:waypoint x="970" y="200" />
+        <di:waypoint x="1050" y="200" />
+        <di:waypoint x="1050" y="1622" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_125xozz_di" bpmnElement="Flow_125xozz">
+        <di:waypoint x="760" y="1615" />
+        <di:waypoint x="760" y="200" />
+        <di:waypoint x="870" y="200" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="806" y="173" width="7" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0lr5vfu_di" bpmnElement="Flow_0lr5vfu">
+        <di:waypoint x="970" y="120" />
+        <di:waypoint x="1050" y="120" />
+        <di:waypoint x="1050" y="1622" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1osob1l_di" bpmnElement="Flow_1osob1l">
+        <di:waypoint x="760" y="1615" />
+        <di:waypoint x="760" y="120" />
+        <di:waypoint x="870" y="120" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="806" y="93" width="7" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0enqf2r_di" bpmnElement="Flow_0enqf2r">
+        <di:waypoint x="613" y="1558" />
+        <di:waypoint x="613" y="1615" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
+        <dc:Bounds x="595" y="1522" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_1s6hr7y_di" bpmnElement="Gateway_1s6hr7y" isMarkerVisible="true">
+        <dc:Bounds x="735" y="1615" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_15zoexf_di" bpmnElement="Activity_15zoexf">
+        <dc:Bounds x="870" y="80" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_14i89kz_di" bpmnElement="Event_14i89kz">
+        <dc:Bounds x="1032" y="1622" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0wq398d_di" bpmnElement="Activity_0wq398d">
+        <dc:Bounds x="870" y="160" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0gf81s6_di" bpmnElement="Activity_0gf81s6">
+        <dc:Bounds x="870" y="240" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_07grq4c_di" bpmnElement="Activity_07grq4c">
+        <dc:Bounds x="870" y="320" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1csm3xu_di" bpmnElement="Activity_1csm3xu">
+        <dc:Bounds x="870" y="400" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0rervay_di" bpmnElement="Activity_0rervay">
+        <dc:Bounds x="870" y="480" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1yyifah_di" bpmnElement="Activity_1yyifah">
+        <dc:Bounds x="870" y="560" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0h2kayu_di" bpmnElement="Activity_0h2kayu">
+        <dc:Bounds x="870" y="640" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0ph6y37_di" bpmnElement="Activity_0ph6y37">
+        <dc:Bounds x="870" y="720" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_013hure_di" bpmnElement="Activity_013hure">
+        <dc:Bounds x="870" y="800" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1jpa5dp_di" bpmnElement="Activity_1jpa5dp">
+        <dc:Bounds x="870" y="880" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1ckhi0r_di" bpmnElement="Activity_1ckhi0r">
+        <dc:Bounds x="870" y="960" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1prnjrz_di" bpmnElement="Activity_1prnjrz">
+        <dc:Bounds x="870" y="1040" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0r0n0x0_di" bpmnElement="Activity_0r0n0x0">
+        <dc:Bounds x="870" y="1120" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1le5i3u_di" bpmnElement="Activity_1le5i3u">
+        <dc:Bounds x="870" y="1200" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0lmixin_di" bpmnElement="Activity_0lmixin">
+        <dc:Bounds x="870" y="1280" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_178idwb_di" bpmnElement="Activity_178idwb">
+        <dc:Bounds x="870" y="1360" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_19clwyf_di" bpmnElement="Activity_19clwyf">
+        <dc:Bounds x="870" y="1440" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0f2xtw3_di" bpmnElement="Activity_0f2xtw3">
+        <dc:Bounds x="870" y="1520" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0zp1y4d_di" bpmnElement="Activity_0zp1y4d">
+        <dc:Bounds x="870" y="1600" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0uv0rx1_di" bpmnElement="Activity_0uv0rx1">
+        <dc:Bounds x="870" y="1680" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0u5qqmk_di" bpmnElement="Activity_0u5qqmk">
+        <dc:Bounds x="870" y="1760" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0gxpx53_di" bpmnElement="Activity_0gxpx53">
+        <dc:Bounds x="870" y="1840" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_07ohiww_di" bpmnElement="Activity_07ohiww">
+        <dc:Bounds x="870" y="1920" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0l1uss6_di" bpmnElement="Activity_0l1uss6">
+        <dc:Bounds x="870" y="2000" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0tmchqt_di" bpmnElement="Activity_0tmchqt">
+        <dc:Bounds x="870" y="2080" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0qwdpio_di" bpmnElement="Activity_0qwdpio">
+        <dc:Bounds x="870" y="2160" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0sa49xf_di" bpmnElement="Activity_0sa49xf">
+        <dc:Bounds x="870" y="2240" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1ea0uzi_di" bpmnElement="Activity_1ea0uzi">
+        <dc:Bounds x="870" y="2320" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1a06cot_di" bpmnElement="Activity_1a06cot">
+        <dc:Bounds x="870" y="2400" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_04mk18a_di" bpmnElement="Activity_04mk18a">
+        <dc:Bounds x="870" y="2480" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1ug3ksi_di" bpmnElement="Activity_1ug3ksi">
+        <dc:Bounds x="870" y="2560" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0iqnm5m_di" bpmnElement="Activity_0iqnm5m">
+        <dc:Bounds x="870" y="2640" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_15c41vd_di" bpmnElement="Activity_15c41vd">
+        <dc:Bounds x="870" y="2720" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1afsouw_di" bpmnElement="Activity_1afsouw">
+        <dc:Bounds x="870" y="2800" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0kd76mj_di" bpmnElement="Activity_0kd76mj">
+        <dc:Bounds x="870" y="2880" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1foch8j_di" bpmnElement="Activity_1foch8j">
+        <dc:Bounds x="870" y="2960" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0o1yf4y_di" bpmnElement="Activity_0o1yf4y">
+        <dc:Bounds x="870" y="3040" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0cl2v2k_di" bpmnElement="Activity_0cl2v2k">
+        <dc:Bounds x="870" y="3120" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_0ffdf4x_di" bpmnElement="Gateway_0ffdf4x" isMarkerVisible="true">
+        <dc:Bounds x="588" y="1615" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_1hahd9s_di" bpmnElement="Gateway_1hahd9s" isMarkerVisible="true">
+        <dc:Bounds x="435" y="1615" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0jqxbus_di" bpmnElement="Activity_0jqxbus">
+        <dc:Bounds x="260" y="80" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1o51kn9_di" bpmnElement="Event_1o51kn9">
+        <dc:Bounds x="152" y="1622" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1wbxgs6_di" bpmnElement="Activity_1wbxgs6">
+        <dc:Bounds x="260" y="160" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0al12gq_di" bpmnElement="Activity_0al12gq">
+        <dc:Bounds x="260" y="240" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1eelnb5_di" bpmnElement="Activity_1eelnb5">
+        <dc:Bounds x="260" y="320" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_067ey11_di" bpmnElement="Activity_067ey11">
+        <dc:Bounds x="260" y="400" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_136vnft_di" bpmnElement="Activity_136vnft">
+        <dc:Bounds x="260" y="480" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_19mpy8m_di" bpmnElement="Activity_19mpy8m">
+        <dc:Bounds x="260" y="560" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0w7psgw_di" bpmnElement="Activity_0w7psgw">
+        <dc:Bounds x="260" y="640" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0jod0gg_di" bpmnElement="Activity_0jod0gg">
+        <dc:Bounds x="260" y="720" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_15xzksr_di" bpmnElement="Activity_15xzksr">
+        <dc:Bounds x="260" y="800" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_10m3d64_di" bpmnElement="Activity_10m3d64">
+        <dc:Bounds x="260" y="880" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0vc5y1c_di" bpmnElement="Activity_0vc5y1c">
+        <dc:Bounds x="260" y="960" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0zttpiu_di" bpmnElement="Activity_0zttpiu">
+        <dc:Bounds x="260" y="1040" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_06w8jku_di" bpmnElement="Activity_06w8jku">
+        <dc:Bounds x="260" y="1120" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0y01a3u_di" bpmnElement="Activity_0y01a3u">
+        <dc:Bounds x="260" y="1200" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1w9m8jd_di" bpmnElement="Activity_1w9m8jd">
+        <dc:Bounds x="260" y="1280" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0ezsksi_di" bpmnElement="Activity_0ezsksi">
+        <dc:Bounds x="260" y="1360" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0pyjgej_di" bpmnElement="Activity_0pyjgej">
+        <dc:Bounds x="260" y="1440" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1s03k3s_di" bpmnElement="Activity_1s03k3s">
+        <dc:Bounds x="260" y="1520" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0xgmhp3_di" bpmnElement="Activity_0xgmhp3">
+        <dc:Bounds x="260" y="1600" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1ajl1d2_di" bpmnElement="Activity_1ajl1d2">
+        <dc:Bounds x="260" y="1680" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1tlknw0_di" bpmnElement="Activity_1tlknw0">
+        <dc:Bounds x="260" y="1760" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0766xn7_di" bpmnElement="Activity_0766xn7">
+        <dc:Bounds x="260" y="1840" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_142348y_di" bpmnElement="Activity_142348y">
+        <dc:Bounds x="260" y="1920" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1kv9769_di" bpmnElement="Activity_1kv9769">
+        <dc:Bounds x="260" y="2000" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1n0mhk3_di" bpmnElement="Activity_1n0mhk3">
+        <dc:Bounds x="260" y="2080" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0ynb4eb_di" bpmnElement="Activity_0ynb4eb">
+        <dc:Bounds x="260" y="2160" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1f1v0kn_di" bpmnElement="Activity_1f1v0kn">
+        <dc:Bounds x="260" y="2240" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0awmc5i_di" bpmnElement="Activity_0awmc5i">
+        <dc:Bounds x="260" y="2320" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0mmjey7_di" bpmnElement="Activity_0mmjey7">
+        <dc:Bounds x="260" y="2400" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0u4rmtl_di" bpmnElement="Activity_0u4rmtl">
+        <dc:Bounds x="260" y="2480" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0romo56_di" bpmnElement="Activity_0romo56">
+        <dc:Bounds x="260" y="2560" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1w9giss_di" bpmnElement="Activity_1w9giss">
+        <dc:Bounds x="260" y="2640" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1ez4gkp_di" bpmnElement="Activity_1ez4gkp">
+        <dc:Bounds x="260" y="2720" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0w354xo_di" bpmnElement="Activity_0w354xo">
+        <dc:Bounds x="260" y="2800" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0sfmidx_di" bpmnElement="Activity_0sfmidx">
+        <dc:Bounds x="260" y="2880" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0ku86yx_di" bpmnElement="Activity_0ku86yx">
+        <dc:Bounds x="260" y="2960" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0q6id4d_di" bpmnElement="Activity_0q6id4d">
+        <dc:Bounds x="260" y="3040" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_09id5vn_di" bpmnElement="Activity_09id5vn">
+        <dc:Bounds x="260" y="3120" width="100" height="80" />
+      </bpmndi:BPMNShape>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>
