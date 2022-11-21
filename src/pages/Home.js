@@ -911,15 +911,15 @@ export default () => {
                           <td style={{ fontSize: 12, fontFamily: "Courier" }}>
                             {getRole(userProfile.userRole)}
                           </td>
-
-                          {/*Esc <IoCloseCircle
+                          Esc{" "}
+                          <IoCloseCircle
                             style={{
                               fontSize: 28,
                               paddingLeft: 10,
                             }}
                             onClick={() => keycloak.logout()}
                             align="right"
-                          /> */}
+                          />
                         </tr>
                       </tbody>
                     </table>
