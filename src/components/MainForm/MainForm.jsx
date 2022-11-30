@@ -101,7 +101,7 @@ const useStyles = makeStyles((theme) => ({
   },
   btnStyle: {
     height: 25,
-    margin: 5,
+    margin: "8px 8px 8px 0",
     padding: 6,
     fontSize: 13,
     fontFamily: "Courier",
@@ -1446,7 +1446,7 @@ export default (props) => {
         <Grid>
           {/* Create main search table */}
           {Form !== null && Form !== "null" && (
-            <Grid container style={{ marginTop: 17 }}>
+            <Grid container style={{ margin: "20px 0 17 0" }}>
               <Paper
                 style={{
                   borderRadius: 10,
@@ -1537,7 +1537,9 @@ export default (props) => {
           {docList !== null ? (
             <Grid container direction="row" justify="flex-start" spacing={0}>
               <Paper
-                style={{ borderRadius: 15, boxShadow: "0 5px 15px 0 #919191" }}
+                style={{
+                  boxShadow: "0 5px 15px 0 #919191",
+                }}
               >
                 <table
                   id={gridTableId}
@@ -1575,6 +1577,7 @@ export default (props) => {
                               color: crSnow,
                               textAlign: "center",
                               fontFamily: "Courier",
+                              border: "1px solid #3a666c",
                             }}
                           >
                             {section.label}
@@ -1622,6 +1625,7 @@ export default (props) => {
                       )}
                     </tr>
                   </thead>
+                  {/* ВНУТРЕННЯ ЧАСТЬ ТАБЛИЦЫ */}
                   <TableBody>
                     {Object.keys(docList).length !== 0 &&
                       docList.map((dataItem) => (
@@ -1685,7 +1689,8 @@ export default (props) => {
                                         minWidth: "70px",
                                         textAlign: "left",
                                         fontFamily: "Courier",
-                                        borderBottom: "0.5px solid #a6a6a6",
+                                        borderTop: "0.5px solid #a6a6a6",
+                                        // строка в таблице и borderTop (сверху)
                                       }}
                                     >
                                       {getGridFormItems(
@@ -1702,83 +1707,78 @@ export default (props) => {
                       ))}
                   </TableBody>
                 </table>
+
+                {/* НИЖНИЙ КОЛОНТИТУЛ */}
                 <Grid
                   container
                   direction="row"
-                  justifyContent="flex-end"
-                  alignItems="flex-end"
+                  justifyContent="flex-start"
+                  alignItems="center"
                   style={{
                     fontSize: 13,
                     color: crSnowBlue,
                     fontFamily: "Courier",
                     backgroundColor: crSnowGrey,
+                    borderTop: "1px solid grey",
+                    borderBottom: "1px solid grey",
                   }}
                 >
                   <tr>
-                    <td width="70%">
-                      <td>
-                        <LightTooltip title="Переход на первую страницу">
-                          <IconButton onClick={() => KeyboardArrowFirstClick()}>
-                            <FirstPageIcon
-                              style={{
-                                fontSize: "small",
-                                color: crSnowBlue,
-                              }}
-                            />
-                          </IconButton>
-                        </LightTooltip>
-                      </td>
-                      <td>
-                        <LightTooltip title="Переход на предыдущюю страницу">
-                          <IconButton
-                            onClick={() => KeyboardArrowLeftClick(page)}
-                          >
-                            <ArrowBackIosIcon
-                              style={{
-                                fontSize: "small",
-                                color: crSnowBlue,
-                              }}
-                            />
-                          </IconButton>
-                        </LightTooltip>
-                      </td>
-                      <td
-                        style={{
-                          fontSize: "small",
-                          color: crSnowBlue,
-                        }}
-                      >
-                        <input
-                          style={{ maxWidth: 30, textAlign: "center" }}
-                          value={page}
-                          onChange={handlePageChange}
-                        ></input>
-                      </td>
-                      <td>
-                        <LightTooltip title="Переход на следующюю страницу">
-                          <IconButton
-                            onClick={() => KeyboardArrowRightClick(page)}
-                          >
-                            <ArrowForwardIosIcon
-                              style={{
-                                fontSize: "small",
-                                color: crSnowBlue,
-                              }}
-                            />
-                          </IconButton>
-                        </LightTooltip>
-                      </td>
-                      <td
-                        style={{
-                          fontSize: "small",
-                          color: crSnowBlue,
-                        }}
-                      >
-                        Стр. {page} из {getPageAmount()}
-                      </td>
+                    {/* <td width="60%" style={{ border: "1 solid red" }}> */}
+                    <td>
+                      <LightTooltip title="Переход на первую страницу">
+                        <IconButton onClick={() => KeyboardArrowFirstClick()}>
+                          <FirstPageIcon
+                            style={{
+                              fontSize: "small",
+                              color: crSnowBlue,
+                            }}
+                          />
+                        </IconButton>
+                      </LightTooltip>
+                    </td>
+                    <td>
+                      <LightTooltip title="Переход на предыдущую страницу">
+                        <IconButton
+                          onClick={() => KeyboardArrowLeftClick(page)}
+                        >
+                          <ArrowBackIosIcon
+                            style={{
+                              fontSize: "small",
+                              color: crSnowBlue,
+                            }}
+                          />
+                        </IconButton>
+                      </LightTooltip>
                     </td>
                     <td
-                      width="30%"
+                      style={{
+                        fontSize: "small",
+                        color: crSnowBlue,
+                      }}
+                    >
+                      <input
+                        style={{ maxWidth: 20, textAlign: "center" }}
+                        value={page}
+                        onChange={handlePageChange}
+                      ></input>
+                    </td>
+                    <td>
+                      <LightTooltip title="Переход на следующую страницу">
+                        <IconButton
+                          onClick={() => KeyboardArrowRightClick(page)}
+                        >
+                          <ArrowForwardIosIcon
+                            style={{
+                              fontSize: "small",
+                              color: crSnowBlue,
+                            }}
+                          />
+                        </IconButton>
+                      </LightTooltip>
+                    </td>
+                    <td
+                      // width="40%"
                       style={{
                         fontSize: "small",
                         color: crSnowBlue,
@@ -1791,16 +1791,14 @@ export default (props) => {
               </Paper>
             </Grid>
           ) : (
-            <Grid container direction="row" justify="flex-start" spacing={0}>
-              <Grid
-                item
-                sm={"auto"}
-                // style={{
-                //   backgroundColor: "#F7F7F7",
-                //   border: "solid 0.3px #c5c5c5",
-                //   fontFamily: "Courier",
-                // }}
-              >
+            <Grid
+              container
+              direction="row"
+              justifyContent="flex-start"
+              alignItems="center"
+              spacing={0}
+            >
+              <Grid item sm={"auto"}>
                 <Paper>
                   <table
                     id={gridTableId}
@@ -1814,7 +1812,7 @@ export default (props) => {
                   </table>
                   <tfoot>
                     <tr>
-                      <td width="70%">
+                      <td width="60%">
                         <td>
                           <Tooltip title="Переход на первую страницу">
                             <IconButton
@@ -1830,7 +1828,7 @@ export default (props) => {
                           </Tooltip>
                         </td>
                         <td>
-                          <Tooltip title="Переход на предыдущюю страницу">
+                          <Tooltip title="Переход на предыдущую страницу">
                             <IconButton
                               onClick={() => KeyboardArrowLeftClick(page)}
                             >
@@ -1852,13 +1850,13 @@ export default (props) => {
                           }}
                         >
                           <input
-                            style={{ maxWidth: 25, textAlign: "center" }}
+                            style={{ maxWidth: 20, textAlign: "center" }}
                             value={page}
                             onChange={handlePageChange}
                           ></input>
                         </td>
                         <td>
-                          <Tooltip title="Переход на следующюю страницу">
+                          <Tooltip title="Переход на следующую страницу">
                             <IconButton
                               onClick={() => KeyboardArrowRightClick(page)}
                             >
@@ -1873,19 +1871,9 @@ export default (props) => {
                             </IconButton>
                           </Tooltip>
                         </td>
-                        <td
-                          style={{
-                            fontSize: 14,
-                            fontSize: "small",
-                            color: crSnowBlue,
-                            fontFamily: "Courier",
-                          }}
-                        >
-                          Стр. {page} из {getPageAmount()}
-                        </td>
                       </td>
                       <td
-                        width="20%"
+                        width="40%"
                         style={{ fontSize: 14, fontFamily: "Courier" }}
                       >
                         Кол-во строк: {totalCount}
