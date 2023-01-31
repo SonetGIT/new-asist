@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bioc="http://bpmn.io/schema/bpmn/biocolor/1.0" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="Definitions_12ajdup" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="4.3.0">
+  <bpmn:process id="process_7970005f-69f9-4fb5-90e9-d5d09c71ab1f" name="Для тестирование форм" isExecutable="true">
+    <bpmn:startEvent id="Event_1apmtbq">
+      <bpmn:outgoing>Flow_1w98fc9</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:scriptTask id="Activity_0hzuz42" name="Variables" scriptFormat="Javascript" camunda:resultVariable="taskType">
+      <bpmn:incoming>Flow_02kuc4o</bpmn:incoming>
+      <bpmn:outgoing>Flow_0e0fzjr</bpmn:outgoing>
+      <bpmn:script>execution.setVariable("taskType", "showPersonSearchForm")
+execution.setVariable("buttons", "null")
+execution.setVariable("tableFormButtons", "null")
+execution.setVariable("gridFormButtons", "null")
+execution.setVariable("formDefId", "4F9F2AE2-7180-4850-A3F4-5FB47313BCC0")
+execution.setVariable("gridForm", "null")
+execution.setVariable("userAction", "null")
+execution.setVariable("selectedDoc", "null")
+execution.setVariable("docId", "null")
+execution.setVariable("formType", "edit")
+execution.setVariable("docList", "null")</bpmn:script>
+    </bpmn:scriptTask>
+    <bpmn:serviceTask id="Activity_0g7l65z" name="API GET SearchParamForm">
+      <bpmn:extensionElements>
+        <camunda:connector>
+          <camunda:inputOutput>
+            <camunda:inputParameter name="url">${metaRESTApi}/api/metadata/GetByDefId?defid=${formDefId}</camunda:inputParameter>
+            <camunda:inputParameter name="method">GET</camunda:inputParameter>
+            <camunda:inputParameter name="headers">
+              <camunda:map>
+                <camunda:entry key="Content-Type">application/json</camunda:entry>
+              </camunda:map>
+            </camunda:inputParameter>
+            <camunda:outputParameter name="form">
+              <camunda:script scriptFormat="Javascript">S(response).prop("data").toString()</camunda:script>
+            </camunda:outputParameter>
+          </camunda:inputOutput>
+          <camunda:connectorId>http-connector</camunda:connectorId>
+        </camunda:connector>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_0e0fzjr</bpmn:incoming>
+      <bpmn:outgoing>Flow_141adbu</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:userTask id="Activity_0v7wuac" name="SHOW Test Form">
+      <bpmn:extensionElements>
+        <camunda:taskListener class="com.camunda.RabbitMQ.Enqueue" event="create">
+          <camunda:field name="taskVariables">
+            <camunda:expression>${taskVariables}</camunda:expression>
+          </camunda:field>
+        </camunda:taskListener>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_1bnohon</bpmn:incoming>
+      <bpmn:outgoing>Flow_0r4w301</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:scriptTask id="Activity_0krnt7z" name="Task" scriptFormat="Javascript">
+      <bpmn:incoming>Flow_141adbu</bpmn:incoming>
+      <bpmn:outgoing>Flow_1bnohon</bpmn:outgoing>
+      <bpmn:script>var variables = {
+taskType: taskType,
+selectedDoc: selectedDoc,
+process_id: process_id,
+formType: formType,
+userAction: userAction,
+docList: docList,
+buttons: buttons,
+size: size,
+page: page,
+userRole: userRole,
+tabLabel: tabLabel,
+userId: userId,
+docId: docId,
+gridFormButtons: gridFormButtons,
+tableFormButtons: tableFormButtons,
+form: form,
+gridForm: gridForm
+}
+execution.setVariable("taskVariables", JSON.stringify(variables))</bpmn:script>
+    </bpmn:scriptTask>
+    <bpmn:scriptTask id="Activity_0pejg0m" name="DEF Variables" scriptFormat="Javascript" camunda:resultVariable="taskType">
+      <bpmn:incoming>Flow_1w98fc9</bpmn:incoming>
+      <bpmn:outgoing>Flow_02kuc4o</bpmn:outgoing>
+      <bpmn:script>execution.setVariable("searchBody", "{}")
+execution.setVariable("page", "1")
+execution.setVariable("size", "10")</bpmn:script>
+    </bpmn:scriptTask>
+    <bpmn:sequenceFlow id="Flow_1w98fc9" sourceRef="Event_1apmtbq" targetRef="Activity_0pejg0m" />
+    <bpmn:sequenceFlow id="Flow_02kuc4o" sourceRef="Activity_0pejg0m" targetRef="Activity_0hzuz42" />
+    <bpmn:sequenceFlow id="Flow_0e0fzjr" sourceRef="Activity_0hzuz42" targetRef="Activity_0g7l65z" />
+    <bpmn:sequenceFlow id="Flow_141adbu" sourceRef="Activity_0g7l65z" targetRef="Activity_0krnt7z" />
+    <bpmn:sequenceFlow id="Flow_1bnohon" sourceRef="Activity_0krnt7z" targetRef="Activity_0v7wuac" />
+    <bpmn:endEvent id="Event_0lphz0g">
+      <bpmn:incoming>Flow_0r4w301</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:endEvent id="Event_09r66l2">
+      <bpmn:incoming>Flow_06kuky2</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_06kuky2" sourceRef="Activity_0o8agj6" targetRef="Event_09r66l2" />
+    <bpmn:userTask id="Activity_0o8agj6">
+      <bpmn:outgoing>Flow_06kuky2</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:sequenceFlow id="Flow_0r4w301" sourceRef="Activity_0v7wuac" targetRef="Event_0lphz0g" />
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="process_7970005f-69f9-4fb5-90e9-d5d09c71ab1f">
+      <bpmndi:BPMNEdge id="Flow_0r4w301_di" bpmnElement="Flow_0r4w301" bioc:stroke="rgb(67, 160, 71)" bioc:fill="rgb(200, 230, 201)">
+        <di:waypoint x="830" y="120" />
+        <di:waypoint x="856" y="120" />
+        <di:waypoint x="856" y="130" />
+        <di:waypoint x="882" y="130" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_06kuky2_di" bpmnElement="Flow_06kuky2">
+        <di:waypoint x="2050" y="120" />
+        <di:waypoint x="2102" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1bnohon_di" bpmnElement="Flow_1bnohon" bioc:stroke="rgb(67, 160, 71)" bioc:fill="rgb(200, 230, 201)">
+        <di:waypoint x="700" y="120" />
+        <di:waypoint x="730" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_141adbu_di" bpmnElement="Flow_141adbu" bioc:stroke="rgb(67, 160, 71)" bioc:fill="rgb(200, 230, 201)">
+        <di:waypoint x="570" y="120" />
+        <di:waypoint x="600" y="120" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="552" y="112" width="66" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0e0fzjr_di" bpmnElement="Flow_0e0fzjr" bioc:stroke="rgb(67, 160, 71)" bioc:fill="rgb(200, 230, 201)">
+        <di:waypoint x="440" y="120" />
+        <di:waypoint x="470" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_02kuc4o_di" bpmnElement="Flow_02kuc4o" bioc:stroke="rgb(67, 160, 71)" bioc:fill="rgb(200, 230, 201)">
+        <di:waypoint x="310" y="120" />
+        <di:waypoint x="340" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1w98fc9_di" bpmnElement="Flow_1w98fc9" bioc:stroke="rgb(67, 160, 71)" bioc:fill="rgb(200, 230, 201)">
+        <di:waypoint x="188" y="120" />
+        <di:waypoint x="210" y="120" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="166" y="112" width="66" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="Event_1apmtbq_di" bpmnElement="Event_1apmtbq" bioc:stroke="rgb(67, 160, 71)" bioc:fill="rgb(200, 230, 201)">
+        <dc:Bounds x="152" y="102" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0hzuz42_di" bpmnElement="Activity_0hzuz42">
+        <dc:Bounds x="340" y="80" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0g7l65z_di" bpmnElement="Activity_0g7l65z">
+        <dc:Bounds x="470" y="80" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0v7wuac_di" bpmnElement="Activity_0v7wuac">
+        <dc:Bounds x="730" y="80" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0krnt7z_di" bpmnElement="Activity_0krnt7z">
+        <dc:Bounds x="600" y="80" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0pejg0m_di" bpmnElement="Activity_0pejg0m">
+        <dc:Bounds x="210" y="80" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0lphz0g_di" bpmnElement="Event_0lphz0g" bioc:stroke="rgb(229, 57, 53)" bioc:fill="rgb(255, 205, 210)">
+        <dc:Bounds x="882" y="112" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_09r66l2_di" bpmnElement="Event_09r66l2">
+        <dc:Bounds x="2102" y="102" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_035j9ws_di" bpmnElement="Activity_0o8agj6">
+        <dc:Bounds x="1950" y="80" width="100" height="80" />
+      </bpmndi:BPMNShape>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

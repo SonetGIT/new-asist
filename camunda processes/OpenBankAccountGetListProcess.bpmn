@@ -288,12 +288,12 @@ execution.setVariable("docList", docList)</bpmn:script>
     <bpmn:sequenceFlow id="Flow_1r6lvop" name="paginationClick" sourceRef="Gateway_0yg1s6j" targetRef="Activity_1q0k252">
       <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">#{userAction == "paginationClick"}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
-    <bpmn:serviceTask id="Activity_1d88efz" name="GET list">
+    <bpmn:serviceTask id="Activity_1d88efz" name="POST list">
       <bpmn:extensionElements>
         <camunda:connector>
           <camunda:inputOutput>
             <camunda:inputParameter name="url">${asistRESTApi}/ASIST-MODERN-API/api/OpenBankAccount/GetList?page=${page}&amp;size=${size}</camunda:inputParameter>
-            <camunda:inputParameter name="method">GET</camunda:inputParameter>
+            <camunda:inputParameter name="method">POST</camunda:inputParameter>
             <camunda:inputParameter name="headers">
               <camunda:map>
                 <camunda:entry key="Content-Type">application/json</camunda:entry>

@@ -21,7 +21,6 @@ import { MdExitToApp } from "react-icons/io";
 import { IoCloseCircle } from "react-icons/io5";
 import "@fontsource/roboto-slab";
 import logo from "./logo.png";
-
 // Libs
 import { useKeycloak } from "../lib";
 import swal from "sweetalert"; // https://sweetalert.js.org/guides/
@@ -35,13 +34,15 @@ import ExitToAppIcon from "@material-ui/icons/ExitToAppOutlined";
 import ExpandLess from "@material-ui/icons/ExpandLess";
 import ExpandMore from "@material-ui/icons/ExpandMore";
 import AddCircleIcon from "@material-ui/icons/AddCircleOutlineOutlined";
-import AddToPhotosIcon from "@material-ui/icons/AddToPhotos";
+// import AddToPhotosIcon from "@material-ui/icons/AddToPhotos";
+import AddToPhotosIcon from "@mui/icons-material/AddToPhotosOutlined";
+import { MdLibraryAdd } from "react-icons/md";
 import CloseIcon from "@material-ui/icons/Close";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import Notification from "@material-ui/icons/Notifications";
 import NotificationsActiveIcon from "@material-ui/icons/NotificationsActive";
 import Badge from "@material-ui/core/Badge";
-import SendIcon from "@material-ui/icons/Send";
+import { BiSend } from "react-icons/bi";
 import { red } from "@material-ui/core/colors";
 
 var crSnow = "#FFFAFA";
@@ -176,28 +177,45 @@ const useStylesnav = makeStyles((theme) => ({
   },
   listItemText: {
     fontSize: 14,
-    paddingLeft: "2px",
+    // paddingLeft: 3,
+    fontWeight: "bold",
+    color: crBlue,
   },
   level1: {
     paddingLeft: theme.spacing(0),
-    maxHeight: 24,
+    maxHeight: 22,
+    margin: 3,
   },
   level2: {
-    paddingLeft: theme.spacing(0),
-    maxHeight: 24,
+    paddingLeft: theme.spacing(0.5),
+    maxHeight: 22,
+    margin: 3,
   },
   level3: {
-    paddingLeft: theme.spacing(1),
-    maxHeight: 24,
+    paddingLeft: theme.spacing(2),
+    maxHeight: 22,
+    margin: 3,
   },
   level4: {
-    paddingLeft: theme.spacing(2),
-    maxHeight: 24,
+    paddingLeft: theme.spacing(0),
+    maxHeight: 22,
+    margin: 3,
+    color: crGreen,
+    fontSize: 10,
   },
   tabs: {
     flexGrow: 1,
     width: "100%",
     backgroundColor: theme.palette.background.paper,
+  },
+  addToIconStl: {
+    color: crSnowBlue,
+    fontSize: 18,
+  },
+  biSendStyle: {
+    height: 18,
+    color: crGreen,
+    marginLeft: 4,
   },
 }));
 
@@ -664,7 +682,7 @@ export default () => {
     sendFieldValues(commandJson);
     console.log("Menu Button ", commandJson);
   }
-  // Creating Menu Levels 1-3
+  // Creating MENU Levels 1-3
   function getLevel1Items(level1, index) {
     // console.log("Creating Menu menuItemStates", menuItemStates)
     for (var i = 0; i < menuItemStates.length; i++) {
@@ -677,21 +695,16 @@ export default () => {
               className={classesnav.level1}
               // onClick={() => handleOpenMenuClick(level1.name)}
             >
-              <AddToPhotosIcon
-                style={{ height: 20, color: crSnowBlue }}
+              <MdLibraryAdd
+                className={classesnav.addToIconStl}
                 onClick={() => handleOpenMenuClick(level1.name)}
               />
-              <div
-                className={classesnav.listItemText}
-                style={{ fontWeight: "bold" }}
-              >
-                {level1.label}
-              </div>
-              {menuItemStates[i].state === true ? (
+              <div className={classesnav.listItemText}>{level1.label}</div>
+              {/* {menuItemStates[i].state === true ? (
                 <ExpandLess />
               ) : (
                 <ExpandMore />
-              )}
+              )} */}
             </ListItem>
             <Collapse in={menuItemStates[i].state} timeout="auto" unmountOnExit>
               {level1.level2.map((level2Item, index) =>
@@ -710,13 +723,12 @@ export default () => {
         return (
           <List component="div" disablePadding key={index}>
             <ListItem button className={classesnav.level2} key={index}>
-              <AddToPhotosIcon
-                style={{ height: 20, color: crSnowBlue }}
+              <MdLibraryAdd
+                className={classesnav.addToIconStl}
                 onClick={() => handleOpenMenuClick(level2.name)}
               />
               <div
                 className={classesnav.listItemText}
-                style={{ fontWeight: "bold" }}
                 onClick={
                   level2.launchProcess === true
                     ? () => handleMenuButtonClick(level2)
@@ -725,11 +737,11 @@ export default () => {
               >
                 {level2.label}
               </div>
-              {menuItemStates[i].state === true ? (
+              {/* {menuItemStates[i].state === true ? (
                 <ExpandLess />
               ) : (
                 <ExpandMore />
-              )}
+              )} */}
             </ListItem>
             <Collapse in={menuItemStates[i].state} timeout="auto" unmountOnExit>
               {level2.level3.map((level3Item, index) =>
@@ -750,9 +762,7 @@ export default () => {
           key={index}
           onClick={() => handleMenuButtonClick(level3)}
         >
-          <ExitToAppIcon
-            style={{ height: 20, color: "grey", marginLeft: "4px" }}
-          />
+          <BiSend className={classesnav.level4} />
           <div className={classesnav.listItemText}>{level3.label}</div>
         </ListItem>
       );
@@ -762,13 +772,12 @@ export default () => {
           return (
             <List component="div" disablePadding key={index}>
               <ListItem button className={classesnav.level3} key={index}>
-                <AddToPhotosIcon
-                  style={{ height: 20, color: crSnowBlue }}
+                <MdLibraryAdd
+                  className={classesnav.addToIconStl}
                   onClick={() => handleOpenMenuClick(level3.name)}
                 />
                 <div
                   className={classesnav.listItemText}
-                  style={{ fontWeight: "bold" }}
                   onClick={
                     level3.launchProcess === true
                       ? () => handleMenuButtonClick(level3)
@@ -777,11 +786,11 @@ export default () => {
                 >
                   {level3.label}
                 </div>
-                {menuItemStates[i].state === true ? (
+                {/* {menuItemStates[i].state === true ? (
                   <ExpandLess />
                 ) : (
                   <ExpandMore />
-                )}
+                )} */}
               </ListItem>
               <Collapse
                 in={menuItemStates[i].state}
@@ -806,7 +815,7 @@ export default () => {
         key={index}
         onClick={() => handleMenuButtonClick(level4)}
       >
-        <SendIcon style={{ marginLeft: 15, height: 15, color: "#75879d" }} />
+        <BiSend className={classesnav.level4} />
         <div className={classesnav.listItemText}>{level4.label}</div>
       </ListItem>
     );
@@ -937,6 +946,7 @@ export default () => {
         }}
         open={open}
       >
+        "
         <div className={classes.toolbarIcon}>
           <IconButton onClick={handleDrawerClose}>
             <ChevronLeftIcon />
@@ -956,6 +966,7 @@ export default () => {
               paddingLeft: open === true ? drawerWidth : 65,
             }}
           >
+            {/* ОТРИСОВКА TAB */}
             <Tabs
               position="fixed"
               value={selectedTab}
@@ -970,12 +981,18 @@ export default () => {
                 <Tab
                   key={tab.id}
                   label={
-                    <Grid style={{ fontSize: 11 }}>
+                    <Grid
+                      style={{
+                        fontFamily: "Courier",
+                        color: "#000080",
+                        fontSize: 11,
+                        width: 290,
+                        height: 10,
+                      }}
+                    >
                       {tab.label}
                       <IconButton onClick={() => handleCloseCurrentTab(tab.id)}>
-                        <CloseIcon
-                          style={{ fontSize: "medium", color: "black" }}
-                        />
+                        <CloseIcon style={{ fontSize: 11, color: "#000080" }} />
                       </IconButton>
                     </Grid>
                   }

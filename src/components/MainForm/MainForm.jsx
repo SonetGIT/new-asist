@@ -11,10 +11,11 @@ import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Snackbar from "@material-ui/core/Snackbar";
-import Alert from "@material-ui/lab/Alert";
+import Alert from "@mui/material/Alert";
 import NumberFormat from "react-number-format";
 import PropTypes from "prop-types";
 // Form components
+import { RiFileExcel2Fill } from "react-icons/ri";
 import TextField from "@material-ui/core/TextField";
 import Select from "react-select";
 import Checkbox from "@material-ui/core/Checkbox";
@@ -109,6 +110,11 @@ const useStyles = makeStyles((theme) => ({
     border: "1px solid #3a666c",
     backgroundColor: crSnowBlue,
   },
+  paginationStyle: {
+    fontSize: 14,
+    color: crSnowBlue,
+    fontFamily: "Courier",
+  },
 }));
 export default (props) => {
   //This.state
@@ -122,10 +128,12 @@ export default (props) => {
   const [docId, setDocId] = useState(props.userTask.docId);
   const [formType] = useState(props.userTask.formType);
   const [docList, setDocList] = useState(null);
+  const [filteredDocList, setFilteredDocList] = useState(null);
+  const [initialDocList, setInitialDocList] = useState(null);
 
   const [gridForm] = useState(props.userTask.gridForm);
   const [gridFormButtons] = useState(props.userTask.gridFormButtons);
-  const [tableFormButtons, setTableFormButtons] = useState(null);
+  const [tableFormButtons, setTableFormButtons] = useState([]);
   const [enumData] = useState(props.userTask.enumData);
   const [enumOptions, setEnumOptions] = useState({});
   const [fieldValue, setFieldValue] = useState({});
@@ -598,21 +606,29 @@ export default (props) => {
   }
   // Collect data to save doc
   function getFieldValuesSaveDocument() {
-    let docToSave = {};
-    for (let s = 0; s < Form.sections.length; s++) {
-      for (let c = 0; c < Form.sections[s].contents.length; c++) {
-        let fieldName = Form.sections[s].contents[c].name;
-        if (
-          Form.sections[s].contents[c].type === "Bool" &&
-          fieldValue[fieldName] === undefined
-        ) {
-          docToSave[fieldName] = false;
-        } else {
-          docToSave[fieldName] = fieldValue[fieldName];
+    let attrs = {
+      attributes: [],
+    };
+    if (Form !== null && Form !== "null") {
+      for (let s = 0; s < Form.sections.length; s++) {
+        for (let c = 0; c < Form.sections[s].contents.length; c++) {
+          let name = Form.sections[s].contents[c].name;
+          if (fieldValue[name] !== undefined) {
+            attrs.attributes.push({
+              name: name,
+              value: fieldValue[name],
+              type: Form.sections[s].contents[c].type,
+            });
+          }
         }
       }
     }
-    return docToSave;
+
+    if (attrs.attributes.length === 0) {
+      return {};
+    } else {
+      return attrs;
+    }
   }
   // Collect data to update doc
   function getFieldValuesUpdateDocument() {
@@ -691,10 +707,132 @@ export default (props) => {
       return attrs;
     }
   }
+  function getContentType(key) {
+    for (let s = 0; s < Form.sections.length; s++) {
+      for (let c = 0; c < Form.sections[s].contents.length; c++) {
+        if (key === Form.sections[s].contents[c].name) {
+          return Form.sections[s].contents[c].type;
+        }
+      }
+    }
+  }
+  // filter users by filled parameters
+  function filterDocList(fetchFrom, fetchTo, Data) {
+    console.log("FILTER DOCL", fieldValue);
+    var newDocList = [];
+    if (Object.keys(fieldValue).length === 0) {
+      newDocList = Data;
+    } else {
+      for (let i = 0; i < Data.length; i++) {
+        let match = false;
+        for (let key in fieldValue) {
+          if (Data[i][key] !== null) {
+            if (fieldValue[key] === null || fieldValue[key] === "") {
+              match = true;
+            } else {
+              let contentType = getContentType(key);
+              if (contentType === "Text") {
+                let searchField = fieldValue[key].toLowerCase();
+                let dataField = Data[i][key].toLowerCase();
+                let includeSearch = dataField.includes(searchField);
+                if (includeSearch === true) {
+                  match = true;
+                } else {
+                  match = false;
+                  break;
+                }
+              } else if (contentType === "Int" || contentType === "Float") {
+                if (fieldValue[key] >= 0 || fieldValue[key] < 0) {
+                  let searchField = fieldValue[key].toString();
+                  let dataField = Data[i][key].toString();
+                  let includeSearch = dataField.includes(searchField);
+                  if (includeSearch === true) {
+                    match = true;
+                  } else {
+                    match = false;
+                    break;
+                  }
+                } else {
+                  match = true;
+                }
+              } else if (contentType === "Enum") {
+                if (fieldValue[key] === Data[i][key]) {
+                  match = true;
+                } else {
+                  match = false;
+                  break;
+                }
+              } else if (contentType === "DateTime") {
+                let searchField = parseDate(fieldValue[key]);
+                let dataField = parseDate(Data[i][key]);
+                if (searchField === "NaN-NaN-NaN") {
+                  match = true;
+                } else {
+                  if (searchField === dataField) {
+                    match = true;
+                  } else {
+                    match = false;
+                    break;
+                  }
+                }
+              } else if (contentType === "Bool") {
+                if (fieldValue[key] === Data[i][key]) {
+                  match = true;
+                } else {
+                  match = false;
+                  break;
+                }
+              }
+            }
+          } else {
+            match = false;
+            break;
+          }
+        }
+        if (match === true) {
+          newDocList.push(Data[i]);
+        }
+      }
+    }
+    setFilteredDocList(newDocList);
+    fetchBySize(fetchFrom, fetchTo, newDocList);
+  }
+  // get rows amount of filtered users by size
+  function fetchBySize(fetchFrom, fetchTo, Data) {
+    // console.log("fetchFrom", "fetchTo")
+    let newDocList = [];
+    for (let i = fetchFrom; i <= fetchTo; i++) {
+      if (Data[i] !== undefined) {
+        newDocList.push(Data[i]);
+      }
+    }
+    setDocList(newDocList);
+  }
 
   /***USER_ACTION - действие пользователя***********************************************************************************************/
   async function buttonClick(name, item) {
-    if (name === "filterClMonthDocList") {
+    if (name === "findDocument") {
+      let filterDoc = getFieldValuesFilterDocuments();
+
+      let commandJson = {
+        commandType: "completeTask",
+        session_id: session_id,
+        process_id: process_id,
+        taskID: taskID,
+        userId: userProfile.userId,
+        userRole: userProfile.userRole,
+        variables: {
+          userAction: { value: "findDocument" },
+          searchBody: { value: JSON.stringify(filterDoc) },
+          size: { value: size },
+          page: { value: page },
+          selectedDoc: { value: JSON.stringify(fieldValue) },
+        },
+      };
+      console.log("filterClMonthDocList:", commandJson);
+      sendFieldValues(commandJson);
+      clearTabData(process_id);
+    } else if (name === "filterClMonthDocList") {
       let filterDoc = getFieldValuesFilterDocuments();
 
       let commandJson = {
@@ -1050,7 +1188,7 @@ export default (props) => {
           userAction: { value: "createDocument" },
         },
       };
-      console.log("createDocument:", commandJson);
+      console.log(":", commandJson);
       sendFieldValues(commandJson);
       clearTabData(process_id);
     } else if (name === "cancel") {
@@ -1239,10 +1377,12 @@ export default (props) => {
     if (contentItem.type === "Text") {
       return (
         <TextField
-          multiline
           onBlur={handleChange}
           name={contentItem.name}
-          style={{ width: "100%" }}
+          style={{
+            width: "100%",
+            height: 10,
+          }}
           disabled={
             formType === "view" || contentItem.edit === false ? true : false
           }
@@ -1292,7 +1432,7 @@ export default (props) => {
           key={keyGen(5)}
           style={{
             maxWidth: 20,
-            height: 15,
+            height: 10,
             color:
               formType === "view" || contentItem.edit === false
                 ? "#37474f"
@@ -1318,7 +1458,7 @@ export default (props) => {
           disabled={
             formType === "view" || contentItem.edit === false ? true : false
           }
-          style={{ width: "100%" }}
+          style={{ width: "100%", height: 10 }}
           defaultValue={
             fieldValue[contentItem.name] !== undefined
               ? fieldValue[contentItem.name]
@@ -1337,7 +1477,7 @@ export default (props) => {
           name={contentItem.name}
           onBlur={handleFloatChange}
           value={fieldValue[contentItem.name]}
-          style={{ width: "100%" }}
+          style={{ width: "100%", height: 10 }}
           disabled={
             formType === "view" || contentItem.edit === false ? true : false
           }
@@ -1350,7 +1490,7 @@ export default (props) => {
           type="date"
           name={contentItem.name}
           onBlur={handleDateTimeChange}
-          style={{ width: "100%" }}
+          style={{ width: "100%", height: 10 }}
           defaultValue={
             fieldValue[contentItem.name] !== undefined
               ? parseDate(fieldValue[contentItem.name])
@@ -1450,7 +1590,7 @@ export default (props) => {
               <Paper
                 style={{
                   borderRadius: 10,
-                  boxShadow: "0 5px 15px 0 #919191",
+                  boxShadow: "0 2px 15px 0 #919191",
                 }}
               >
                 <Table
@@ -1518,27 +1658,26 @@ export default (props) => {
           )}
           <br></br>
           <Grid>
-            {tableFormButtons !== null &&
-              tableFormButtons.map((button) => (
-                <Button
-                  className={classes.btnStyle}
-                  key={button.name}
-                  name={button.name}
-                  variant="outlined"
-                  // id={dataItem.id}
-                  value={button.name}
-                  onClick={() => buttonClick(button.name, null)}
-                >
-                  {button.label}
-                </Button>
-              ))}
+            {tableFormButtons.map((button) => (
+              <Button
+                className={classes.btnStyle}
+                key={button.name}
+                name={button.name}
+                variant="outlined"
+                // id={dataItem.id}
+                value={button.name}
+                onClick={() => buttonClick(button.name, null)}
+              >
+                {button.label}
+              </Button>
+            ))}
           </Grid>
           {/* Create grid table with data from doclist */}
-          {docList !== null ? (
+          {gridForm !== null && (
             <Grid container direction="row" justify="flex-start" spacing={0}>
               <Paper
                 style={{
-                  boxShadow: "0 5px 15px 0 #919191",
+                  boxShadow: "0 1px 15px 0 #919191",
                 }}
               >
                 <table
@@ -1556,14 +1695,14 @@ export default (props) => {
                     }}
                   >
                     <tr>
-                      {gridFormButtons !== null && gridFormButtons.length > 0 && (
+                      {gridFormButtons !== null && (
                         <td
                           colSpan="1"
                           style={{
                             color: crBlack,
                             fontSize: 18,
                             textAlign: "center",
-                            border: "1px solid #3a666c",
+                            border: "0.5px solid #3a666c",
                           }}
                         ></td>
                       )}
@@ -1577,7 +1716,7 @@ export default (props) => {
                               color: crSnow,
                               textAlign: "center",
                               fontFamily: "Courier",
-                              border: "1px solid #3a666c",
+                              border: "0.5px solid #3a666c",
                             }}
                           >
                             {section.label}
@@ -1586,23 +1725,24 @@ export default (props) => {
                       })}
                     </tr>
                     <tr>
-                      {gridFormButtons !== null && gridFormButtons.length > 0 && (
-                        <td
-                          rowSpan="2"
-                          key={"action"}
-                          style={{
-                            color: crSnow,
-                            padding: 7,
-                            minWidth: 70,
-                            fontSize: 14,
-                            textAlign: "center",
-                            fontFamily: "Courier",
-                            border: "1px solid #3a666c",
-                          }}
-                        >
-                          Действие
-                        </td>
-                      )}
+                      {gridFormButtons !== null &&
+                        gridFormButtons.length > 0 && (
+                          <td
+                            rowSpan="2"
+                            key={"action"}
+                            style={{
+                              color: crSnow,
+                              padding: 7,
+                              minWidth: 70,
+                              fontSize: 14,
+                              textAlign: "center",
+                              fontFamily: "Courier",
+                              border: "0.5px solid #3a666c",
+                            }}
+                          >
+                            Действие
+                          </td>
+                        )}
                       {gridForm.sections.map((section) =>
                         section.contents.map((contentItem) => {
                           return (
@@ -1615,7 +1755,7 @@ export default (props) => {
                                 fontSize: 14,
                                 textAlign: "center",
                                 fontFamily: "Courier",
-                                border: "1px solid #3a666c",
+                                border: "0.5px solid #3a666c",
                               }}
                             >
                               {contentItem.label}
@@ -1626,86 +1766,88 @@ export default (props) => {
                     </tr>
                   </thead>
                   {/* ВНУТРЕННЯ ЧАСТЬ ТАБЛИЦЫ */}
-                  <TableBody>
-                    {Object.keys(docList).length !== 0 &&
-                      docList.map((dataItem) => (
-                        <tr key={keyGen(5)} style={{ height: 35 }}>
-                          {gridFormButtons !== null &&
-                            gridFormButtons.length > 0 && (
-                              <td
-                                key={keyGen(5)}
-                                style={{
-                                  maxWidth: 34,
-                                  textAlign: "center",
-                                }}
-                              >
-                                {gridFormButtons !== "null" &&
-                                  gridFormButtons.map((button) => (
-                                    <Button
-                                      key={button.name}
-                                      name={button.name}
-                                      value={button.name}
-                                      onClick={() =>
-                                        buttonClick(button.name, dataItem)
-                                      }
-                                      style={{
-                                        height: 20,
-                                        fontSize: 10,
-                                        maxWidth: 36,
-                                        marginTop: 4,
-                                        marginBottom: 4,
-                                        fontWeight: "bold",
-                                        fontFamily: "Courier",
-                                        color: crSnowBlue,
-                                        backgroundColor: crSnow,
-                                        border: "1px solid #2d838d", //crSnowBlue
-                                      }}
-                                    >
-                                      {button.label}
-                                    </Button>
-                                  ))}
-                              </td>
-                            )}
-                          {gridForm.sections.map((section) => {
-                            return section.contents.map((contentItem) => {
-                              for (
-                                let a = 0;
-                                a < dataItem.attributes.length;
-                                a++
-                              ) {
-                                // console.log("ITEM AZA", dataItem.attributes[a].name, "ITEM KGS", contentItem.name)
-                                //dataItem.attributes[a].name - название поля из API
-                                //contentItem.name - название поля из JSON
-                                if (
-                                  dataItem.attributes[a].name ===
-                                  contentItem.name
+                  {docList !== null && (
+                    <TableBody>
+                      {Object.keys(docList).length !== 0 &&
+                        docList.map((dataItem) => (
+                          <tr key={keyGen(5)} style={{ height: 35 }}>
+                            {gridFormButtons !== null &&
+                              gridFormButtons.length > 0 && (
+                                <td
+                                  key={keyGen(5)}
+                                  style={{
+                                    maxWidth: 34,
+                                    textAlign: "center",
+                                  }}
+                                >
+                                  {gridFormButtons !== "null" &&
+                                    gridFormButtons.map((button) => (
+                                      <Button
+                                        key={button.name}
+                                        name={button.name}
+                                        value={button.name}
+                                        onClick={() =>
+                                          buttonClick(button.name, dataItem)
+                                        }
+                                        style={{
+                                          height: 20,
+                                          fontSize: 10,
+                                          maxWidth: 36,
+                                          marginTop: 4,
+                                          marginBottom: 4,
+                                          fontWeight: "bold",
+                                          fontFamily: "Courier",
+                                          color: crSnowBlue,
+                                          backgroundColor: crSnow,
+                                          border: "1px solid #2d838d", //crSnowBlue
+                                        }}
+                                      >
+                                        {button.label}
+                                      </Button>
+                                    ))}
+                                </td>
+                              )}
+                            {gridForm.sections.map((section) => {
+                              return section.contents.map((contentItem) => {
+                                for (
+                                  let a = 0;
+                                  a < dataItem.attributes.length;
+                                  a++
                                 ) {
-                                  return (
-                                    <td
-                                      key={keyGen(5)}
-                                      style={{
-                                        fontSize: 12,
-                                        color: crBlack,
-                                        minWidth: "70px",
-                                        textAlign: "left",
-                                        fontFamily: "Courier",
-                                        borderTop: "0.5px solid #a6a6a6",
-                                        // строка в таблице и borderTop (сверху)
-                                      }}
-                                    >
-                                      {getGridFormItems(
-                                        dataItem.attributes[a],
-                                        contentItem
-                                      )}
-                                    </td>
-                                  );
+                                  // console.log("ITEM AZA", dataItem.attributes[a].name, "ITEM KGS", contentItem.name)
+                                  //dataItem.attributes[a].name - название поля из API
+                                  //contentItem.name - название поля из JSON
+                                  if (
+                                    dataItem.attributes[a].name ===
+                                    contentItem.name
+                                  ) {
+                                    return (
+                                      <td
+                                        key={keyGen(5)}
+                                        style={{
+                                          fontSize: 12,
+                                          color: crBlack,
+                                          minWidth: "70px",
+                                          textAlign: "left",
+                                          fontFamily: "Courier",
+                                          borderTop: "0.5px solid #a6a6a6",
+                                          // строка в таблице и borderTop (сверху)
+                                        }}
+                                      >
+                                        {getGridFormItems(
+                                          dataItem.attributes[a],
+                                          contentItem
+                                        )}
+                                      </td>
+                                    );
+                                  }
                                 }
-                              }
-                            });
-                          })}
-                        </tr>
-                      ))}
-                  </TableBody>
+                              });
+                            })}
+                          </tr>
+                        ))}
+                    </TableBody>
+                  )}
                 </table>
 
                 {/* НИЖНИЙ КОЛОНТИТУЛ */}
@@ -1715,24 +1857,17 @@ export default (props) => {
                   justifyContent="flex-start"
                   alignItems="center"
                   style={{
-                    fontSize: 13,
-                    color: crSnowBlue,
-                    fontFamily: "Courier",
                     backgroundColor: crSnowGrey,
-                    borderTop: "1px solid grey",
-                    borderBottom: "1px solid grey",
+                    borderTop: "0.5px solid #a6a6a6",
+                    borderBottom: "0.5px solid grey",
                   }}
                 >
                   <tr>
-                    {/* <td width="60%" style={{ border: "1 solid red" }}> */}
                     <td>
                       <LightTooltip title="Переход на первую страницу">
                         <IconButton onClick={() => KeyboardArrowFirstClick()}>
                           <FirstPageIcon
-                            style={{
-                              fontSize: "small",
-                              color: crSnowBlue,
-                            }}
+                            style={{ fontSize: 18, color: crSnowBlue }}
                           />
                         </IconButton>
                       </LightTooltip>
@@ -1743,22 +1878,20 @@ export default (props) => {
                           onClick={() => KeyboardArrowLeftClick(page)}
                         >
                           <ArrowBackIosIcon
-                            style={{
-                              fontSize: "small",
-                              color: crSnowBlue,
-                            }}
+                            className={classes.paginationStyle}
                           />
                         </IconButton>
                       </LightTooltip>
                     </td>
-                    <td
-                      style={{
-                        fontSize: "small",
-                        color: crSnowBlue,
-                      }}
-                    >
+                    <td className={classes.paginationStyle}>
                       <input
-                        style={{ maxWidth: 20, textAlign: "center" }}
+                        style={{
+                          maxWidth: 18,
+                          color: crSnow,
+                          textAlign: "center",
+                          border: "0.5px solid snow",
+                          backgroundColor: crSnowBlue,
+                        }}
                         value={page}
                         onChange={handlePageChange}
                       ></input>
@@ -1769,119 +1902,86 @@ export default (props) => {
                           onClick={() => KeyboardArrowRightClick(page)}
                         >
                           <ArrowForwardIosIcon
-                            style={{
-                              fontSize: "small",
-                              color: crSnowBlue,
-                            }}
+                            className={classes.paginationStyle}
                           />
                         </IconButton>
                       </LightTooltip>
                     </td>
-                    <td
-                      // width="40%"
-                      style={{
-                        fontSize: "small",
-                        color: crSnowBlue,
-                      }}
-                    >
+                    <td className={classes.paginationStyle}>
                       Кол-во строк: {totalCount}
                     </td>
                   </tr>
                 </Grid>
               </Paper>
-            </Grid>
-          ) : (
+              {/* </Grid>
             <Grid
               container
               direction="row"
               justifyContent="flex-start"
               alignItems="center"
               spacing={0}
-            >
-              <Grid item sm={"auto"}>
-                <Paper>
-                  <table
-                    id={gridTableId}
-                    size="auto"
-                    style={{ width: "100%", borderCollapse: "collapse" }}
-                  >
-                    <thead
-                      size="auto"
-                      // style={{ backgroundColor: "#DEDEEF" }}
-                    ></thead>
-                  </table>
-                  <tfoot>
-                    <tr>
-                      <td width="60%">
-                        <td>
-                          <Tooltip title="Переход на первую страницу">
-                            <IconButton
-                              onClick={() => KeyboardArrowFirstClick()}
-                            >
-                              <FirstPageIcon
-                                style={{
-                                  fontSize: "small",
-                                  color: crSnowBlue,
-                                }}
-                              />
-                            </IconButton>
-                          </Tooltip>
-                        </td>
-                        <td>
-                          <Tooltip title="Переход на предыдущую страницу">
-                            <IconButton
-                              onClick={() => KeyboardArrowLeftClick(page)}
-                            >
-                              <ArrowBackIosIcon
-                                style={{
-                                  fontSize: "small",
-                                  color: crSnowBlue,
-                                }}
-                              />
-                            </IconButton>
-                          </Tooltip>
-                        </td>
-                        <td
-                          style={{
-                            fontSize: 14,
-                            fontSize: "small",
-                            color: crSnowBlue,
-                            fontFamily: "Courier",
-                          }}
+            > */}
+              {/* <Paper
+                style={{
+                  backgroundColor: crSnowGrey,
+                  width: 380,
+                }}
+              >
+                <table id={gridTableId} size="auto">
+                  <thead size="auto"></thead>
+                </table>
+                <tfoot>
+                  <tr>
+                    <td>
+                      <LightTooltip title="Переход на первую страницу">
+                        <IconButton onClick={() => KeyboardArrowFirstClick()}>
+                          <FirstPageIcon
+                            style={{ fontSize: 18, color: crSnowBlue }}
+                          />
+                        </IconButton>
+                      </LightTooltip>
+                    </td>
+                    <td>
+                      <LightTooltip title="Переход на предыдущую страницу">
+                        <IconButton
+                          onClick={() => KeyboardArrowLeftClick(page)}
                         >
-                          <input
-                            style={{ maxWidth: 20, textAlign: "center" }}
-                            value={page}
-                            onChange={handlePageChange}
-                          ></input>
-                        </td>
-                        <td>
-                          <Tooltip title="Переход на следующую страницу">
-                            <IconButton
-                              onClick={() => KeyboardArrowRightClick(page)}
-                            >
-                              <ArrowForwardIosIcon
-                                style={{
-                                  fontSize: 14,
-                                  fontSize: "small",
-                                  color: crSnowBlue,
-                                  fontFamily: "Courier",
-                                }}
-                              />
-                            </IconButton>
-                          </Tooltip>
-                        </td>
-                      </td>
-                      <td
-                        width="40%"
-                        style={{ fontSize: 14, fontFamily: "Courier" }}
-                      >
-                        Кол-во строк: {totalCount}
-                      </td>
-                    </tr>
-                  </tfoot>
-                </Paper>
-              </Grid>
+                          <ArrowBackIosIcon
+                            className={classes.paginationStyle}
+                          />
+                        </IconButton>
+                      </LightTooltip>
+                    </td>
+                    <td className={classes.paginationStyle}>
+                      <input
+                        style={{
+                          maxWidth: 18,
+                          color: crSnow,
+                          textAlign: "center",
+                          border: "0.5px solid snow",
+                          backgroundColor: crSnowBlue,
+                        }}
+                        value={page}
+                        onChange={handlePageChange}
+                      ></input>
+                    </td>
+                    <td>
+                      <LightTooltip title="Переход на следующую страницу">
+                        <IconButton
+                          onClick={() => KeyboardArrowRightClick(page)}
+                        >
+                          <ArrowForwardIosIcon
+                            className={classes.paginationStyle}
+                          />
+                        </IconButton>
+                      </LightTooltip>
+                    </td>
+                    <td className={classes.paginationStyle}>
+                      Кол-во строк: {totalCount}
+                    </td>
+                  </tr>
+                </tfoot>
+              </Paper> */}
             </Grid>
           )}
           <Snackbar
